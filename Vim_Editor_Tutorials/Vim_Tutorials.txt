@@ -1,0 +1,62 @@
+https://www.keycdn.com/blog/vim-commands
+
+Vim Instalation ----
+
+$ sudo apt-get install vim
+
+vim use ----
+
+$ vim file name
+
+Vim basic shortcuts ----
+
+i                -   Insert
+esc              -   Escape from any mode
+:wq              -   Save and quit
+:wq file name    -   save text in given file name and quit
+:q!              -   Quit without save
+:q               -   Just Quit if no any change happened in data
+
+Vim Basic Editing Commands ----
+
+v                -   Select/ Highlight charecter by charecter
+V                -   Select/ Highlight by line
+d                -   deletes Highlighted text
+x                -   deletes single character
+dd               -   deletes a line of text
+dw               -   deletes a word
+d^               -   deletes from present cursor possition to begning of line
+d$               -   deletes from present cursor possition to end of line
+yy               -   Copy a line
+yw               -   Copy a word
+y^               -   Copy from begning of line to current cursor position
+y$               -   Copy from current cursor position to End of line
+
+P(Shift + p)     -   Paste the copied on any unknown registers
+u                -   Undo the last Operation
+U#               -   Undo last multiple actionsi
+(Ctrl + r)       -   Redo the last undo
+
+a                -   append after a charactor
+A                -   append after a word
+o                -   Add new line below
+O                -   Add new line above
+
+Vim Motion Commands ----
+
+h                -   go left
+l                -   go right
+k                -   go upword
+j                -   go downword
+
+^                -   Cursor Moves begning of line
+$                -   Cursor Moves End of line
+w                -   Moves by a word
+b                -   Moves backword by a word
+
+gg               -   Goes to head of file
+G (Shift + g)    -   Goes to End of file
+:number (:22)    -   Goes at that number in file
+
+{                -   Previous Paragraph
+}                -   Next Paragraph
