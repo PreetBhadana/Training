@@ -1,0 +1,50 @@
+---- Git Tutorial ----
+
+On terminal ----
+
+$ sudo apt-get install git (to install git)
+
+(Create repository on github and follow these steps on terminal)
+
+$ git config --global user.name "PreetBhadana"
+$ git config --global user.email "preetbha@gmail.com"
+$ git config --list (check the added details like name and email)
+
+(this same thing also can check by going home directory)
+$ gedit .gitconfig
+(here you can find all details what you added above)
+
+(Create a folder from where you want to upload the fies and then go in that folder by cd command on terminal)
+
+$ echo "# Trainning" >>README.md
+$ git init
+$ git add README.md
+(here in add command we can also use)
+	$git add . (this will auto detect the add file which need to add or not 
+			added yet)
+$ git commit -m "First comit"
+$ git branch -M main
+$ git branch add origin <url of your git repository>
+$ git push -u origin main
+$
+
+Now if want to add any file on github repository----
+
+(First of all add that file in same directory where we init and add remote origin link)
+
+$ git status (to check status of our folder that which file need to upload that 
+		will show in red color) 
+$ git add <file name>
+$ git status (to check that is ready to upload and will see that file in green 
+		color)
+$ git comit -m "Comment"(Comment is what ever you want to give details about the
+			file)
+$ git push -u origin main (main is branch name you should add what every your 
+				name is)
+(then it ask for username like PreetBhadana)
+(then it ask for password do add what is your github password)
+
+(file added successfully!!!)
+
+
+
