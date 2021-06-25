@@ -148,8 +148,8 @@ https://github.com/iAaquibjawed/Training/blob/main/Linux/Linux.txt
 	$ touch <file name> or <file name>.txt (both file will contaion text but diifrent with extensions)
 
 24 > netstat -- (it is a net tool package with we an get all active internet establised connections like server connections)
-	24.1 -- netstat -a (show all active internet servers)
-	24.2 -- netstat (show all active internet servers or established connections)
+	24.1 -- netstat (show all active internet servers)
+	24.2 -- netstat -a (show all active internet servers or established connections)
 	24.3 -- netstat -atu (show all active internet servers or established connections as above one but only the table of connection types 
 				not the whole detail of wich package connect with which port number.)
 
