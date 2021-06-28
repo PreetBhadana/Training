@@ -1,0 +1,218 @@
+https://github.com/iAaquibjawed/Training/blob/main/Linux/Linux.txt
+
+
+1 > pwd -- (Current working Directory)
+	beryl@beryl-HP-ProBook-6460b:~$ pwd
+	/home/beryl
+
+2 > cd -- (Change directory)
+	2.1 -- cd <name of directory present at same path>
+	eg --   beryl@beryl-HP-ProBook-6460b:~$ cd Desktop/
+		beryl@beryl-HP-ProBook-6460b:~/Desktop$
+
+	2.2 -- cd ~ (nevigate to your home directory)
+	eg --   beryl@beryl-HP-ProBook-6460b:~/Desktop/library_management$ cd ~
+		beryl@beryl-HP-ProBook-6460b:~$
+
+	2.3 -- cd - (change one dierectory back)
+	eg --   beryl@beryl-HP-ProBook-6460b:~/Desktop/library_management$ cd -
+		/home/beryl/Desktop
+		beryl@beryl-HP-ProBook-6460b:~/Desktop$
+
+	2.4 -- cd .. (change one directory back)
+	eg --   beryl@beryl-HP-ProBook-6460b:~/Desktop/library_management$ cd ..
+		beryl@beryl-HP-ProBook-6460b:~/Desktop$
+
+	2.5 -- cd ../.. (change 2 level back)
+	eg --   beryl@beryl-HP-ProBook-6460b:~/Desktop/library_management$ cd ../..
+		beryl@beryl-HP-ProBook-6460b:~$
+
+	2.6 -- cd /: (Change to root directory)
+	eg --   beryl@beryl-HP-ProBook-6460b:/$ cd root/:
+		bash: cd: root/:: Permission denied
+
+3 > ls -- (stands for list)
+	3.1 -- ls -t (show shorted files/ directories according to time)
+	3.2 -- ls -lh (Show list of file and directories with human readable form)
+	3.3 -- ls -a (show all file and directories with hidden files and directories)
+	3.4 -- ls -ld (show information of directorie)
+	3.5 -- ls -R (show file/ directories and sub file/ directories)
+	3.6 -- ls -al (show all files/ directories with all information like permisions, owner of file/ directore, size etc)
+	3.7 -- ls -s (show the count of sub directories)
+
+4 > mkdir -- (Make directory)
+	4.1 -- mkdir <"name of directory">
+	4.2 -- mkdir -p <"directory name">/<"other directory name"> (is to make 2 level directory ahead)
+	4.3 -- mkdir -p <>/<>/<> (same as above one but make 3 level directory)
+
+5 > rmdir -- (Remove Directory)
+	$ rmdir <directory name> (it can delete only one level black directory)
+
+6 > rm -- (Remove File)
+	$rm <file name> (it can remove files and their data)
+
+7 > whoami -- (is show the user name or can say which user loged in)
+	$whoami 
+
+8 > cat -- (sort of concatination means it can show text file data as it is on terminal)
+	$ cat file name.txt (show file data if file not present then not create file)
+	$ cat > file name.txt (insert the text in file)
+	$ cat file1 > file2 (copy data of file1 in file2 and overwrite orevious data)
+	$ cat file1 >> file2 (copy data and apend in file2)
+	$ cat <file1 (show text of file as it is on terminal and if not have file then not create)
+	$ cat file1 |more (to show all text if by chance no show all text by other command)
+	$ cat file1 |less (show text in a editor form)
+	$ cat file file1 |sort > file2 (sort text of file file1 and copy in file2)
+
+9 > mv -- (use to move file from current directory to other location)
+	$ mv <file name> <Path "/home/User/Desktop/other\ preet">
+
+10 > wc -- (use to count words, lines, charecters, bytes of a file)
+	10.1 -- wc -w <file name>.txt (for total words in file)
+	10.2 -- wc -l <file name>.txt (for total lines in file)
+	10.3 -- wc -c <file name>.txt (for total charectors in file)
+	10.4 -- wc <file name>.txt (for all total words, lines, charectors in file)
+
+11 > uname -- (this command use to show system details like which kernal is working and all sytem details)
+	11.1 -- uname (is use to gave kernal name)
+	11.2 -- uname -r (os type like version number and genric or like that)
+	11.3 -- uname -a (all information like kernal, os version, os name, date of configration etc)
+
+12 > chmod -- (this command is use to change permisions like file can be execute by admine group or public)
+		(chmode have some fetures like ---
+			admin  --- starting part --- rwx
+			group  --- Second part   --- rx
+			public --- Third part    --- x
+	12.1 -- chmod +x <file name>(this command use to give executable permision of file to every one like admin, group and public)
+	12.2 -- chmode 764 <file name>
+		Executable --- 1
+		Writable   --- 2
+		Readable   --- 4
+		----------------
+		admine --- rwx  4 + 2 + 1 = 7
+		group  --- rw   4 + 2     = 6
+		public --- r    4         = 4
+		so thats why I use 764 to make command rwx - rw - r to the file.
+
+13 > diff -- (this command is to get diffrence in between files and directries as well only at same location like which file have what
+		diffrent with other or same as with directories)
+	13.1 -- diff <file name>.txt <other file name>.txt (for txt files to get line number and what diffrent line in files)
+	13.2 -- diff <directory name>.txt <other directoy name>.txt
+
+14 > free -- (this command give the memory information in table like Ram and swap )
+	14.1 -- free (it will give all the table details with digits)
+	14.2 -- free -h (it will give all the table details with the sort form like in mbs gbs etc)
+
+15 > find -- (this command use to find the file or directory by its name or work as ls if not gave any predict like "find -name" if not found 
+		then will not give any error)
+	15.1 -- find (this will give all files name at that location)
+	15.2 -- find -name <file/directory name > (will gave file name or directory which is present in system)
+
+16 > groups -- (this will show the name of team or group like admin, super user etc)
+	$groups
+
+17 > grep -- (is use to pattern matching)
+	syntax -- grep -[option] <file name>.txt
+	(from this file pattern will find the particular charector or match and display the line of matched charectors)
+	17.1 -- grep --help (will open namual or can say all possible option can be use in grep command)
+	17.2 -- grep -i "pattern" <file name>.txt (check the pattern in the whole file and show lines with pattern)
+
+18 > gzip -- (this command is use to compress the file its is more popular then zip by this you can either delete original file or it will 
+		delete autometically)
+	syntax -- gzip [option] <file name>
+	18.1 -- gzip <file name>.txt (this command will compress the file and delete the original file)
+	18.2 -- gzip -f <file name>.txt (sometime a file can't compress as already have the same compressed file at the same location the we 
+					use -f as forcefully compress)
+	18.3 -- gzip -k <file name>.txt (is use to keep the original file with compressed file)
+	18.4 -- gzip -l <compressed file>.gz (is use to show the gzip licence)
+	18.5 -- gzip -[1 - 9] <file name>.txt (this will make speed in compression only how lower number have faster speed then the other 
+						higher numbers.)
+	18.6 -- gzip -v <file name>txt (it will show the reduced percentage with original size)
+	18.7 -- gzip -d <compressed file name>.gz (is use to decompress the compressed file)
+
+19 > df -- (show the system disk space usage)
+
+20 > cp (stands for copy)
+	syntax --- cp <file name> [path of new location where you want to copy file]
+	$ cp text.txt /home/User/Desktop
+
+21 > Sudo -- (Stands for supper user Do means need to perform via super user)
+	$ sudo apt-get update
+	$ sudp apt-get intall <file name/ software name>
+
+22 > apt-get -- (is kind of package handler via, retrive information of poackage, install or remove)
+	$ apt-get update
+	$ apt-get --version
+
+23 > touch -- (this command is use to make text file with txt extension or can say text file these bothe terms are diffrent)
+	$ touch <file name> or <file name>.txt (both file will contaion text but diifrent with extensions)
+
+24 > netstat -- (it is a net tool package with we an get all active internet establised connections like server connections)
+	24.1 -- netstat (show all active internet servers)
+	24.2 -- netstat -a (show all active internet servers or established connections)
+	24.3 -- netstat -atu (show all active internet servers or established connections as above one but only the table of connection types 
+				not the whole detail of wich package connect with which port number.)
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------
+
+
+Date ---- 28-June-2021
+
+
+1) cp ---- Copy command
+	1.1 -- man cp --- will show all manual of cp and to quit we will use q
+	1.2 -- cp <file1> <file2> (copy file one into file2 and if not present then create file)
+	1.3 -- cp <file1> <dir1 at same location> (copy file in at same located directory) 
+	1.4 -- cp <file1> <fil2> <dir at same location> (same as above but copy both file)
+	1.5 -- By Absolute and relative path
+		cp ../test.txt ../test2.txt .
+		(Relative path file copy at relative path(. is for current location and .. is for just one level back location))
+		cp ../test.txt ../test2.txt /home/beryl/Desktop/Preet
+		(relative path to absolute path)
+	1.6 -- Resurcive --
+		1. cp -r <dir1> <dir2> (dir2 not exist)
+		   (make dir2 and copy dir1's all inside file to dir2)
+		2. cp -r <dir1> <dir2> (dir2 is not exist)
+		   (copy dir1 directory in dir2)
+	1.7 cp -vr dir1 dir2 (is show with processing details like first which one is copping and then which one)
+
+
+
+
+2) Scp --- Secure copy same as cp
+	2.1 -- $ scp <filename> <host name>@<ip of server>:<path where want to save>
+	2.2 -- for directory---
+	  $ scp -r <directory> <host name>@<ip of server>:<path where want to save>
+	2.3 -- By diffrent port number then ssh -22
+	scp -r <dir> <host name>@<ip of server>:<path where want to save> -P 1234
+
+
+
+
+File System structure of Linux ----
+
+  | /bin        | ->User files
+  | /boot       | -> boot loader files
+  | /dev        | -> Device files
+  | /etc        | -> Configuration file
+  | /home       | -> Home Directory
+  | /lib        | -> System Library
+  | /media      | -> Mount Point for removable media
+ /| /mnt        | -> Mount point for temparary file system
+  | /opt        | -> Optional add-on application
+  | /sbin       | -> System Binary
+  | /srv        | -> Services Data
+  | /tmp        | -> Temprary file
+  | /usr        | -> User Program
+  | /var        | -> Variable file
+  | /root       | -> Root user Directory
+  | /proc       | -> Process info
+  | /lost+found | -> misplaced Data
+
+
