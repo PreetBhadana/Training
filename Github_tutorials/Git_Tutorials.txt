@@ -46,5 +46,157 @@ $ git push -u origin main (main is branch name you should add what every your
 
 (file added successfully!!!)
 
+--------------------------------------------------------------------------------
+
+Date --- 28-June-2021
+
+https://www.youtube.com/watch?v=HVsySz-h9r4
+
+##Some More git commands ----
+
+$ git help <verb> (verb is like commit, config, add etc)
+$ git config --help (work as same as above one)
+$ git add --help (help manual of help)
+
+# To remove file from staging area ----
+
+$ git reset <filename>
+$ git reset (this command will remove all files from staging area)
+
+[Notes]---
+"Message should be detailed about any specific changes made so far"
+
+
+#To see last commit ----
+
+$ git log (show all commits)
+$ git log -2 (it will show last 2 commits and this command can be modified by any number form 1 - any)
+
+
+#To clone any repository ----
+
+$ git clone <url> <path where you want this repository clone>
+$ git clone <url> (it will clone repo at present location)
+
+
+# To view information about remote repo ----
+
+$ git remote -v (it will show fetch and push urls)
+$ git branch -a (it will show all branch names local and remote both)
+
+
+# To check what changes made in code ----
+
+$ git diff 
+
+
+# Diffrence between Pull and Push ----
+
+$ git pull (pull is to pull any change made after clone or made by me so far) 
+
+$ git push (push means to update the remote repository what the changes made so far in the main data or code)
+
+
+# Create a new branch ----
+
+$ git branch <new branch name>
+
+( to check branch )
+
+$ git branch (it will show all local branchs only)
+or
+$ git branch -a (it will show all local and remote branchs in list)
+
+
+# To change to the other branch ----
+
+$ git checkout <branch name> (branch name must be the other branch name which is not using now)
+
+
+# To push via new branch to remote repository ----
+
+$ gir push -u origin <new branch name> (can be push after using the new branch only if we will on other branch then ot will show error)
+
+
+
+## Merge a branch in to master branch ----
+
+1) $ git checkout Master 
+
+2) $ git pull origin Master (to pull all update to merge branch)
+
+3) $ git branch --merged (to checked as list which branch is merged)
+
+4) $ git merge <other branch name> (this branch name must be othe branch which need to be merge in master branch and first we need to checkout at master branch as well)
+
+5) $ git push origin Master (now the all changes has been pushed to the master branch on the remote repo)
+
+[Note]---
+(As now er merged the other branch to master branch then need to delete that newly merged branch)
+first of all we need to delete local branch
+
+6) $ git branch -d <branch name>
+(to make change in the remote branch we need to push that branch to remote repo)
+
+7) $ git branch -a (from this we get know which branch is still as remote branch)
+
+8) $ git push origin --delete <branch name need to delete>
+(by this command the remote brench will delete)
+
+
+
+
+Example --- as summary ----
+
+1) create branch --
+$ git branch <branch name>
+
+2) Swap to this brnach name to use it ---
+$ git checkout <branch name>
+
+3) check status ---
+$ git status
+
+4) add file which has been not added ---
+$ git add <file name>
+
+5) commit this tracked file ---
+$ git commit -m "detailed message what changes made"
+
+6) push through new branch ---
+$ git push -u origin <new branch>
+
+ --- Now let merger to master branch ---
+
+7) swap to the master branch ---
+$ git checkout Master
+
+8) pull all update via master branch ---
+$ git pull origin Master
+
+9) Now Merge other branch to Master brnach ---
+$ git merge subtract (subtract is other branch which is going to merge in master branch)
+
+10) check the merged branches ---
+$ git branch --merged
+
+11) Now push those all changes to remote Repo ---
+$ git push origin Master
+
+12) Now delete the other branch locally first ---
+$ git branch -d subtract 
+
+13) check branch deleted or now and also check the remote branch ---
+$ git branch -a
+
+14) delete remote branch from remote repository ---
+$ git push origin --delete <remote branch name>
+
+
+Now we can make new branch and merge it to master branch !!!!
+
+
+
+
 
 
