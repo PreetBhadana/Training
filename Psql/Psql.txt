@@ -1,0 +1,147 @@
+Psql or PostgreSQL
+
+-----------------------------------------------------------------------------------------------------------
+
+Install PostgreSQL in Linux ---
+
+$ lsb_release -a (this command to check what version we have in our system)
+
+https://gorails.com/setup/ubuntu/18.04#database
+follow this link to check the Setting Up PostgreSQL
+
+
+$ sudo apt install postgresql-11 libpq-dev
+
+
+
+===========================================================================================================
+
+# To start postgresql ---
+
+$ sudo -i -u postgres
+$ psql
+
+OR
+
+$ sudo su postgres
+$ psql
+
+OR
+
+$ sudo -u postgres psql
+
+
+# To exit postgres prompt ---
+
+$ \q
+
+OR
+
+$ exit
+
+
+#To create user ---
+
+$ sudo -u postgres createuser --interactive
+
+
+#To create database directly via terminal --- 
+
+$sudo -u postgres createdb <database_name>
+
+
+#To check conection information like port number, host etc ---
+
+$sudo -u postgres psql
+	# \conninfo
+
+
+# To login as new user in postgres ---
+
+$sudo -u <username> psql
+
+
+-----------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------
+
+https://www.tutorialspoint.com/postgresql/postgresql_create_database.htm
+
+AND
+
+https://www.youtube.com/watch?v=qw--VYLpxG4
+
+for Learning Postgresql
+-----------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------
+
+Database -- Database is a collection of Tables
+
+Table -- Table is collection of records/ Rows
+
+Record -- Record is collection of columns and attributes
+
+SQL stands for Structure Quesy Language
+
+SQL commands are use to interact with relational database
+
+# These commands are three type : ---
+
+1) DDL -- Stands for Data Defination Language
+2) DML -- Stands for Data Manipulation Language
+3) DCL -- Stands for Data Control Language
+
+
+## DDL Commands --
+	1) CREATE -- Create a new table, a view of a table or other project in the database
+	2) ALTER -- Modifies a existing database object such as table
+	3) DROP -- Delete an entire table, a view of a table or other object in the database
+
+
+## DML Commands --
+	1) SELECT -- Retrives certain recods from one or more table
+	2) INSERT -- Create a record
+	3) UPDATE -- Modifies Record
+	4) Delete -- Delete Records
+
+## DCL Commands --
+	1) GRANT -- Give a privilege to user
+	2) REVOKE -- Takes back privilege granted from user
+
+
+# Constraints --
+
+1) Not Null -- Ensure that a column can't have a null value
+2) Default -- Provide a default value for a column when name i specified
+3) Unique -- Ensure the all value in a column are different
+4) Primary key -- Uniquely identifies each row/ record in a database table
+5) Foreign key -- Uniquely identifies a row / record in any other database table
+6) Check -- It ensure that all values in a column sertify and retrives data from
+7) Index -- Used to create and retrives data from the database very quickly.
+
+
+# Create Database in postgres ---
+
+Syntax -- CREATE DATABASE datbase_name;
+
+if want to make db via terminal directly then-
+$ createdb [option][dbname[description]]
+
+*) dbname -- The name of databse to create
+*) description -- Specifies a comment to be associated with the newly created database
+*) option -- Command line arguments, which createdb accepts.
+
+
+# To see list of databases ---
+	# \l (backslash "\" el "l")
+
+
+# To select/ use database ---
+	# \c <database_name> (backslash "\" )
+
+
+# To delete database using Drop command ---
+	Syntax -- DROP DATABASE [IF EXIST] name
+	*) IF EXIST -- Do not throw an error if the database does not exist. A notice is issued in this case. 	
+	*) name -- The name of database to remove
+	
+	Example -- # Drop Database employee
