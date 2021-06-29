@@ -178,7 +178,55 @@ $ createdb [option][dbname[description]]
 	# \d <table name>
 
 
+# To delete table using drop command ---
+	syntax -- DROP TABLE Table_Name;
+	
+	example --
+	1) For single table ---
+		# Drop table employes;
+	
+	2) For multiple tables at a time ---
+		# Drop table employes, department;
 
+
+# Schema ---
+	A schema is a named collection of tables. A schema can also contain views, indexes, sequences, data types, operators, and functions. Schemas are analogous to directories at the operating system level, except that schemas cannot be nested. PostgreSQL statement CREATE SCHEMA creates a schema.
+
+
+# To create schema ---
+	syntax -- Create schema <schema_name>;
+	#  create schema myschema;
+
+
+# Create table in schema ---
+	syntax -- create table <schema_name>.<table_name>(
+				. . . .
+				);
+	Example -- create table myschema.company(
+			ID   INT              NOT NULL,
+			NAME VARCHAR (20)     NOT NULL,
+			AGE  INT              NOT NULL,
+			ADDRESS  CHAR (25),
+			SALARY   DECIMAL (18, 2),
+			PRIMARY KEY (ID)
+			);
+
+# To see table ---
+	#select * from myschema.comapny;
+
+
+# To delete schema ---
+	# Drop schema myschema; (if empty)
+	# Drop schema myschema CASCADE; (If any object in schema)
+
+# Advantages of using a Schema ---
+	1) It allows many users to use one database without interfering with each other.
+
+	2) It organizes database objects into logical groups to make them more manageable.
+
+	3) Third-party applications can be put into separate schemas so they do not collide with the names of other objects.
+
+	
 
 
 
