@@ -145,3 +145,40 @@ $ createdb [option][dbname[description]]
 	*) name -- The name of database to remove
 	
 	Example -- # Drop Database employee
+
+# To Create Table ---
+
+	Syntax -- CREATE TABLE Table_name (
+			column1 datatype,
+			column2 datatype,
+			columnn datatype
+			);
+
+	Example -- 
+		1) CREATE TABLE Employee(
+			ID INT PRIMARY KEY NOT NULL,
+			NAME TEXT NOT NULL,
+			AGE INT NOT NULL,
+			ADDRESS CHAR(50),
+			SALARY REAL
+			);
+		
+		2) CREATE TABLE Department(
+			ID INT PRIMARY KEY NOT NULL,
+			DEPT CHAR(50) NOT NULL,
+			EMP_ID INT NOT NULL
+			);
+
+
+# To check the list of tables ---
+	# \d
+
+
+# To describe the table ---
+	# \d <table name>
+
+
+
+
+
+
