@@ -437,8 +437,64 @@ Example --
 	Eg - Select * from company order by Age, Salary ASC;
 	Eg - Sekect * from company order by Name DESC;
 
+# Group by clause ---
+	Is use to group identical records to remove redundancy and/ compute aggretes that apply to these group.
+	GROUP BY use with in SELECT statement and also use WHERE clause condition priorly and precedes ORDER BY clause.
 
+	Syntax -- Select  col-list from table_name where [condition] group by col1, col2,..colN order by col1, col2, colN;
+
+	Eg - Show total amount of salary of each identical customers.  
+	# Select name, sum(salary) from company Group by name;
+
+	Eg - Show total amount of salary of each identical customers name with in ascending order.
+	# Select name sum(salary) from company group by name order by name;
+
+
+# With Clause ---
+	It help to write auxilary statement for use in a larger query.
+	It basically help to make larger and complicated queries into simple form to make easy to read.
+	These statements are reffer as Comman Table Expression or CTE.
+
+	Example -- With CTE AS(
+			Select * from company)
+			Select * from CTE;
  
+ 
+	Eg -- With Recursive t(n) as(
+			Values(0)
+			Union all
+			Select salary from company where salary < 20000
+			)
+		Select sum(n) from t;
+
+	Eg -- With moves_rows As(
+			Delete From company2
+			where salary >= 25000
+			returning *
+		Insert into company3(select * from moved_rows);
+		
+		In this func returning * is to hold all deleted values as in form of table & then handover to Insert command.
+
+
+# Having Clause ---
+	The HAVING clause allows us to pick out particular rows where the function's result meets some condition.
+	The WHERE clause places conditions on the selected columns, whereas the HAVING clause places conditions on groups created by the GROUP BY clause.
+
+	Syntax -- 
+	Select col1, col2 from table1, table2 where [conditions] Group by col1, col2 Having [condition] order by col1,col2;
+
+	Eg -- Show records from which the name count is less then 2
+	# Select name from company where Group by name Having count(name) < 2;
+
+
+# Distinct Keyword ---
+	Distinct keyword just help to remove duplicacy and show unique records in result.
+	Syntax -- Select Distinct col1, col2, ..., colN from table_name where [condition];
+
+	Example -- There is multiple entries of repeated data so we need to fetch only unique names from table.
+	# Select distinct name from company;
+
+
 
 
 
