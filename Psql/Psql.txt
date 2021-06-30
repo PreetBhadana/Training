@@ -228,5 +228,219 @@ $ createdb [option][dbname[description]]
 
 	
 
+================================================================================================================================Date -- 30/June/2021
+================================================================================================================================
+
+
+#Insert Comand ---
+
+The PostgreSQL INSERT INTO statement allows one to insert new rows into a table. One can insert a single row at a time or several rows as a result of a query.
+
+Syntax -- INSERT INTO <table_name> (column1, column2, ..., columnN) VALUES(value1, value2, ..., valueN);
+
+By the above syntax we can insert values with corresponding columns_name.
+If we are sure about columns sequence then can directly give values rather giving column name along.
+
+Syntax -- INSERT INTO <table_name> VALUES(value1, value2, value3, ..., valueN);
+
+Example -- # create table company(
+		Id int Primary key not null,
+		Name text not null,
+		Age int not null,
+		Address char(50),
+		Salary real,
+		Join_date date
+		);
+
+	# INSERT INTO comapany (id, name, age, address, salary, join_date) VALUES(1, 'Preet Bhadana', 24, 'India', 15000.00, '2021-06-22');
+	# insert into company (id, name, age, address, salary, join_date) values(2, 'Dhravesh Sharma', 22, 'India', 15000.00, '2021-06-01');
+	# insert into company (id, name, age, address, salary, join_date) values(3, 'Aayush Josi', 23, 'India', 15000.00, '2021-06-01');
+
+
+# Select Command ---
+	Select command is useto show/ fetch tha data from database table which is result data as result table.
+	These result tables are called result-sets.
+	
+	Syntax -- # SELECT column1, column2, ..., columnN FROM table_name;
+	
+	To fetch all data in form of table we also can use
+	Syntax -- # SELECT * FROM table_name;
+
+	Example -- 
+	# Select * from company;
+	# Select id, name, Salary from company;
+
+
+# Operators ---
+
+An operator is a reserved word or a character used primarily in a PostgreSQL statement's WHERE clause to perform operation(s), such as comparisons and arithmetic operations.
+
+Operators type are listed bellow --
+
+1) Airthmetic Operators --
+	(+, -, *, /, %, ^(Power), |/ (Root), ||/ (Cube Root), !, !! (same as ! but just work as prefix))
+
+2) Comparison Operator --
+	(=, !=, <> (check equal or not and give true when not), >, <, >=, <=)
+
+3) Logic Operators -- 
+	(AND - to allow Multiple condition)
+	(NOT - Like NOT EXISTS, NOT BETWEEN, NOT IN etc)
+	(OR - allow either of the conditions)
+
+4) Bit String Operators --
+	(& - AND Operator)
+	(| - Or operator)
+	(~ - 1's comlement)
+	(<< - left sift)
+	(>> - Right sift)
+	(# - xor operator)
+
+
+#WHERE Clause and Expressions ---
+Expression means combination of one or more values, operators and functions that evaluate to a value.
+
+Syntax -- Select col1, col2, ..., colN from table_name where [condition | Expression];
+
+Types of Expressions --
+
+1) Boolen Expression --
+	Example -- Select * from company where salary = 10000;
+
+2) Numerical Expression --
+	Eg -- Select (15 +6 ) as addition;
+	      Select count(*) as total from company;
+	      Select count(*) as total_15000_owner from company where salary = 15000;
+	      Select count(*) as Record from company where salary == 25000;
+
+3) Data Expression --
+	Eg -- Select Current_timestamp;
+
+
+where clause can not only use with SELECT, it also can use with DELETE, UPDATE statements as well.
+
+
+# Some more exaples of where clause with expressions ---
+
+Example --1)  Show all records where age is greater or equal to 25 AND salary greater or equal to 25000
+	# Select * from company where age >= 25 AND salary >= 25000;
+
+	  2) Show all records where age is greater or equal to 25 OR Salary is greater or equal to 25000
+	# Select * from company where age >= 25 OR salary >= 25000;
+
+
+# IS Clause with where clause ---
+	# select * from company where age IS NOT NULL;
+
+
+#Like Clause with where clause ---
+	# select * from company where name like '%Sharma';
+	# select * from company where name like 'P%';
+
+
+#In Operator ---	
+	# select * from company where age in (25,27);
+
+
+# Not In Operator ---
+	# Select * from company where age NOT IN (25,27):
+
+
+# Beetween Operator --
+	Work with AND Operator--
+	# Select * from company where age between 25 AND 27;
+
+# Sub Queries --- Means nested Queries ---
+Example --
+	all the records with AGE field having SALARY > 65000 and later WHERE clause is being used along with EXISTS operator to list down all the records where AGE from the outside query exists in the result returned by sub-query −
+
+	# Select age from company where exists(select age from company where salary > 25000);
+
+
+# AND Operator --
+	This operator is use when check whitin multiple conditions.
+	Syntax -- Select * from table_name where [condi1] AND [condi2].. AND [condN];
+	Eg -- Select * from company where Age >= 25 AND Salary >= 25000;
+
+# OR Operator --
+	This Operator is use when any either condition will check from multiple conditions.
+	Eg -- Select * from company where Age >= 25 OR salary >= 25000;
+
+
+#Update Query ---
+	Use to update in existing record of a table. 
+	WHERE clause also can use with update in a shorted records otherwise update will happend in all records.
+	Syntax -- update table_name set col1 = val1, col2 = val2, .., colN = valN where [condition];
+
+	Eg --
+	1) Update salary of those whoes customer id is 3.
+	# update company set salary = 18000 where id = 3;
+
+	2) Update address of those whoes salary is 20000.
+	#update company set address = 'Texas' where salary = 20000;
+
+
+# DELETE Query ---
+	DELETE Query is used to delete the existing records from a table. 
+	You can use WHERE clause with DELETE query to delete the selected rows. Otherwise, all the records would be deleted.
+	Syntax -- Delete from table_name where [condition];
+
+	Eg -- Delete the recod of those whoes id is 2.
+	# delete from company where id = 2;
+
+
+# Like Clause ---
+	This operator is use to match text values against a pattern using wildcards.
+	There are two wildcard type use with like operator --
+	1) The percentage sign (%)
+	2) The underscore (_)
+	
+	1) % sign will also use multiple types --
+	
+		syntax -- select * from table_name where column like 'XXXX%';
+		Eg - select * from company where name like 'P%';
+
+		Syntax -- select * from table_name where col like '%XXX%';
+		Eg - select * from company where name like '%et%';
+
+		Syntax -- select * from table_name where col like 'XXXX%';
+		Eg - select * from company where name like '%Sharma';
+	
+	2) _ underscore will use in many type --
+
+		Syntax -- select * from table_name where name like '_____t';
+		this means whose name is of 5 charector ends with t.
+		
+		Syntax -- select * from table_name where name like '__r__';
+		
+		Syntax -- select * from table_name where salary like '2_%_%';
+
+
+# Limit Clause ---
+	Use to limit add amount returned by the select statement.
+	Syntax -- Select * from table_name limit [no of rows];
+	
+	Eg -- TO show the top 5
+	# Select * from company limit 5;
+
+# Limit clause with OFFSET Clause ---
+	Offset help to give start value --
+	Syntax -- select * from table_name limit 5 offset 2;
+
+
+# Order by Clause ---
+	Is use to sort the data in ascending order or descending order, based on one or more columns.
+
+	Syntax -- Select col-list from table_name [where condition] [order by cal1, col2, col3, ..., colN] [ASC | DESC];
+
+	Eg - Select * from company order by age ASC;
+	Eg - Select * from company order by Age, Salary ASC;
+	Eg - Sekect * from company order by Name DESC;
+
+
+ 
+
+
+
 
 
