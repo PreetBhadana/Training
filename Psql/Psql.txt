@@ -496,7 +496,258 @@ Example --
 
 
 
+================================================================================
 
+Date  ---  1/July/21
+
+================================================================================
+
+
+# Constraints ----
+
+	Constraints are the rule enforced on data columns on table to prevent from insert invalid data in database.
+
+Types of Constraints ---
+
+1) NOT NULL Constraints ---
+	As some time some columns in any row contain null value & if you don't want null values then use NOT NULL constraint use in table structure over any column.
+NUll value is not same as no data, rather it represent unknown data.
+	
+	Syntax --- Create table company 
+			( 
+			Id INT PRIMARY KEY NOT NULL,
+			Name text NOT NULL,
+			Age INT NOT NULL,
+			Address char(50),
+			Salary real Default 50000.00
+			);
+
+
+
+2) PRIMARY KEY ---
+This key in a table is use to uniquely identify each row/ Record in a database table. Primary key column can't have null value except im sqlite.
+	Sybtax -- Create table company
+			( 
+                        Id INT PRIMARY KEY NOT NULL,
+                        Name text NOT NULL,
+                        Age INT NOT NULL,
+                        Address char(50),
+                        Salary real Default 50000.00
+                        );
+3) Foreign Constraint ---
+ A foreign key constraint specifies that the valuse in a columns must match the values appearing is some row of another table.
+This comman value of two deffrent table create a relation between two tables.
+
+	Sybtax -- Company table--- 
+		Create table company
+                        (
+                        Id INT PRIMARY KEY NOT NULL,
+                        Name text NOT NULL,
+                        Age INT NOT NULL,
+                        Address char(50),
+                        Salary real Default 50000.00
+                        ); 
+
+		Department table ---
+		Create table company
+                        (
+                        Id INT PRIMARY KEY NOT NULL,
+                        DEPT char(50) NOT NULL,
+                        Emp_id INT references company (id)
+                        );
+
+4) Check constraint ---
+The CHECK Constraint enables a condition to check the value being entered into a record. If the condition evaluates to false, the record violates the constraint and is not entered into the table.
+
+EG -- Create table company
+                        (
+                        Id INT PRIMARY KEY NOT NULL,
+                        Name text NOT NULL,
+                        Age INT NOT NULL,
+                        Address char(50),
+                        Salary real check (salary > 0)
+                        );
+
+5) Exclusion Constraints ----
+Ensure that if any two rows are compared on the specified contains or expression using the specified operations at least one of those operator comparisons will return False or null.
+Syntax -- Create table company
+                        (
+                        Id INT PRIMARY KEY NOT NULL,
+                        Name text NOT NULL,
+                        Age INT NOT NULL,
+                        Address char(50),
+                        Salary real Default
+			EXCLUDE USING gist
+			(Name with =, Age with <>)
+                        );
+
+6) Dropping constraints ---
+	To remove a constraints you need to know its name first then only it will eary to drop it. Else need to find out system genrated name.
+Like \d command is used to get this information.
+
+Syntax -- ALTER TABLE table_name DROP CONSTRAINT some_name;
+
+
+		
+# Join clause ----
+ Join clause is use to join records from two ore more tables together in a database.
+
+Types of joins ---
+
+1) Cross Join ---
+2) Inner Join ---
+3) Left Outer Join ---
+4) Right Outer Join ---
+5) Full Outer Join ---
+
+
+1) Cross Join --- I this join match every row of table1 with every row of the table2.
+		  Cross join have potential to make extreme large table.
+		  If there is x and y columns then total resulted rows is x + y.
+
+	Syntax -- select .. from table1 cross join table2
+
+	Eg - select emp_id, name, dept from company cross join department;
+
+
+2) Inner Join --- In inner join create a new result table by combining column values of two tables based upon the join predicat
+		The query compares each row of table1 with each row of table2 to find all pairs of rows, which satisfy the join-predicate.
+		When the join-predicate is satisfied, column values for each matched pair of rows of table1 and table2 are combined into a result row.
+
+	Syntax -- select .. from table1 inner join table2 on table1.common_filed = table2.common_filed
+
+	Eg - select emp_id, name, dept from company inner join department on company.id = department.emp_id;
+
+
+3) Left outer join --- In case of LEFT OUTER JOIN, an inner join is performed first. Then, for each row in table T1 that does not satisfy the join condition with any row in table T2, a joined row is added with null values in columns of T2. Thus, the joined table always has at least one row for each row in T1.
+	
+	Syntax -- select .. from table1 left outer join table2 on table1.common_filed = table2.common_filed
+
+        Eg - select emp_id, name, dept from company left outer join department on company.id = department.emp_id;
+ 
+
+4) Right Outer join --- First, an inner join is performed. Then, for each row in table T2 that does not satisfy the join condition with any row in table T1, a joined row is added with null values in columns of T1. This is the converse of a left join; the result table will always have a row for each row in T2.
+
+	Syntax -- select .. from table1 right outer join table2 on table1.common_filed = table2.common_filed
+
+        Eg - select emp_id, name, dept from company right outer join department on company.id = department.emp_id;
+
+5) Full outer join --- First, an inner join is performed. Then, for each row in table T1 that does not satisfy the join condition with any row in table T2, a joined row is added with null values in columns of T2. In addition, for each row of T2 that does not satisfy the join condition with any row in T1, a joined row with null values in the columns of T1 is added.
+
+        Syntax -- select .. from table1 full outer join table2 on table1.common_filed = table2.common_filed
+
+        Eg - select emp_id, name, dept from company full outer join department on company.id = department.emp_id;
+
+
+# UNION Clause --- Show Combined result of two or more select statements and remove duplicacy from result.
+		To use UNION, each SELECT must have the same number of columns selected, the same number of column expressions,
+		the same data type, and have them in the same order but they do not have to be the same length.
+
+	Example -- select emp_id, name, dept from company left outer join department on company.id = department.emp_id
+			Union
+		   select emp_id, name, dept from company right outer join department on company.id = department.emp_id;
+
+
+# UNION ALL Clause --- Same as UNION Clause but just include duplicate result of two select statments only.
+
+	Example -- select emp_id, name, dept from company left outer join department on company.id = department.emp_id
+                        Union
+                   select emp_id, name, dept from company inner join department on company.id = department.emp_id;
+
+# Trigger ---
+Trigger is like function which fire automaticaly itself after or before any other main function call like UPDATE, INSERT, DELETE etc.
+
+	Syntax -- create trigger trigger_name_tgr [BEFORE | AFTER | INSTED of] [INSER | DELETE | UPDATE] on table_name
+			[
+				... Trigger logic goes here ...
+			]
+
+# Alter Table COmmand ---
+ One of the most ussing command in sql as after creating table, to modify the structure and update like add delete in structure of table and constraints alter table command will use.
+
+--> To add new column ---
+	Syntax -- alter table table_name add col_name datatype;
+
+--> To drop a column ---
+	Syntax -- alter table table_name drop column col_name;
+
+--> To Change datatype of a column ---
+	Syntax -- Alter Table table_name Alter Column col_name Type datatype;
+
+--> To ADd not null constraint in a column ---
+	Syntax -- Alter Table table_name Modify col_name datatype NOT NULL;
+
+--> To add Unique constraint on the column --
+	Syntax -- Alter Table table_name Add Constraint MyUniqueConstraint Unique (col1, col2, ..);
+
+--> To Add check Constraint ---
+	Syntax -- Alter Table table_name Add Constraint MyUniqueConstraint Check (condition);
+
+--> To Add Primary Key ---
+	Syntax -- Alter Table table_name Add COnstraint MyPrimaryKey Primary Key (Col1, col2, ...);
+
+--> To Drop Constraint ---
+	Syntax -- Alter Table table_name Drop Constraint MyUniqueConstrint;
+
+--> TO Drop Primary Constraint ---
+	Syntax -- Alter Table table_name Drop COnstraint MyPrimaryKey;
+
+
+# Truncate Table ---
+	Command is used to delete complete data from an existing table. You can also use DROP TABLE command to delete complete table but it would remove complete table structure from the database and you would need to re-create this table once again if you wish to store some data.
+
+	Syntax -- TRUNCATE TABLE  table_name;
+
+# Transaction ---
+A transaction is a unit of work that is performed against a database.
+Transaction like creating a record, updating a record, or deleting a record from the table, then you are performing transaction on the table.
+Transection have 4 standard properties---
+
+	1) Atomicity -- Ensures that all operations within the work unit are completed successfully; otherwise, the transaction is aborted at the point of failure and previous operations are rolled back to their former state.
+
+	2) Consistency -- Ensures that the database properly changes states upon a successfully committed transaction.
+
+	3) Isolation -- Enables transactions to operate independently of and transparent to each other.
+
+	4) Durability -- Ensures that the result or effect of a committed transaction persists in case of a system failure.
+
+
+# Begin Command --- To start transection persist untill next commit or roleback command is encountered.
+
+# Commit COmmand --- IS like to save after done a transection successfully.
+
+# Roleback Comand --- IS like to do undo the changes or if no any transection done successfully.
+
+
+
+# Sub Query ---
+ Like nested queries or Inner queries ---
+	Example -- show result of those those id is shorted by inner condition which is like all those employees those have salay > 45000.00
+	# Select * from comapny where id in (select id from company where salary > 45000);
+
+
+# Sub Query with the Insert command --
+ It is like insert data in a table via any sub query or can say inner select query.
+	Eg -- Insert into company_bkp select * from company where id in (select id from company);
+
+# Sub query with update command ---
+	Eg -- Update tabel company_bkp in salary by 0.50 for all customers whose age is greater than or equal to 27
+	# Update compan_bkp set salary = salary +salary*0.5 where id in (select age from company where age >=27);
+
+# DELETE data via sub query ---
+	EG -- delete recods of those customers whose age is greater than 27.
+	# delete from company_bkp where age in (select age from company where agr > 27);
+
+
+# Auto Increment ---
+	It is like constraint which help to give sequence with auto increment according to inserting records.
+	Syntax -- create table employee(
+			id serial primary key,
+			name text not null,
+			age int not null,
+			address char(50),
+			salary real
+			);
 
 
 
