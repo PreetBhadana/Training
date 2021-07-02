@@ -863,6 +863,23 @@ These functions are ---
 
 
 
+#### Join practice ----
+
+Table -- company -- (id, name, age, address, salary, join_date)
+	Department -- (id, dept, project_code)
+	project -- (id, project_name, project_code)
+	
+
+----- Join 3 Tables together....
+
+# Select distinct(d.emp_id), c.name, c.salary, d.dept, p.project_name, p.project_code from company as c inner join department as d on c.id = d.emp_id inner join project as p on p.project_code = d.project_code order by d.emp_id;
+
+
+Table -- hod -- (id, name, project_code)
+
+----- Join Upper 4 tables ----
+
+# Select distinct(d.emp_id), c.name, c.salary, d.dept, p.project_name, p.project_code, h.name as hod from company as c inner join department as d on c.id = d.emp_id inner join project as p on p.project_code = d.project_code inner join hod as h on p.project_code = h.project_code order by d.emp_id; 
 
 
 
