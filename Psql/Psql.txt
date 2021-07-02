@@ -750,4 +750,122 @@ Transection have 4 standard properties---
 			);
 
 
+================================================================================================================================
+Date -- 2/July/ 2021
+================================================================================================================================
+
+
+# Date and time functions ----
+ these functions show date and time according the givven argument in functions
+
+Function of date and time ---
+1) AGE(timestamp, timestamp)
+	give age by substracting one timestamp to othe time stamp.
+	
+	AGE(timestamp) -- this will show age by subtract given timstamp with current timestamp.
+	
+	Eg -- select age(timestamp '2021-07-02', timestamp '1997-12-05');
+
+2) Current Date/ time () ----
+	there is some more funnctions which show current time and date.
+	1) current_date -- Delivers current date.
+	2) current_time -- Delivers current Time with time zone.
+	3) current_timestamp -- Delivers current date and time with time zone.
+	4) current_time(precision) -- Give Time and fractional value in current time as according to given argument.
+	5) current_timestamp(preision) -- Give Date and time and fractional value in current time as according to given argument
+	6) localTime -- same as current but Delivers values without time zone.
+	7) localTimestamp -- same as current but Delivers values without time zone.
+	8) localTme(precision) -- same as current but Delivers values without time zone.
+	9) localTimestamp(precision) -- same as current but Delivers values without time zone.
+
+3) Date_ Part, Date_Trunc function ---
+	Date_part(text, timestamp)--- it will show text related info from timestamp.
+	Date_part(text, interval) --- ame as above but jut find from interval like (day, '20 month 24 days') it show all days.
+	date_trunc(text, timestamp) --- it will show as same as part function but show in from of full date and then hour if asked.
+
+4) Extract(field from Timestamp/ Interval)
+	Extract details from given timeinterval..
+	Eg -- select Extract(century from timestamp '2021-12-12');
+	Same in interval
+
+5) ISFINITE (), arguments like date, timestamp, interva;
+	this function just show t as true if any finite date and time will given in function as argument.
+
+6) JUSTIFY_DAYS(interval), JUSTIFY_HOURS(interval), JUSTIFY_INTERVAL(interval)
+	1) JUSTIFY_DAYS(interval)
+		Adjusts interval so 30-day time periods are represented as months. Return the interval type
+	
+	2) JUSTIFY_HOURS(interval)
+		Adjusts interval so 24-hour time periods are represented as days. Return the interval type
+
+	3) JUSTIFY_INTERVAL(interval)
+		Adjusts interval using JUSTIFY_DAYS and JUSTIFY_HOURS, with additional sign adjustments. Return the interval type
+
+	Example -- ELECT justify_days(interval '35 days');
+
+		output -- 1 mon 5 days
+		
+		Similar for othesr.
+
+
+
+# Functions ---
+	function is like stored procedure which store multiple operations and perform it respectively.
+	Syntax -- CREATE [OR REPLACE] FUNCTION func_name(arguments)
+			Returns return_datatype as $variable_name$
+			DECLARE
+				declaration;
+			BEGIN
+				<function body>
+				return {Variable name | Value}
+			END;
+				$variable_name$ laguage plpgsql;
+
+	Example -- create or replace function totalRecords()
+			returns integer as $total$
+			declare
+				total integer;
+			begin
+				select count(*) into total from company;
+				return total;
+			End;
+			$total$ language plpgsql;
+		
+		# Select totalRecords();
+
+
+# Aggregate functions ---
+
+	Built in functions -
+These functions are ---
+
+1) Count --- To count no of rows.
+2) Max --- Give highest value from column
+3) Min --- Give Minimum value from column
+4) AVG --- Give average value from column
+5) Sum --- Do sum of given values of columns
+6) Array Functions --- Function puts input value include null concate in a array.
+7) Numaric Functions --- Required to manipulate number.
+8) String FUnctions --- Required to manipulate string.
+
+
+# Max --
+	eg -- select max(salary) from company;
+
+# Min -- 
+	eg -- select min(salary) from company;
+
+# AVG --
+	eg -- select avg(salary) from company;
+
+# Sum --
+	eg -- select sum(salary) from company;
+
+
+
+
+
+
+
+
 
