@@ -1,0 +1,348 @@
+
+---- Assignment ----
+
+
+----- Flights(flno: integer, from: string, to: string, distance: integer, departs:
+time,
+arrives: time, price: integer)
+
+# create table flight(
+	flno int primary key not null,
+	from_source text,
+	to_destination text,
+	distance int,
+	departs time,
+	arrives time,
+	price int
+	);
+
+# select * from flight;
+
+ flno | from_source | to_destination | distance | departs  | arrives  | price  
+------+-------------+----------------+----------+----------+----------+--------
+    1 | Delhi       | Jaipur         |     2000 | 08:00:00 | 10:00:00 |  50000
+    2 | Delhi       | Rachi          |     3000 | 09:00:00 | 12:00:00 |  60000
+    3 | Gurgaon     | Goa            |     5000 | 12:00:00 | 06:00:00 | 100000
+    4 | Haryan      | Delhi          |     2000 | 08:00:00 | 10:00:00 |  50000
+    5 | Haryan      | Kerla          |     2000 | 08:00:00 | 06:00:00 | 110000
+    6 | Delhi       | Pune           |     6000 | 09:00:00 | 04:00:00 |  80000
+    7 | Los Angeles | Honolulu       |     5000 | 12:00:00 | 03:00:00 |  80000
+    8 | Los Angeles | Chicago        |     4000 | 08:00:00 | 06:00:00 |  60000
+(8 rows)
+
+
+
+
+
+----- Aircraft(aid: integer, aname: string, cruisingrange: integer)
+
+# create table aircraft(
+	aid int primary key not null, 
+	aname text not null, 
+	cruisingrange int not null);
+
+# select * from aircraft;
+
+ aid |     aname      | cruisingrange 
+-----+----------------+---------------
+   1 | Air India 435  |          2000
+   2 | Air Pak 786    |          2000
+   3 | Air Pak 543    |          3000
+   4 | Jet Airways    |          5000
+   6 | Boeing Jet     |           800
+   7 | Jet Indigo     |           900
+   8 | Chines Airways |          1000
+   9 | Vetnam         |           800
+  10 | Singapur Jets  |           700
+   5 | Boeing Airways |          6000
+(10 rows)
+
+
+
+
+
+
+
+----- Certified(eid: integer, aid: integer)
+
+# create table certified(
+	eid int, aid int);
+
+# select * from certified;
+
+ eid | aid 
+-----+-----
+   1 |   1
+   2 |   2
+   3 |   2
+   4 |   4
+   5 |   3
+   6 |   5
+   7 |   3
+   8 |   4
+   9 |   3
+  10 |   1
+   1 |   4
+  10 |   4
+   7 |   3
+   9 |   5
+   3 |   4
+  10 |   5
+  10 |   2
+   1 |   2
+   9 |   1
+   1 |   3
+   1 |   7
+   1 |   9
+  10 |   9
+  10 |   7
+   8 |   8
+   1 |   8
+   5 |   8
+   5 |  10
+(28 rows)
+
+
+
+----- Employees(eid: integer, ename: string, salary: integer)
+
+
+# create table employee(eid int primary key not null, 
+	ename text not null, 
+	salary int);
+
+# select * from employee;
+
+ eid |      ename       | salary 
+-----+------------------+--------
+   2 | Nitin Bhadana    |  90000
+   3 |  Akash Tanwar    |  80000
+   4 |  Rahul Wadhwa    | 100000
+   5 | Yogesh Soni      |  60000
+   6 | Aayush Jhosi     |  80000
+   8 | Dravesh Sharma   |  50000
+   7 | Ankit Sharma     |  60000
+   9 | Rahul verma      |  70000
+  10 | Neha Bhadana     | 110000
+  11 | Soni Sarkar      |  30000
+  13 | Janvi Bhatia     |  25000
+  15 | Varnika Chopra   |  45000
+   1 | Preet Bhadana    | 105000
+  16 | Sachin Tandulkar |  90000
+(14 rows)
+
+
+
+
+
+
+
+
+Query 1 --- Find the names of aircraft such that all pilots certified to operate them earn
+more than $80,000.
+
+Sol 1 --- # select aname from aircraft where aid in (select aid from certified c, employee e where c.eid = e.eid AND e.salary > 80000);
+
+     aname      
+----------------
+ Air India 435
+ Air Pak 786
+ Air Pak 543
+ Jet Airways
+ Jet Indigo
+ Chines Airways
+ Vetnam
+ Boeing Airways
+(8 rows)
+
+
+Query 2 --- For each pilot who is certified for more than three aircraft, find the eid and the
+maximum cruisingrange of the aircraft for which she or he is certified.
+
+Sol 2 --- # select e.eid, max(a.cruisingrange) "maximum Cruising Range" from employee as e inner join certified as c on e.eid = c.eid inner join aircraft as a on a.aid = c.aid group by e.eid having count(a.aid) > 3;
+
+ eid | maximum Cruising Range 
+-----+------------------------
+  10 |                   6000
+   1 |                   5000
+(2 rows)
+
+
+Query 3 --- Find the names of pilots whose salary is less than the price of the cheapest
+route from Los Angeles to Honolulu.
+
+Sol 3 -- # select distinct e.ename from employee e inner join certified as c on c.eid = e.eid where e.salary < (select min(f.price) from flight f where f.from_source = 'Los Angeles' AND f.to_destination = 'Honolulu');
+
+     ename      
+----------------
+ Rahul verma
+ Dravesh Sharma
+ Yogesh Soni
+ Ankit Sharma
+(4 rows)
+
+
+
+Query 4 --- For all aircraft with cruisingrange over 1000 miles, find the name of the
+aircraft and the average salary of all pilots certified for this aircraft.
+
+Sol 4 -- # select a.aname as Aircraft_Name, avg(e.salary) as avg_salary from aircraft a inner join certified c on a.aid = c.aid inner join employee e on c.eid = e.eid where a.cruisingrange > 1000 group by a.aname;
+
+ aircraft_name  |     avg_salary     
+----------------+--------------------
+ Boeing Airways | 86666.666666666667
+ Jet Airways    | 89000.000000000000
+ Air Pak 786    | 96250.000000000000
+ Air India 435  | 95000.000000000000
+ Air Pak 543    | 71000.000000000000
+(5 rows)
+
+
+
+Query 5 --- Find the names of pilots certified for some Boeing aircraft.
+
+Sol 5 -- # select e.ename from employee as e inner join certified as c on e.eid = c.eid inner join aircraft as a on c.aid = a.aid where a.aname like 'Boeing%' group by e.ename;
+
+    ename     
+--------------
+ Aayush Jhosi
+ Neha Bhadana
+ Rahul verma
+(3 rows)
+
+
+
+
+Query 6 --- Find the aids of all aircraft that can be used on routes from Los Angeles to
+Chicago.
+
+Sol 6 -- # select a.aid from aircraft as a inner join flight as f on a.cruisingrange <> f.distance  OR a.cruisingrange = f.distance where a.cruisingrange >= f.distance AND from_source = 'Los Angeles' AND to_destination = 'Chicago' group by aid;
+
+ aid 
+-----
+   5
+   4
+(2 rows)
+
+
+
+
+Query 7 --- Identify the routes that can be piloted by every pilot who makes more than
+$100,000.
+
+Sol 7 -- # select f.from_source, f.to_destination from flight as f inner join aircraft as a on f.distance <> a.cruisingrange OR f.distance = a.cruisingrange inner join certified as c on c.aid = a.aid inner join employee as e on e.eid = c.eid where e.salary >100000 AND f.distance <= a.cruisingrange group by f.flno;
+
+ from_source | to_destination 
+-------------+----------------
+ Delhi       | Jaipur
+ Delhi       | Pune
+ Delhi       | Rachi
+ Gurgaon     | Goa
+ Haryan      | Delhi
+ Haryan      | Kerla
+ Los Angeles | Chicago
+ Los Angeles | Honolulu
+(8 rows)
+
+
+Query 8 --- Print the enames of pilots who can operate planes with cruisingrange greater
+than 3000 miles but are not certified on any Boeing aircraft.
+
+Sol 8 -- #select e.ename from employee as e inner join certified as c on e.eid = c.eid inner join aircraft as a on a.aid = c.aid where a.cruisingrange > 3000 AND a.aname NOT LIKE 'Boeing%';
+
+     ename      
+----------------
+  Rahul Wadhwa
+ Dravesh Sharma
+ Preet Bhadana
+ Neha Bhadana
+  Akash Tanwar
+(5 rows)
+
+
+
+Query 9 --- A customer wants to travel from Madison to New York with no more than two
+changes of flight. List the choice of departure times from Madison if the
+customer wants to arrive in New York by 6 p.m.
+
+
+
+
+
+Query 10 --- Compute the difference between the average salary of a pilot and the average
+salary of all employees (including pilots).
+
+Sol 10 -- # select temp1.avg_salary - temp2.avg_salary_all as dif_avg from (select avg(e.salary) as avg_salary from employee e, certified c where e.eid = c.eid) as temp1, (select avg(e1.salary) as avg_salary_all from employee e1) as temp2; 
+
+      dif_avg       
+--------------------
+ 17348.901098901099
+(1 row)
+
+
+
+
+Query 11 --- Print the name and salary of every nonpilot whose salary is more than the
+average salary for pilots.
+
+Sol -- # select e.ename, e.salary from employee e where e.eid not in (select distinct c.eid from certified c) AND e.salary > (select avg(e1.salary) from employee e1 where e1.eid in (select distinct c1.eid from certified c1));
+
+      ename       | salary 
+------------------+--------
+ Sachin Tandulkar |  90000
+(1 row)
+
+
+
+
+
+Query 12 --- Print the names of employees who are certified only on aircrafts with cruising
+range longer than 1000 miles.
+
+Sol 12 -- # select e.ename from employee as e inner join certified as c on e.eid = c.eid inner join aircraft as a on c.aid = a.aid where a.cruisingrange > 1000 group by e.ename;
+
+     ename      
+----------------
+ Preet Bhadana
+ Neha Bhadana
+ Rahul verma
+ Aayush Jhosi
+ Dravesh Sharma
+  Rahul Wadhwa
+ Yogesh Soni
+ Nitin Bhadana
+  Akash Tanwar
+ Ankit Sharma
+(10 rows)
+
+
+
+Query 13 --- Print the names of employees who are certified only on aircrafts with cruising
+range longer than 1000 miles, but on at least two such aircrafts.
+
+Sol 13 -- # select e.ename from employee as e inner join certified as c on e.eid = c.eid inner join aircraft as a on c.aid = a.aid where a.cruisingrange > 1000 group by e.ename having count(e.ename) >=2;
+     ename     
+---------------
+ Preet Bhadana
+ Neha Bhadana
+ Rahul verma
+  Akash Tanwar
+ Ankit Sharma
+(5 rows)
+
+
+
+
+Query 14 --- Print the names of employees who are certified only on aircrafts with cruising
+range longer than 1000 miles and who are certified on some Boeing aircraft.
+
+Sol 14 -- # select e.ename from employee as e inner join certified as c on e.eid = c.eid inner join aircraft as a on c.aid = a.aid where a.cruisingrange > 1000 AND a.aname like 'Boeing%' group by e.ename;
+
+    ename     
+--------------
+ Aayush Jhosi
+ Neha Bhadana
+ Rahul verma
+(3 rows)
+
+
