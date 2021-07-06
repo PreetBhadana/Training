@@ -514,4 +514,337 @@ company=# select ename, date_part('year', current_date) -  date_part('year', joi
 
 company=#
 
+# Createing a project table ---
+
+In this table status is to show the project is complete or pending only.
+
+company=# create table projects(
+company(# pid int primary key not null,
+company(# pname varchar(20),
+company(# status text check(status = 'complete' or status = 'pending')
+company(# );
+CREATE TABLE
+company=# 
+
+
+# Inserting projects in project table ---
+
+
+company=# insert into projects values(1, 'Student Management', 'pending'),(2, 'Hotel Management', 'complete'),(3, 'Shoping Complex', 'pending'), (4, 'GYM Management', 'pending'), (5, 'Hospital Management', 'complete'), (6, 'Medical Store', 'pending');
+INSERT 0 6
+
+
+# Check table projects ---
+
+company=# select * from projects;
+ pid |        pname        |  status  
+-----+---------------------+----------
+   1 | Student Management  | pending
+   2 | Hotel Management    | complete
+   3 | Shoping Complex     | pending
+   4 | GYM Management      | pending
+   5 | Hospital Management | complete
+   6 | Medical Store       | pending
+(6 rows)
+
+company=# 
+
+
+# Createing a  project assignment table ---
+ In this table there is two foreign keys eid and pid
+
+company=# create table project_assign(
+company(# eid int references employee(eid),
+company(# pid int references projects(pid));
+CREATE TABLE
+company=#
+
+
+
+# Described structure ---
+
+company=# \d project_assign 
+           Table "public.project_assign"
+ Column |  Type   | Collation | Nullable | Default 
+--------+---------+-----------+----------+---------
+ eid    | integer |           |          | 
+ pid    | integer |           |          | 
+Foreign-key constraints:
+    "project_assign_eid_fkey" FOREIGN KEY (eid) REFERENCES employee(eid)
+    "project_assign_pid_fkey" FOREIGN KEY (pid) REFERENCES projects(pid)
+
+company=#
+
+ 
+# Insert project assignment relations ---
+
+company=# insert into project_assign values(1, 4), (2, 1), (3, 3), (4, 2), (5, 5),(6, 1),(7, 6),(8, 1),(9, 2),(10, 3),(11, 4),(5, 3),(2, 5),(1, 6),(1, 5),(4, 5);
+INSERT 0 16
+company=#
+
+
+# Check project assign table data ---
+
+company=# select * from project_assign;
+ eid | pid 
+-----+-----
+   1 |   4
+   2 |   1
+   3 |   3
+   4 |   2
+   5 |   5
+   6 |   1
+   7 |   6
+   8 |   1
+   9 |   2
+  10 |   3
+  11 |   4
+   5 |   3
+   2 |   5
+   1 |   6
+   1 |   5
+   4 |   5
+(16 rows)
+
+company=# 
+
+
+
+# Practice some queries with projects and employee table ----
+
+
+# Check all name of employes and projects ---
+
+company=# select e.ename, p.pname from employee e, project_assign pa, projects p where e.eid = pa.eid AND pa.pid = p.pid; 
+     ename      |        pname        
+----------------+---------------------
+ Preet          | GYM Management
+ Rahul Verma    | Student Management
+ Ashif Husan    | Shoping Complex
+ Darvesh Sharma | Hotel Management
+ Aayush Jhosi   | Hospital Management
+ Vikey Kumar    | Student Management
+ Aman Mhendru   | Medical Store
+ Aman Verma     | Student Management
+ Aman Verma     | Hotel Management
+ Prerna Soni    | Shoping Complex
+ Amit Tiwary    | GYM Management
+ Aayush Jhosi   | Shoping Complex
+ Rahul Verma    | Hospital Management
+ Preet          | Medical Store
+ Preet          | Hospital Management
+ Darvesh Sharma | Hospital Management
+(16 rows)
+
+company=# 
+
+
+# Check status of all project assigned to eid 1 ---
+
+company=# select status from projects where pid in (select pid from project_assign  where eid = 1);
+  status  
+----------
+ pending
+ complete
+ pending
+(3 rows)
+
+
+# Check employee name, project name of those who have pending project ----
+
+company=# select e.ename, p.pname from employee as e inner join project_assign as pa on e.eid = pa.eid inner join projects as p on p.pid = pa.pid where p.status = 'pending';
+    ename     |       pname        
+--------------+--------------------
+ Preet        | GYM Management
+ Rahul Verma  | Student Management
+ Ashif Husan  | Shoping Complex
+ Vikey Kumar  | Student Management
+ Aman Mhendru | Medical Store
+ Aman Verma   | Student Management
+ Prerna Soni  | Shoping Complex
+ Amit Tiwary  | GYM Management
+ Aayush Jhosi | Shoping Complex
+ Preet        | Medical Store
+(10 rows)
+
+company=# 
+
+
+
+# Check count of employes according to projects ----
+
+company=# select p.pname, count(*) as employees from projects as p inner join project_assign as pa on p.pid = pa.pid group by p.pname;
+        pname        | employees 
+---------------------+-----------
+ Hotel Management    |         2
+ Medical Store       |         2
+ Shoping Complex     |         3
+ Hospital Management |         4
+ GYM Management      |         2
+ Student Management  |         3
+(6 rows)
+
+
+
+# Check name of project which have maximum employees ----
+
+company=# select pname, count(*) as employees from projects as p inner join project_assign as pa on p.pid = pa.pid group by p.pname order by employees DESC limit 1;
+        pname        | employees 
+---------------------+-----------
+ Hospital Management |         4
+(1 row)
+
+company=#
+
+
+company=# select pname from projects as p inner join project_assign as pa on p.pid = pa.pid group by p.pname having count(pa.eid) = (select max(temp1.count_emp) from (select count(eid) as count_emp from projects as p inner join project_assign as pa on p.pid = pa.pid group by p.pname) as temp1);
+        pname        
+---------------------
+ Hospital Management
+(1 row)
+
+company=#
+
+
+select pname 
+from projects as p 
+inner join project_assign as pa 
+on p.pid = pa.pid 
+group by p.pname 
+having count(pa.eid) = (
+			select max(temp1.count_emp) 
+			from (
+				select count(eid) as count_emp 
+				from projects as p 
+				inner join project_assign as pa 
+				on p.pid = pa.pid 
+				group by p.pname
+				) as temp1
+			); 
+
+
+
+
+# Check which department have which project ---
+
+
+company=# select d.dept, p.pname from department as d inner join employee as e on d.did = e.dept_id inner join project_assign as pa on e.eid = pa.eid inner join projects as p on p.pid = pa.pid;
+    dept    |        pname        
+------------+---------------------
+ IT         | GYM Management
+ CAD        | Student Management
+ HR         | Shoping Complex
+ IT         | Hotel Management
+ IT         | Hospital Management
+ IT         | Student Management
+ HR         | Medical Store
+ HR         | Student Management
+ CAD        | Hotel Management
+ CAD        | Shoping Complex
+ IT         | GYM Management
+ IT         | Shoping Complex
+ CAD        | Hospital Management
+ IT         | Medical Store
+ IT         | Hospital Management
+ IT         | Hospital Management
+(16 rows)
+
+
+
+# Check which project on IT employees --
+
+company=# select d.dept, p.pname from department as d inner join employee as e on d.did = e.dept_id inner join project_assign as pa on e.eid = pa.eid inner join projects as p on p.pid = pa.pid where d.dept = 'IT';
+    dept    |        pname        
+------------+---------------------
+ IT         | GYM Management
+ IT         | Hotel Management
+ IT         | Hospital Management
+ IT         | Student Management
+ IT         | GYM Management
+ IT         | Shoping Complex
+ IT         | Medical Store
+ IT         | Hospital Management
+ IT         | Hospital Management
+(9 rows)
+
+
+
+
+# Check the nomenies of employees which are in project gym Management ---
+
+company=# select dp.name from dependents as dp inner join employee as e 
+on dp.emp_id = e.eid inner join project_assign as pa
+on e.eid = pa.eid inner join projects as p
+on pa.pid = p.pid where p.pname like 'GYM%';
+      name      
+----------------
+ Neha Bhadana
+ Darshan Tiwari
+(2 rows)
+
+company=#
+
+
+
+
+# Check name of nomenies, emp name, relation of gym management projects ----
+
+company=# select e.ename as employee_name, dp.name as nomeni_name, dp.relation from dependents as dp inner join employee as e 
+on dp.emp_id = e.eid inner join project_assign as pa
+on e.eid = pa.eid inner join projects as p
+on pa.pid = p.pid where p.pname like 'GYM%';
+ employee_name |  nomeni_name   | relation 
+---------------+----------------+----------
+ Preet         | Neha Bhadana   | Wife
+ Amit Tiwary   | Darshan Tiwari | Father
+(2 rows)
+
+company=#
+
+
+
+
+# Salary on employes more then the maximum avegare salary of projects -----
+
+
+company=# select ename, salary
+from employee
+where salary > (
+select max(temp1.avg_project_salary)
+from (
+select avg(e1.salary) as avg_project_salary
+from employee as e1 inner join project_assign as pa
+on e1.eid = pa.eid inner join projects as p
+on pa.pid = p.pid group by p.pname) as temp1);
+     ename      | salary 
+----------------+--------
+ Ashif Husan    |  25000
+ Darvesh Sharma |  25000
+ Vikey Kumar    |  26000
+ Aman Mhendru   |  30000
+ Aman Verma     |  26000
+ Amit Tiwary    |  26000
+(6 rows)
+
+company=# 
+
+
+
+
+# check name and average salary of projects more then the average salary of employees -----
+
+company=# select p.pname, avg(salary) as avg_project_salary
+from projects as p inner join project_assign as pa
+on p.pid = pa.pid inner join employee as e
+on e.eid = pa.eid group by p.pname having avg(salary) > (
+select avg(salary) as avg_salry from employee);
+       pname        | avg_project_salary 
+--------------------+--------------------
+ Medical Store      |              22500
+ Student Management |   22333.3333333333
+(2 rows)
+
+company=# 
+
+
 
