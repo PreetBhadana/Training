@@ -1,0 +1,517 @@
+-----PSQl Practice.------
+
+
+
+# Createing employee table---
+
+company=# create employee(
+company(# eid int primary key not null, ename text not null, age int not null, address char(20), salary real, join_date date, dept_id int not null);
+
+company=# \d employee
+                  Table "public.employee"
+  Column   |     Type      | Collation | Nullable | Default 
+-----------+---------------+-----------+----------+---------
+ eid       | integer       |           | not null | 
+ ename     | text          |           | not null | 
+ age       | integer       |           | not null | 
+ address   | character(20) |           |          | 
+ salary    | real          |           |          | 
+ join_date | date          |           |          | 
+ dept_id   | integer       |           | not null | 
+Indexes:
+    "employee_pkey" PRIMARY KEY, btree (eid)
+
+
+
+# Createing department table ---
+
+company=# create table department(
+company(# did int primary key not null,
+company(# dept char(10) not null);
+CREATE TABLE
+company=# 
+company=# \d department
+             Table "public.department"
+ Column |  Type   | Collation | Nullable | Default 
+--------+---------+-----------+----------+---------
+ did    | integer |           | not null | 
+ dept   | text    |           | not null | 
+Indexes:
+    "department_pkey" PRIMARY KEY, btree (did)
+
+
+
+# Creating foreign key in employee table dept_id where references department(did) ---
+
+company=# Alter table employee add foreign key (dept_id) references department(did);
+ALTER TABLE
+
+
+# Check foreign key in employee table ---
+
+company=# \d employee
+                  Table "public.employee"
+  Column   |     Type      | Collation | Nullable | Default 
+-----------+---------------+-----------+----------+---------
+ eid       | integer       |           | not null | 
+ ename     | text          |           | not null | 
+ age       | integer       |           | not null | 
+ address   | character(20) |           |          | 
+ salary    | real          |           |          | 
+ join_date | date          |           |          | 
+ dept_id   | integer       |           | not null | 
+Indexes:
+    "employee_pkey" PRIMARY KEY, btree (eid)
+Foreign-key constraints:
+    "employee_dept_id_fkey" FOREIGN KEY (dept_id) REFERENCES department(did)
+
+
+
+
+# Practice Insert command to insert data in department table ---
+
+company=# 
+company=# insert into department values(1, 'HR');
+INSERT 0 1
+company=# insert into department values(2, 'CAD');
+INSERT 0 1
+company=# insert into department values(3, 'IT');
+INSERT 0 1
+
+
+# Check department table ---
+
+company=# select * from department;
+ did |    dept    
+-----+------------
+   1 | HR        
+   2 | CAD       
+   3 | IT        
+(3 rows)
+
+
+
+# Practice Insert comman to insert data in Employee table ---
+
+company=# 
+company=# insert into employee values(1, 'Preet', 24, 'India', 15000, '2021-06-23', 3);
+INSERT 0 1
+company=# insert into employee values(2, 'Rahul Verma', 24, 'India', 15000, '2021-06-15', 2);
+INSERT 0 1
+company=# insert into employee values(3, 'Ashif Husan', 26, 'India', 25000, '2021-06-15', 1);
+INSERT 0 1
+company=# insert into employee values(4, 'Darvesh Sharma', 22, 'India', 25000, '2021-05-15', 3);
+INSERT 0 1
+company=# insert into employee values(5, 'Aayush Jhosi', 23, 'India', 19000, '2021-05-20', 3);
+INSERT 0 1
+company=# insert into employee values(6, 'Vikey Kumar', 25, 'Canada', 26000, '2020-05-10', 3);
+INSERT 0 1
+company=# insert into employee values(7, 'Aman Mhendru', 27, 'California', 30000, '2018-02-21', 1);
+INSERT 0 1
+company=# insert into employee values(8, 'Aman Verma', 23, 'India', 26000, '2020-02-23', 1);
+INSERT 0 1
+company=# insert into employee values(9, 'Aman Verma', 20, 'India', 16000, '2021-10-03', 2);
+INSERT 0 1
+company=# insert into employee values(10, 'Prerna Soni', 23, 'India', 20000, '2020-10-05', 2);
+INSERT 0 1
+company=# insert into employee values(11, 'Amit Tiwary', 24, 'Badarpur', 26000, '2019-06-01', 3);
+INSERT 0 1
+
+
+# Check employee table ---
+
+company=# select * from employee;
+ eid |     ename      | age |       address        | salary | join_date  | dept_id 
+-----+----------------+-----+----------------------+--------+------------+---------
+   1 | Preet          |  24 | India                |  15000 | 2021-06-23 |       3
+   2 | Rahul Verma    |  24 | India                |  15000 | 2021-06-15 |       2
+   3 | Ashif Husan    |  26 | India                |  25000 | 2021-06-15 |       1
+   4 | Darvesh Sharma |  22 | India                |  25000 | 2021-05-15 |       3
+   5 | Aayush Jhosi   |  23 | India                |  19000 | 2021-05-20 |       3
+   6 | Vikey Kumar    |  25 | Canada               |  26000 | 2020-05-10 |       3
+   7 | Aman Mhendru   |  27 | California           |  30000 | 2018-02-21 |       1
+   8 | Aman Verma     |  23 | India                |  26000 | 2020-02-23 |       1
+   9 | Aman Verma     |  20 | India                |  16000 | 2021-10-03 |       2
+  10 | Prerna Soni    |  23 | India                |  20000 | 2020-10-05 |       2
+(10 rows)
+
+company=# 
+
+
+
+# Join two tables and checking name salary date of join and department of employee ---
+
+company=# select ename, salary, join_date, dept from employee, department where dept_id =did;
+     ename      | salary | join_date  |    dept    
+----------------+--------+------------+------------
+ Preet          |  15000 | 2021-06-23 | IT        
+ Rahul Verma    |  15000 | 2021-06-15 | CAD       
+ Ashif Husan    |  25000 | 2021-06-15 | HR        
+ Darvesh Sharma |  25000 | 2021-05-15 | IT        
+ Aayush Jhosi   |  19000 | 2021-05-20 | IT        
+ Vikey Kumar    |  26000 | 2020-05-10 | IT        
+ Aman Mhendru   |  30000 | 2018-02-21 | HR        
+ Aman Verma     |  26000 | 2020-02-23 | HR        
+ Aman Verma     |  16000 | 2021-10-03 | CAD       
+ Prerna Soni    |  20000 | 2020-10-05 | CAD       
+(10 rows)
+
+company=# 
+
+
+
+# Join two tables Checking average salary of employees of all departments ---
+
+company=# select dept, avg(salary) from department, employee where did = dept_id group by dept;
+    dept    |  avg  
+------------+-------
+ CAD        | 17000
+ IT         | 21250
+ HR         | 27000
+(3 rows)
+
+company=# 
+
+
+# Join two tables and Checking eids of all employes from CAD department ---
+
+company=# select eid from employee, department where did = dept_id AND dept = 'CAD';
+ eid 
+-----
+   2
+   9
+  10
+(3 rows)
+
+company=#
+
+
+
+# Perform upper same query with out joining tables (By sub queries) ----
+
+company=# select eid from employee where dept_id in (select did from department where dept = 'CAD');
+ eid 
+-----
+   2
+   9
+  10
+(3 rows)
+
+company=# 
+
+
+
+# Checking most recent joined employee details ----
+ 
+company=# select e.eid, e.ename, e.salary, d.dept, e.join_date from employee as e inner join department as d on did = dept_id where join_date in(select max(join_date) from employee);
+ eid |   ename    | salary |    dept    | join_date  
+-----+------------+--------+------------+------------
+   9 | Aman Verma |  16000 | CAD        | 2021-10-03
+(1 row)
+
+
+
+
+# Checking most old employee in company ---
+
+company=# select e.eid, e.ename, e.salary, d.dept, e.join_date from employee as e inner join department as d on did = dept_id where join_date in(select min(join_date) from employee);
+ eid |    ename     | salary |    dept    | join_date  
+-----+--------------+--------+------------+------------
+   7 | Aman Mhendru |  30000 | HR         | 2018-02-21
+(1 row)
+
+company=# 
+
+
+
+# Checking employees joined in june month ---
+
+company=# select e.eid, e.ename, e.salary, e.join_date, d.dept from employee as e inner join department as d on e.dept_id = d.did group by e.eid, d.dept having date_part('month', join_date) = 6;
+ eid |    ename    | salary | join_date  |    dept    
+-----+-------------+--------+------------+------------
+   1 | Preet       |  15000 | 2021-06-23 | IT        
+   2 | Rahul Verma |  15000 | 2021-06-15 | CAD       
+   3 | Ashif Husan |  25000 | 2021-06-15 | HR        
+  11 | Amit Tiwary |  26000 | 2019-06-01 | IT        
+(4 rows)
+
+
+
+
+# Checking employees joined in june 2021 only ---
+
+company=# select e.eid, e.ename, e.salary, e.join_date, d.dept from employee as e inner join department as d on e.dept_id = d.did group by e.eid, d.dept having date_part('month', join_date) = 6 AND date_part('year',join_date) = 2021;
+ eid |    ename    | salary | join_date  |    dept    
+-----+-------------+--------+------------+------------
+   1 | Preet       |  15000 | 2021-06-23 | IT        
+   2 | Rahul Verma |  15000 | 2021-06-15 | CAD       
+   3 | Ashif Husan |  25000 | 2021-06-15 | HR        
+(3 rows)
+
+company=#
+
+
+
+
+# Creating another table dependent in which we will add nomenie of employees ---
+
+company=# create table dependents (
+company(# id int primary key not null,
+company(# name text not null,
+company(# age int,
+company(# contact char(15),
+company(# relation text,
+company(# emp_id int references employee(eid) 
+company(# );
+CREATE TABLE
+company=# 
+
+
+
+# Checking structure of Dependents table to check foreign key ---
+
+company=# \d dependents
+                 Table "public.dependents"
+  Column  |     Type      | Collation | Nullable | Default 
+----------+---------------+-----------+----------+---------
+ id       | integer       |           | not null | 
+ name     | text          |           | not null | 
+ age      | integer       |           |          | 
+ contact  | character(15) |           |          | 
+ relation | text          |           |          | 
+ emp_id   | integer       |           |          | 
+Indexes:
+    "dependents_pkey" PRIMARY KEY, btree (id)
+Foreign-key constraints:
+    "dependents_emp_id_fkey" FOREIGN KEY (emp_id) REFERENCES employee(eid)
+
+company=# 
+
+
+
+# Inserting data in dependents table ---
+
+company=# insert into dependents values(1, 'Sweta Sharma', 21, '9876620982', 'Wife', 4);
+INSERT 0 1
+company=# insert into dependents values(2, 'Neha Bhadana', 23, '9811421176', 'Wife', 1);
+INSERT 0 1
+company=# insert into dependents values(3, 'Ishika', 21, '9834534176', 'Wife', 5);
+INSERT 0 1
+company=# insert into dependents values(4, 'Sumit', 25, '9834533576', 'Brother', 7);
+INSERT 0 1
+company=# insert into dependents values(5, 'Ankit Kumar', 25, '9834039576', 'Father', 6);
+INSERT 0 1
+company=# insert into dependents values(7, 'Ankita Verma', 23, '9834039576', 'Wife', 8);
+INSERT 0 1
+company=# insert into dependents values(8, 'Akira Qureshi', 40, '8084039576', 'Mother', 3);
+INSERT 0 1
+company=# insert into dependents values(9, 'Seema', 20, '8084039806', 'Wife', 2);
+INSERT 0 1
+company=# insert into dependents values(11, 'Naresh', 20, '8084090806', 'Father', 9);
+INSERT 0 1
+company=# insert into dependents values(10, 'Rohit Verma', 24, '8083090806', 'Husband', 10);
+INSERT 0 1
+company=# insert into dependents values(6, 'Darshan Tiwari', 45, '8303090806', 'Father', 11);
+INSERT 0 1
+company=# 
+
+
+
+# Checking details of dependents table ---
+
+company=# Select * from dependents;
+ id |      name      | age |     contact     | relation | emp_id 
+----+----------------+-----+-----------------+----------+--------
+  1 | Sweta Sharma   |  21 | 9876620982      | Wife     |      4
+  2 | Neha Bhadana   |  23 | 9811421176      | Wife     |      1
+  3 | Ishika         |  21 | 9834534176      | Wife     |      5
+  4 | Sumit          |  25 | 9834533576      | Brother  |      7
+  5 | Ankit Kumar    |  25 | 9834039576      | Father   |      6
+  7 | Ankita Verma   |  23 | 9834039576      | Wife     |      8
+  8 | Akira Qureshi  |  40 | 8084039576      | Mother   |      3
+  9 | Seema          |  20 | 8084039806      | Wife     |      2
+ 11 | Naresh         |  20 | 8084090806      | Father   |      9
+ 10 | Rohit Verma    |  24 | 8083090806      | Husband  |     10
+  6 | Darshan Tiwari |  45 | 8303090806      | Father   |     11
+(11 rows)
+
+company=# 
+
+
+
+
+
+# Joining Three Tables ---
+
+
+# checking name department and nomeny name and relation of employes -----
+
+company=# select e.ename, d.dept, de.name, de.relation from employee e, department d, dependents de where e.dept_id = d.did AND e.eid = de.emp_id;
+     ename      |    dept    |      name      | relation 
+----------------+------------+----------------+----------
+ Darvesh Sharma | IT         | Sweta Sharma   | Wife
+ Preet          | IT         | Neha Bhadana   | Wife
+ Aayush Jhosi   | IT         | Ishika         | Wife
+ Aman Mhendru   | HR         | Sumit          | Brother
+ Vikey Kumar    | IT         | Ankit Kumar    | Father
+ Aman Verma     | HR         | Ankita Verma   | Wife
+ Ashif Husan    | HR         | Akira Qureshi  | Mother
+ Rahul Verma    | CAD        | Seema          | Wife
+ Aman Verma     | CAD        | Naresh         | Father
+ Prerna Soni    | CAD        | Rohit Verma    | Husband
+ Amit Tiwary    | IT         | Darshan Tiwari | Father
+(11 rows)
+
+company=# 
+
+
+
+# Check employes and nomenies name and contact number of department IT ---
+
+company=# select e.ename, de.name, de.contact from employee e, dependents de where e.eid = de.emp_id AND e.dept_id in (select did from department where dept = 'IT');
+     ename      |      name      |     contact     
+----------------+----------------+-----------------
+ Darvesh Sharma | Sweta Sharma   | 9876620982     
+ Preet          | Neha Bhadana   | 9811421176     
+ Aayush Jhosi   | Ishika         | 9834534176     
+ Vikey Kumar    | Ankit Kumar    | 9834039576     
+ Amit Tiwary    | Darshan Tiwari | 8303090806     
+(5 rows)
+
+company=# 
+
+
+# Perform the above query with only by joins --- 
+
+
+company=# select e.ename, de.name, de.contact from employee e, dependents de, department d where e.eid = de.emp_id AND e.dept_id = d.did AND dept = 'IT';
+     ename      |      name      |     contact     
+----------------+----------------+-----------------
+ Darvesh Sharma | Sweta Sharma   | 9876620982     
+ Preet          | Neha Bhadana   | 9811421176     
+ Aayush Jhosi   | Ishika         | 9834534176     
+ Vikey Kumar    | Ankit Kumar    | 9834039576     
+ Amit Tiwary    | Darshan Tiwari | 8303090806     
+(5 rows)
+
+company=# 
+
+
+
+
+# Checking salary of all employes whoes salary is more then the average salary of IT department --- 
+
+company=# select ename, salary from employee where salary > (select avg(e.salary) from employee e, department d where d.did = e.dept_id AND d.dept = 'IT'); 
+     ename      | salary 
+----------------+--------
+ Ashif Husan    |  25000
+ Darvesh Sharma |  25000
+ Vikey Kumar    |  26000
+ Aman Mhendru   |  30000
+ Aman Verma     |  26000
+ Amit Tiwary    |  26000
+(6 rows)
+
+company=# 
+
+
+
+
+# Check which department salary is greater then the average salary of all employees ----
+
+
+company=# select avg(salary) as avg_dept_salary from employee group by dept_id having avg(salary) > (select avg(salary) from employee);
+ avg_dept_salary 
+-----------------
+           22200
+           27000
+(2 rows)
+
+company=# 
+
+
+
+# Error in data ---
+
+company=# select * from employee;
+ eid |     ename      | age |       address        | salary | join_date  | dept_id 
+-----+----------------+-----+----------------------+--------+------------+---------
+   1 | Preet          |  24 | India                |  15000 | 2021-06-23 |       3
+   2 | Rahul Verma    |  24 | India                |  15000 | 2021-06-15 |       2
+   3 | Ashif Husan    |  26 | India                |  25000 | 2021-06-15 |       1
+   4 | Darvesh Sharma |  22 | India                |  25000 | 2021-05-15 |       3
+   5 | Aayush Jhosi   |  23 | India                |  19000 | 2021-05-20 |       3
+   6 | Vikey Kumar    |  25 | Canada               |  26000 | 2020-05-10 |       3
+   7 | Aman Mhendru   |  27 | California           |  30000 | 2018-02-21 |       1
+   8 | Aman Verma     |  23 | India                |  26000 | 2020-02-23 |       1
+   9 | Aman Verma     |  20 | India                |  16000 | 2021-10-03 |       2
+  10 | Prerna Soni    |  23 | India                |  20000 | 2020-10-05 |       2
+  11 | Amit Tiwary    |  24 | Badarpur             |  26000 | 2019-06-01 |       3
+(11 rows)
+
+Here in 9th id there is some error in join_date which is 2021 year by mistake let update it to 2020 ---
+
+# Using update command ---
+
+company=# update employee set join_date = '2020-10-03' where eid = 9;
+UPDATE 1
+company=# 
+
+
+
+
+# Check experience of all employes in this firm ----
+
+company=# select ename, age(join_date) as Exerience from employee; 
+     ename      |       exerience        
+----------------+------------------------
+ Preet          | 13 days
+ Rahul Verma    | 21 days
+ Ashif Husan    | 21 days
+ Darvesh Sharma | 1 mon 22 days
+ Aayush Jhosi   | 1 mon 17 days
+ Vikey Kumar    | 1 year 1 mon 27 days
+ Aman Mhendru   | 3 years 4 mons 13 days
+ Aman Verma     | 1 year 4 mons 12 days
+ Prerna Soni    | 9 mons 1 day
+ Amit Tiwary    | 2 years 1 mon 5 days
+ Aman Verma     | 9 mons 3 days
+(11 rows)
+
+company=#
+
+
+# check experience of all employees in firm have experience in years ----
+
+company=# select ename, date_part('year', current_date) -  date_part('year', join_date) as Experience_in_year from employee;
+     ename      | experience_in_year 
+----------------+--------------------
+ Preet          |                  0
+ Rahul Verma    |                  0
+ Ashif Husan    |                  0
+ Darvesh Sharma |                  0
+ Aayush Jhosi   |                  0
+ Vikey Kumar    |                  1
+ Aman Mhendru   |                  3
+ Aman Verma     |                  1
+ Prerna Soni    |                  1
+ Amit Tiwary    |                  2
+ Aman Verma     |                  1
+(11 rows)
+
+company=#
+
+
+
+# Check all the details of employes who have experience more then 1 year ----
+
+company=# select ename, date_part('year', current_date) -  date_part('year', join_date) as Experience_in_year from employee where (date_part('year', current_date) -  date_part('year', join_date)) >1;
+    ename     | experience_in_year 
+--------------+--------------------
+ Aman Mhendru |                  3
+ Amit Tiwary  |                  2
+(2 rows)
+
+company=#
+
+
