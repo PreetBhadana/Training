@@ -848,3 +848,242 @@ company=#
 
 
 
+
+# Chcek employee name project name salary and experience which have maximum experience in GYM project ---
+
+company=# select e.ename, p.pname, e.salary, age(e.join_date) as experience from employee as e inner join project_assign as pa on e.eid = pa.eid inner join projects as p on pa.pid = p.pid where p.pname like 'GYM%' group by e.eid, p.pid having e.join_date in (select min(join_date) from employee as e1 inner join project_assign as pa1 on e1.eid = pa1.eid inner join projects as p1 on pa1.pid = p1.pid where p1.pname like 'GYM%');
+    ename    |     pname      | salary |      experience      
+-------------+----------------+--------+----------------------
+ Amit Tiwary | GYM Management |  26000 | 2 years 1 mon 6 days
+(1 row)
+
+company=# 
+
+
+
+
+# Find 3rd highest salary from employee table ---
+
+company=# select salary  from employee group by salary order by salary desc limit 1 offset 2;
+ salary 
+--------
+  25000
+(1 row)
+
+				OR
+
+company=# select salary from employee where salary in (select salary  from employee group by salary order by salary desc limit 3) order by salary limit 1;
+ salary 
+--------
+  25000
+(1 row)
+
+
+# Nth Highest salary from employee without TOP/LIMIT keywords ---
+
+	# select distinct  e.salary from employee as e where (N-1) = (select count(distinct salary) from employee e1 where e1.salary > e.salary);
+
+
+company=# select distinct  e.salary from employee as e where 2 = (select count(distinct salary) from employee e1 where e1.salary > e.salary);
+ salary 
+--------
+  25000
+(1 row)
+
+
+
+# Calculate even and odd records in employee table ---
+
+company=# select * from employee where mod(eid,2) = 0;
+ eid |     ename      | age |       address        | salary | join_date  | dept_id 
+-----+----------------+-----+----------------------+--------+------------+---------
+   2 | Rahul Verma    |  24 | India                |  15000 | 2021-06-15 |       2
+   4 | Darvesh Sharma |  22 | India                |  25000 | 2021-05-15 |       3
+   6 | Vikey Kumar    |  25 | Canada               |  26000 | 2020-05-10 |       3
+   8 | Aman Verma     |  23 | India                |  26000 | 2020-02-23 |       1
+  10 | Prerna Soni    |  23 | India                |  20000 | 2020-10-05 |       2
+(5 rows)
+
+company=# select * from employee where mod(eid,2) != 0;
+ eid |    ename     | age |       address        | salary | join_date  | dept_id 
+-----+--------------+-----+----------------------+--------+------------+---------
+   1 | Preet        |  24 | India                |  15000 | 2021-06-23 |       3
+   3 | Ashif Husan  |  26 | India                |  25000 | 2021-06-15 |       1
+   5 | Aayush Jhosi |  23 | India                |  19000 | 2021-05-20 |       3
+   7 | Aman Mhendru |  27 | California           |  30000 | 2018-02-21 |       1
+  11 | Amit Tiwary  |  24 | Badarpur             |  26000 | 2019-06-01 |       3
+   9 | Aman Verma   |  20 | India                |  16000 | 2020-10-03 |       2
+(6 rows)
+
+company=#
+
+
+
+# Check 1st and last record of employee table ---
+
+company=# select * from employee where eid in(select max(eid) from employee) OR eid in(select min(eid) from employee);
+ eid |    ename    | age |       address        | salary | join_date  | dept_id 
+-----+-------------+-----+----------------------+--------+------------+---------
+   1 | Preet       |  24 | India                |  15000 | 2021-06-23 |       3
+  11 | Amit Tiwary |  24 | Badarpur             |  26000 | 2019-06-01 |       3
+(2 rows)
+
+
+
+# Copy one table record into a new table --
+
+company=# create table employee_bkp as select * from employee;
+SELECT 11
+company=# \d employee_bkp
+                Table "public.employee_bkp"
+  Column   |     Type      | Collation | Nullable | Default 
+-----------+---------------+-----------+----------+---------
+ eid       | integer       |           |          | 
+ ename     | text          |           |          | 
+ age       | integer       |           |          | 
+ address   | character(20) |           |          | 
+ salary    | real          |           |          | 
+ join_date | date          |           |          | 
+ dept_id   | integer       |           |          | 
+
+company=# select * from employee_bkp;
+ eid |     ename      | age |       address        | salary | join_date  | dept_id 
+-----+----------------+-----+----------------------+--------+------------+---------
+   1 | Preet          |  24 | India                |  15000 | 2021-06-23 |       3
+   2 | Rahul Verma    |  24 | India                |  15000 | 2021-06-15 |       2
+   3 | Ashif Husan    |  26 | India                |  25000 | 2021-06-15 |       1
+   4 | Darvesh Sharma |  22 | India                |  25000 | 2021-05-15 |       3
+   5 | Aayush Jhosi   |  23 | India                |  19000 | 2021-05-20 |       3
+   6 | Vikey Kumar    |  25 | Canada               |  26000 | 2020-05-10 |       3
+   7 | Aman Mhendru   |  27 | California           |  30000 | 2018-02-21 |       1
+   8 | Aman Verma     |  23 | India                |  26000 | 2020-02-23 |       1
+  10 | Prerna Soni    |  23 | India                |  20000 | 2020-10-05 |       2
+  11 | Amit Tiwary    |  24 | Badarpur             |  26000 | 2019-06-01 |       3
+   9 | Aman Verma     |  20 | India                |  16000 | 2020-10-03 |       2
+(11 rows)
+
+company=# 
+
+
+
+# Copy selected rows in another table --
+
+company=# insert into employee_bkp (select * from employee where eid in (1, 5));
+INSERT 0 2
+company=# 
+
+
+# Check name of employess working in same department ---
+
+company=# select ename, dept from employee as e inner join department as d on e.dept_id = d.did where dept = 'CAD';
+    ename    |    dept    
+-------------+------------
+ Rahul Verma | CAD       
+ Prerna Soni | CAD       
+ Aman Verma  | CAD       
+(3 rows)
+
+
+# Fetch last 3 records from table ---
+
+company=# select * from employee order by eid DESC limit 3;
+ eid |    ename    | age |       address        | salary | join_date  | dept_id 
+-----+-------------+-----+----------------------+--------+------------+---------
+  11 | Amit Tiwary |  24 | Badarpur             |  26000 | 2019-06-01 |       3
+  10 | Prerna Soni |  23 | India                |  20000 | 2020-10-05 |       2
+   9 | Aman Verma  |  20 | India                |  16000 | 2020-10-03 |       2
+(3 rows)
+
+company=# 
+
+
+# Fetch name of employee whose name start with P and of 5 alphabets ---
+
+company=# select * from employee where ename like 'P____';
+ eid | ename | age |       address        | salary | join_date  | dept_id 
+-----+-------+-----+----------------------+--------+------------+---------
+   1 | Preet |  24 | India                |  15000 | 2021-06-23 |       3
+(1 row)
+
+company=#
+
+
+
+# Increase 5% salary of all gym project employees ----
+
+company=# select * from employee;
+ eid |     ename      | age |       address        | salary | join_date  | dept_id 
+-----+----------------+-----+----------------------+--------+------------+---------
+   1 | Preet          |  24 | India                |  15000 | 2021-06-23 |       3
+   2 | Rahul Verma    |  24 | India                |  15000 | 2021-06-15 |       2
+   3 | Ashif Husan    |  26 | India                |  25000 | 2021-06-15 |       1
+   4 | Darvesh Sharma |  22 | India                |  25000 | 2021-05-15 |       3
+   5 | Aayush Jhosi   |  23 | India                |  19000 | 2021-05-20 |       3
+   6 | Vikey Kumar    |  25 | Canada               |  26000 | 2020-05-10 |       3
+   7 | Aman Mhendru   |  27 | California           |  30000 | 2018-02-21 |       1
+   8 | Aman Verma     |  23 | India                |  26000 | 2020-02-23 |       1
+  10 | Prerna Soni    |  23 | India                |  20000 | 2020-10-05 |       2
+  11 | Amit Tiwary    |  24 | Badarpur             |  26000 | 2019-06-01 |       3
+   9 | Aman Verma     |  20 | India                |  16000 | 2020-10-03 |       2
+(11 rows)
+
+
+company=# update employee set salary = salary + salary*5/100 where eid in (select e.eid from employee as e inner join project_assign as pa on employee.eid = pa.eid inner join projects as p on pa.pid = p.pid where p.pname like 'GYM%');
+UPDATE 2
+
+
+company=# select e.ename, e.salary, p.pname from employee as e inner join project_assign as pa on e.eid = pa.eid inner join projects as p on pa.pid = p.pid where p.pname like 'GYM%';
+    ename    | salary |     pname      
+-------------+--------+----------------
+ Preet       |  15750 | GYM Management
+ Amit Tiwary |  27300 | GYM Management
+(2 rows)
+
+company=# 
+
+
+# Fetch details like ename, salary, pname of those who have mimimum salary in the project Hospital Management ---
+
+company=# select e.ename, e.salary, p.pname from employee as e inner join project_assign as pa on e.eid = pa.eid inner join projects as p on pa.pid = p.pid where pname like 'Hospital%' AND e.salary in (select min(e.salary) from employee as e inner join project_assign as pa on e.eid = pa.eid inner join projects as p on pa.pid = p.pid where pname like 'Hospital%' group by p.pid);
+    ename    | salary |        pname        
+-------------+--------+---------------------
+ Rahul Verma |  15000 | Hospital Management
+(1 row)
+
+company=# 
+
+
+
+# fetch maximum salary of employee with name and department according to departments ----
+
+select e.ename, e.salary, d.dept from employee as e inner join department as d on e.dept_id = d.did where e.salary in (select max(e1.salary) from employee as e1 inner join department as d1 on e1.dept_id = d1.did group by d1.dept);
+    ename     | salary |    dept    
+--------------+--------+------------
+ Aman Mhendru |  30000 | HR        
+ Prerna Soni  |  20000 | CAD       
+ Amit Tiwary  |  27300 | IT        
+(3 rows)
+
+company=# 
+
+
+
+# Fetch maximum salary name and project name of employee according to projects ---
+
+
+company=# select e.ename, e.salary, p.pname from employee as e inner join project_assign as pa on e.eid = pa.eid inner join projects as p on pa.pid = p.pid where salary in (select max(e1.salary) from employee as e1 inner join project_assign as pa1 on e1.eid = pa1.eid inner join projects as p1 on pa1.pid = p1.pid group by p1.pid);
+
+     ename      | salary |        pname        
+----------------+--------+---------------------
+ Darvesh Sharma |  25000 | Hotel Management
+ Vikey Kumar    |  26000 | Student Management
+ Aman Verma     |  26000 | Student Management
+ Amit Tiwary    |  27300 | GYM Management
+ Darvesh Sharma |  25000 | Hospital Management
+ Aman Mhendru   |  30000 | Medical Store
+ Ashif Husan    |  25000 | Shoping Complex
+(7 rows)
+
+
+
+
