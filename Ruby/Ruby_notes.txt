@@ -1,0 +1,285 @@
+------------ Ruby -----------
+
+https://www.tutorialspoint.com/ruby/ruby_syntax.htm
+
+
+
+Ruby is like python and all other object oriented programing language but its truely object oriented programing language.
+
+# Installation steps on terminal ---
+
+	$ sudo apt install ruby-full
+
+# To check version ---
+	$ ruby -v
+
+
+# To run ruby program via terminal ---
+	$ ruby <filename>.rb
+
+# Hello World program in ruby ---
+
+puts ("Hello World")
+print("Hello World")
+
+
+# Sum of two numbers in ruby ---
+
+a = 4
+b = 6
+c = a + b
+puts "the sum of #{a} #{b} is #{c}" 
+
+Notes --- Difference between in puts and print is just simple as in puts the cursur will start from next line and in print the cursure will be in same line on thime of execution.
+
+
+# Ruby Begin stetements ---
+ syntax -- 
+	Begin {
+		this begin block
+		}
+	#(Begin block is always execute first while start executing)
+
+# Ruby End statement ---
+ Syntax --
+	End {
+		this is end block
+		}
+	#(End Block is always execute after all execution done first)
+
+# Commits in Ruby ---
+	1) # for single line
+	2) =begin
+		 - - - -
+		 - - - - 
+	   =end  for multiple lines.
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+# Ruby is a perfect Object Oriented Programming Language. The features of the object-oriented programming language include −
+
+	1) Data Encapsulation
+	2) Data Abstraction
+	3) Polymorphism
+	4) Inheritance
+	5) CLasses
+	6) Objects
+
+
+# CLasses in ruby ---- 
+	A class is the blueprint from which individual objects are created.
+
+	Syntax -- class <class_name>
+			 - - - -
+			 - - - -
+			End
+
+
+# Variable in Ruby class ---
+	Types of variables --
+	
+	1) Local Variables − Local variables are the variables that are defined in a method. Local variables are not available outside the method. You will see more details about method in subsequent chapter. Local variables begin with a lowercase letter or _.
+	eg -- number = 10
+		or
+		_Number = 10
+	
+	2) Instance Variables − Instance variables are available across methods for any particular instance or object. That means that instance variables change from object to object. Instance variables are preceded by the at sign (@) followed by the variable name.
+	eg -- @no_of_veels = 5	
+
+	3) Class Variables − Class variables are available across different objects. A class variable belongs to the class and is a characteristic of a class. They are preceded by the sign @@ and are followed by the variable name.
+	Eg -- @@no_of_customers = 0
+	
+	4) Global Variables − Class variables are not available across classes. If you want to have a single variable, which is available across classes, you need to define a global variable. The global variables are always preceded by the dollar sign ($).
+	eg -- $a_global_veriable = 100
+
+
+# Local Variable ---
+'''
+Variable avilabe for local scope like if made in function then avilable in that
+ function only or if made in loop then avilable in that loop only.
+puts "Local Variable ---"
+10.times do
+    x = 10
+    p x
+    # p is short form of puts 
+end
+'''
+
+
+# GLobal Variable ---
+''' 
+starts with $ sign.
+Variable avilable anywhere eithe declare for that block or not.
+
+puts "GLobal Variable ---"
+
+10.times do
+    $x = 10
+end
+p $x
+'''
+
+# Instance Variables ---
+
+'''
+starts with @ sign and then variable name.
+when instance variable is a variable which is avilable to that
+    instance variable will not avilable for any other method or cant be use
+    in other method.
+eg ---
+
+@batiing_var = 300
+p @batiing_var
+'''
+
+# Constant Variable ---
+
+'''
+Variable name Always be in capital letters like TEAM
+In Ruby if we change data of constant variable then first it will show
+warning and then for practice it will change/ update the data of constant.
+
+EG ---
+
+TEAM = "Angels"
+p TEAM
+TEAM = "Athelets"
+p TEAM
+
+'''
+
+# Class Variables ---
+
+'''
+The variable avilable to the instance of the class only
+eg --
+
+class MyClass
+    @@team = "Athletic"
+    p @@team
+end
+'''
+
+
+
+
+# Create a object of class using new method ---
+	object is instance of the class.
+	syntax = object_name = class_name.new
+	object can be any.
+
+
+# Methods in Ruby With example ---
+
+	class Customer 
+	    @@no_of_customer = 0
+	    def initialize(id, name, addr)
+	        @cust_id = id
+	        @cust_name = name
+	        @cust_address = addr
+	        puts ("id : "+@cust_id+", name : "+@cust_name+", address : "+@cust_address)
+	
+	    end
+	
+	end
+	
+	cust1 = Customer.new("1","Preet","India")
+	cust2 = Customer.new("2","Neha","India")
+
+
+# Memeber Functions --- It is also called Methods means methods in class is called member funtion of class.
+	class Customer
+	    def hello()
+	        puts "Hello World"
+	    end
+	end
+	
+	cust1 = Customer.new
+	cust1.hello
+
+
+# GLobal Variable in Ruby with example ---
+ Variable avilable in every class with in or out side of class.
+
+Example ---
+
+	#Global Variable
+	
+	$global_var = 10
+	class Customer
+	    def print_global
+	        puts("Global Variable in class 1 is #{$global_var}")
+	    end
+	end
+	
+	class Customer2
+	    def print_global
+	        puts("Global Variable in class 2 is #$global_var")
+	    end
+	end
+	
+	cust1 = Customer.new
+	cust1.print_global
+	cust2 = Customer2.new
+	cust2.print_global
+
+
+# Instance Variable WIth example ----
+
+Variable is avilable in class for class only.
+
+Example --
+
+	class Customer
+	    def initialize(id, name, addr)
+	        @cust_id = id
+	        @cust_name = name
+	        @cust_address = addr
+	    end
+	    def details()
+	        puts "Customer Id : #@cust_id"
+	        puts "Customer Name :  #@cust_name"
+	        puts "Customer Address :  #@cust_address"
+	    end
+	end
+	
+	cust1 = Customer.new("1","Preet","India")
+	cust2 = Customer.new("2","Nitin","India")
+	cust1.details()
+	cust2.details
+
+
+# Class Variable with Example ---
+
+Variable avilable in class anywhere.
+
+example --
+
+
+	class Customer
+	    @@no_of_customers = 0
+	    def initialize(id, name, addr)
+	            @cust_id = id
+	            @cust_name = name
+	            @cust_addr = addr
+	    end
+	    def details()
+	            puts "Customer id : #@cust_id"
+	            puts "Customer name : #@cust_name"
+	            puts "Customer address : #@cust_addr"
+	    end
+	    def total_no_customers()
+	            @@no_of_customers += 1
+	            puts "Total No of Customers : #@@no_of_customers"
+	    end
+	end
+	cust1 = Customer.new("1","Preet","India")
+	cust2 = Customer.new("2","Nitin","India")
+	cust3 = Customer.new("3","Aman","India")
+	cust1.details()
+	cust1.total_no_customers()
+	cust2.details()
+	cust2.total_no_customers()
+	cust3.details()
+	cust3.total_no_customers()
