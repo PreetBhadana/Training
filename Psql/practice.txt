@@ -769,8 +769,20 @@ company=# select d.dept, p.pname from department as d inner join employee as e o
 
 
 
+# select d.dept, p.pname from department as d inner join employee as e on d.did = e.dept_id inner join project_assign as pa on e.eid = pa.eid inner join projects as p on p.pid = pa.pid where d.dept = 'IT' group by d.dept, p.pname;
+    dept    |        pname        
+------------+---------------------
+ IT         | GYM Management
+ IT         | Hospital Management
+ IT         | Hotel Management
+ IT         | Medical Store
+ IT         | Shoping Complex
+ IT         | Student Management
+(6 rows)
 
-# Check the nomenies of employees which are in project gym Management ---
+
+
+# Check the nominees of employees which are in project gym Management ---
 
 company=# select dp.name from dependents as dp inner join employee as e 
 on dp.emp_id = e.eid inner join project_assign as pa
@@ -787,7 +799,7 @@ company=#
 
 
 
-# Check name of nomenies, emp name, relation of gym management projects ----
+# Check name of nominees, emp name, relation of gym management projects ----
 
 company=# select e.ename as employee_name, dp.name as nomeni_name, dp.relation from dependents as dp inner join employee as e 
 on dp.emp_id = e.eid inner join project_assign as pa
@@ -1083,6 +1095,191 @@ company=# select e.ename, e.salary, p.pname from employee as e inner join projec
  Aman Mhendru   |  30000 | Medical Store
  Ashif Husan    |  25000 | Shoping Complex
 (7 rows)
+
+
+
+
+# Check employee name salary department nominee details and sorted by experience ---
+
+	Join 3 tables together ----- EMPLOYEE, DEPARTMENT, DEPENDENTS.
+
+company=# select e.ename, d.dept, e.salary, da.name, da.relation, age(e.join_date) as experience from employee as e inner join department as d on d.did = e.dept_id inner join dependents as da on e.eid = da.emp_id order by e.join_date; 
+     ename      |    dept    | salary |      name      | relation |       experience       
+----------------+------------+--------+----------------+----------+------------------------
+ Aman Mhendru   | HR         |  30000 | Sumit          | Brother  | 3 years 4 mons 15 days
+ Amit Tiwary    | IT         |  27300 | Darshan Tiwari | Father   | 2 years 1 mon 7 days
+ Aman Verma     | HR         |  26000 | Ankita Verma   | Wife     | 1 year 4 mons 14 days
+ Vikey Kumar    | IT         |  26000 | Ankit Kumar    | Father   | 1 year 1 mon 29 days
+ Aman Verma     | CAD        |  16000 | Naresh         | Father   | 9 mons 5 days
+ Prerna Soni    | CAD        |  20000 | Rohit Verma    | Husband  | 9 mons 3 days
+ Darvesh Sharma | IT         |  25000 | Sweta Sharma   | Wife     | 1 mon 24 days
+ Aayush Jhosi   | IT         |  19000 | Ishika         | Wife     | 1 mon 19 days
+ Rahul Verma    | CAD        |  15000 | Seema          | Wife     | 23 days
+ Ashif Husan    | HR         |  25000 | Akira Qureshi  | Mother   | 23 days
+ Preet          | IT         |  15750 | Neha Bhadana   | Wife     | 15 days
+(11 rows)
+
+
+
+# Check employee name salary department project nominee details according to their experience ----
+
+company=# select e.ename, d.dept, p.pname, e.salary, da.name, da.relation, age(e.join_date) as experience from employee as e inner join department as d on d.did = e.dept_id inner join dependents as da on e.eid = da.emp_id inner join project_assign as pa on e.eid = pa.eid inner join projects as p on pa.pid = p.pid order by e.join_date; 
+     ename      |    dept    |        pname        | salary |      name      | relation |       experience       
+----------------+------------+---------------------+--------+----------------+----------+------------------------
+ Aman Mhendru   | HR         | Medical Store       |  30000 | Sumit          | Brother  | 3 years 4 mons 15 days
+ Amit Tiwary    | IT         | GYM Management      |  27300 | Darshan Tiwari | Father   | 2 years 1 mon 7 days
+ Aman Verma     | HR         | Student Management  |  26000 | Ankita Verma   | Wife     | 1 year 4 mons 14 days
+ Vikey Kumar    | IT         | Student Management  |  26000 | Ankit Kumar    | Father   | 1 year 1 mon 29 days
+ Aman Verma     | CAD        | Hotel Management    |  16000 | Naresh         | Father   | 9 mons 5 days
+ Prerna Soni    | CAD        | Shoping Complex     |  20000 | Rohit Verma    | Husband  | 9 mons 3 days
+ Darvesh Sharma | IT         | Hospital Management |  25000 | Sweta Sharma   | Wife     | 1 mon 24 days
+ Darvesh Sharma | IT         | Hotel Management    |  25000 | Sweta Sharma   | Wife     | 1 mon 24 days
+ Aayush Jhosi   | IT         | Shoping Complex     |  19000 | Ishika         | Wife     | 1 mon 19 days
+ Aayush Jhosi   | IT         | Hospital Management |  19000 | Ishika         | Wife     | 1 mon 19 days
+ Rahul Verma    | CAD        | Student Management  |  15000 | Seema          | Wife     | 23 days
+ Rahul Verma    | CAD        | Hospital Management |  15000 | Seema          | Wife     | 23 days
+ Ashif Husan    | HR         | Shoping Complex     |  25000 | Akira Qureshi  | Mother   | 23 days
+ Preet          | IT         | Medical Store       |  15750 | Neha Bhadana   | Wife     | 15 days
+ Preet          | IT         | Hospital Management |  15750 | Neha Bhadana   | Wife     | 15 days
+ Preet          | IT         | GYM Management      |  15750 | Neha Bhadana   | Wife     | 15 days
+(16 rows)
+
+company=# 
+
+
+
+# Check details of employee department nominees details according to experience which is in Medical store project ---
+
+company=# select e.ename, d.dept, p.pname, e.salary, da.name, da.relation, age(e.join_date) as experience from employee as e inner join department as d on d.did = e.dept_id inner join dependents as da on e.eid = da.emp_id inner join project_assign as pa on e.eid = pa.eid inner join projects as p on pa.pid = p.pid where p.pname like 'Medical%' order by e.join_date; 
+    ename     |    dept    |     pname     | salary |     name     | relation |       experience       
+--------------+------------+---------------+--------+--------------+----------+------------------------
+ Aman Mhendru | HR         | Medical Store |  30000 | Sumit        | Brother  | 3 years 4 mons 15 days
+ Preet        | IT         | Medical Store |  15750 | Neha Bhadana | Wife     | 15 days
+(2 rows)
+
+company=# 
+
+
+
+
+# Searching all employees name projects nominees according to experience from 
+	
+	HR department ---
+
+company=# select e.ename, d.dept, p.pname, e.salary, da.name, da.relation, age(e.join_date) as experience from employee as e inner join department as d on d.did = e.dept_id inner join dependents as da on e.eid = da.emp_id inner join project_assign as pa on e.eid = pa.eid inner join projects as p on pa.pid = p.pid where d.dept = 'HR' order by e.join_date; 
+    ename     |    dept    |       pname        | salary |     name      | relation |       experience       
+--------------+------------+--------------------+--------+---------------+----------+------------------------
+ Aman Mhendru | HR         | Medical Store      |  30000 | Sumit         | Brother  | 3 years 4 mons 15 days
+ Aman Verma   | HR         | Student Management |  26000 | Ankita Verma  | Wife     | 1 year 4 mons 14 days
+ Ashif Husan  | HR         | Shoping Complex    |  25000 | Akira Qureshi | Mother   | 23 days
+(3 rows)
+
+
+	IT Department ---
+
+company=# select e.ename, d.dept, p.pname, e.salary, da.name, da.relation, age(e.join_date) as experience from employee as e inner join department as d on d.did = e.dept_id inner join dependents as da on e.eid = da.emp_id inner join project_assign as pa on e.eid = pa.eid inner join projects as p on pa.pid = p.pid where d.dept = 'IT' order by e.join_date; 
+     ename      |    dept    |        pname        | salary |      name      | relation |      experience      
+----------------+------------+---------------------+--------+----------------+----------+----------------------
+ Amit Tiwary    | IT         | GYM Management      |  27300 | Darshan Tiwari | Father   | 2 years 1 mon 7 days
+ Vikey Kumar    | IT         | Student Management  |  26000 | Ankit Kumar    | Father   | 1 year 1 mon 29 days
+ Darvesh Sharma | IT         | Hospital Management |  25000 | Sweta Sharma   | Wife     | 1 mon 24 days
+ Darvesh Sharma | IT         | Hotel Management    |  25000 | Sweta Sharma   | Wife     | 1 mon 24 days
+ Aayush Jhosi   | IT         | Hospital Management |  19000 | Ishika         | Wife     | 1 mon 19 days
+ Aayush Jhosi   | IT         | Shoping Complex     |  19000 | Ishika         | Wife     | 1 mon 19 days
+ Preet          | IT         | Medical Store       |  15750 | Neha Bhadana   | Wife     | 15 days
+ Preet          | IT         | Hospital Management |  15750 | Neha Bhadana   | Wife     | 15 days
+ Preet          | IT         | GYM Management      |  15750 | Neha Bhadana   | Wife     | 15 days
+(9 rows)
+
+
+	CAD Department ---
+
+company=# select e.ename, d.dept, p.pname, e.salary, da.name, da.relation, age(e.join_date) as experience from employee as e inner join department as d on d.did = e.dept_id inner join dependents as da on e.eid = da.emp_id inner join project_assign as pa on e.eid = pa.eid inner join projects as p on pa.pid = p.pid where d.dept = 'CAD' order by e.join_date; 
+    ename    |    dept    |        pname        | salary |    name     | relation |  experience   
+-------------+------------+---------------------+--------+-------------+----------+---------------
+ Aman Verma  | CAD        | Hotel Management    |  16000 | Naresh      | Father   | 9 mons 5 days
+ Prerna Soni | CAD        | Shoping Complex     |  20000 | Rohit Verma | Husband  | 9 mons 3 days
+ Rahul Verma | CAD        | Student Management  |  15000 | Seema       | Wife     | 23 days
+ Rahul Verma | CAD        | Hospital Management |  15000 | Seema       | Wife     | 23 days
+(4 rows)
+
+
+
+# How many employees of IT department in Hospital Management --
+
+company=# select count(*) as Employees_from_IT from employee as e inner join department as d on d.did = e.dept_id inner join dependents as da on e.eid = da.emp_id inner join project_assign as pa on e.eid = pa.eid inner join projects as p on pa.pid = p.pid where d.dept = 'IT' AND p.pname like 'Hospital%'; 
+ employees_from_it 
+-------------------
+                 3
+(1 row) 
+
+
+
+# Check employee name salary deprtment nomenies details and project name according of their experiences where employees from IT department and working in Hospital management Project ----
+
+
+company=# select e.ename, d.dept, p.pname, e.salary, da.name, da.relation, age(e.join_date) as experience from employee as e inner join department as d on d.did = e.dept_id inner join dependents as da on e.eid = da.emp_id inner join project_assign as pa on e.eid = pa.eid inner join projects as p on pa.pid = p.pid where d.dept = 'IT' AND p.pname like 'Hospital%' order by e.join_date; 
+     ename      |    dept    |        pname        | salary |     name     | relation |  experience   
+----------------+------------+---------------------+--------+--------------+----------+---------------
+ Darvesh Sharma | IT         | Hospital Management |  25000 | Sweta Sharma | Wife     | 1 mon 24 days
+ Aayush Jhosi   | IT         | Hospital Management |  19000 | Ishika       | Wife     | 1 mon 19 days
+ Preet          | IT         | Hospital Management |  15750 | Neha Bhadana | Wife     | 15 days
+(3 rows)
+
+
+
+
+
+# Check experience of most recent joined according departments ---
+
+company=# select e.eid, e.ename, e.salary, d.dept, e.join_date, age(e.join_date) as experience from employee as e inner join department as d on did = dept_id where join_date in (select max(join_date) from employee e1, department d where did = dept_id group by d.did);
+ eid |    ename    | salary |    dept    | join_date  | experience 
+-----+-------------+--------+------------+------------+------------
+   2 | Rahul Verma |  15000 | CAD        | 2021-06-15 | 23 days
+   3 | Ashif Husan |  25000 | HR         | 2021-06-15 | 23 days
+   1 | Preet       |  15750 | IT         | 2021-06-23 | 15 days
+(3 rows)
+
+
+# Check experience of all most experienced employees according to departments ---
+
+company=# select e.eid, e.ename, e.salary, d.dept, e.join_date, age(e.join_date) as experience from employee as e inner join department as d on did = dept_id where join_date in (select min(join_date) from employee e1, department d where did = dept_id group by d.did);
+ eid |    ename     | salary |    dept    | join_date  |       experience       
+-----+--------------+--------+------------+------------+------------------------
+   7 | Aman Mhendru |  30000 | HR         | 2018-02-21 | 3 years 4 mons 15 days
+   9 | Aman Verma   |  16000 | CAD        | 2020-10-03 | 9 mons 5 days
+  11 | Amit Tiwary  |  27300 | IT         | 2019-06-01 | 2 years 1 mon 7 days
+(3 rows)
+
+
+
+
+
+# Check department and count of employees in departments ---
+
+company=# select d.dept, count(e.eid) as emp_count from department d, employee e where d.did = e.dept_id group by d.dept;
+    dept    | emp_count 
+------------+-----------
+ CAD        |         3
+ IT         |         5
+ HR         |         3
+(3 rows)
+
+
+
+
+
+# Maximum salary according departments ----
+
+
+company=# select max(distinct salary) from employee as e inner join department as d on e.dept_id = d.did group by d.dept;
+  max  
+-------
+ 20000
+ 30000
+ 27300
+(3 rows)
+
 
 
 
