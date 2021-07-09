@@ -283,3 +283,538 @@ example --
 	cust2.total_no_customers()
 	cust3.details()
 	cust3.total_no_customers()
+
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+Date 9/July/2021 ---
+
+
+# Constant Variables ---
+
+ An Constant variable is that variable which contains a constant value and will not change on run time where in other programing languages Constant variable can't change value of it in run time but in Ruby It can change values but parallay also show wornning that this variable is already intialized.
+
+A contant variable always writen in capital letters.
+
+These variable if defined in class then can be accessable within class only and if defined outside the class then work as global variable.
+
+	Eg --- Class Example 
+			VAR1 = 100
+			Var2 = 200
+			def show
+				puts"Values of 1st constant variable is : #{VAR1}"
+				puts"Values of 2nd constant variable is : #{VAR2}"
+			end
+		end
+		object = Example.new()
+		object.show
+
+
+# Rseudo Variables in Ruby ---
+ These variables are also called predefined variables which is look like local variable but behaves like Constant variables.
+These variables are as follow ---
+
+	1) Self --- Same as in python which recives object of current method.
+	2) true --- it represents true.
+	3) false -- it represents false.
+	3) nil ---- Value represent undefined.
+	4) _FILE_ - Name of current source file.
+	5) _LINE_ - Current line no in the source file.
+
+
+# Data types in Ruby ---
+
+	1) Integer Numbers --
+		As all integers in our number system like --
+		1, 2, 3, ...   (All Positive Number)
+			0      (ZERO)
+		-1, -2, -3 ... (All Negetive Numbers)
+		together are called integers 
+
+	2) Float Numbers --
+		All fractional Values is called float numbers --
+		Eg --
+			1.2, 345.76, 1234567890.87654, etc
+
+	3) String Datatype -- 
+		It is squence or series of charectors, if writen in double quotes then allow substitution and no need of \ backslash. But is writen in single quotes then for any inner single quote we need \ for nor error or can say to make ' as part of string.
+
+	Eg -- puts 'hello world "\\"' (here double backslash is show single slash on run time)
+		puts 'hello\'s world "\"' (here inner \ is to make inner single quote as part of string)
+		puts "'hello world'" (if the string in double quotes then inner single quote will be part of string)
+		puts "'hello's world'" (same as above)
+
+	
+	4) Arrays -- It is like collection of hetrogenious datatype.
+		It is comma seprated series and inclosed in between square brackets.
+		Trailing comma will ignored means if any extra comma will found with empty value after that then it will ignore.
+		
+		Eg -- arry = ["fred", 12, 34.7, "This is string", "last string",]
+			arry.each do |i|
+				puts i
+			end
+
+	5) Hashes means like dictionary in python ---
+		It is collection of keys and values.
+		it is also comma seprated and => sign in between key and value and inclosed in { } brackets.
+		it is also folow trailing comma ignored feature.
+
+		Eg -- hsh = color = {"red" => 0xf00, "green" => 0x0f0, "blue" => 0x00f,]
+			hsh.each do |key, value|
+				print key, " is ", value, "\n"
+			end
+
+	6) Range --- As range word presents an interval which is set of values with a start and end.
+		Eg -- (10..15).each do |n|
+				print n, ' '
+			end
+
+# Operators In Ruby ---
+	Operators are the predefiend signs and keywords which perform some kind of operations with the help of operants.
+	
+	Types of operators ---
+	1) Arithmetic Operators --
+		(+, -, *, /, %, **)
+	
+	2)Comparision Operators ---
+		(==, !=, >, <, <=, >= )
+		Some more below --
+		<=> : return 0 if equal, 1 if first is greater, -1 if second is greater.
+		=== : returns test if any value is in given range or not.
+		.edl? : work as comparing values but it compares types.
+		equal? : return true if recieves same object id.
+
+	3) Assignment Operators ---
+		(=, +=, -=, *=, /=, %=, **=)
+
+	4) Parallel Assignment --
+		eg --
+			a = 10  |    a, b, c = 10, 20, 30
+			b = 20  |        OR
+			c = 30  |    a, b = b, c
+		
+	5) Bit wise operators --
+		$  : Perform AND or . product.
+		|  : perform OR or x product.
+		^  : Perform Xor operation.
+		~  : Perform 1's compliment.
+		<< : Left sift
+		>> : Right sift
+
+	6) Logical Operators --
+	
+		AND,
+		OR,
+		&& : same as AND
+		|| : same as OR
+		!  : NOT
+		NOT
+	
+	7) Ternary Operator --
+		
+		(?:) : Check True or false
+			Eg -- true ? then value X : otherwise value Y
+
+	8) Range Operators --
+		
+		..  : In this end will included 
+			like 1..10 means 1 to 10
+		... : IN This end will be excluded
+			like 1...10 means 1 to 9
+
+	9) defined? Operator --
+		It is use to check the Variable/ method was defined before or not.
+
+	10) Dot "." and Double colon "::" --
+		
+		Dot is use to call methods which is call by any class name or object.
+		Double colon is use to call methods as well but which is defined in class and it can be access anywhere outside the class.
+
+
+
+
+# If-Else Statements ---
+
+	Syntax -- 
+		if condition [then]
+			code ...
+		elsif condition [then]
+			code ...
+		else
+			code ...
+		end
+		
+	Eg ---
+		x = 1
+		if x > 2
+			puts "x is greater then 2"
+		elsif x <= 2 and x != 0
+			puts "x is 1"
+		else
+			puts "I can't guess the number"
+		end
+
+
+# Unless-else statement ---
+	same as if else but reverse of if else. 
+	Unless condition will check and if false then only unless block execute else the else block will execute.
+
+	Syntax --
+		unless conditional [then]
+			code
+		[else
+			code ]
+		end
+
+	Eg -- 
+		x = 1
+		unless x >= 2
+			puts "x is less then 2"
+		else
+			puts "x is equal to or greater then 2"
+		end	
+
+
+# IF modifier ---
+	Syntax --
+		code if condition
+	Eg --
+		$debug = 1
+		print "debug\n" if $debug
+
+# Unless Modifier ---
+	Syntax --
+		code unless condition
+	Eg --
+		$var = 1
+		print"1 -- value is set\n" if $var
+		print"2 -- value is set\n" unless $var
+		$var = false
+		print"3 -- value is set\n" unless $var
+
+
+# Case Statement --
+	Syntax -- Case Expression
+		when expresion, ... [then]
+			code
+		when exp,....
+			code
+		else
+			code
+		end
+	
+	Eg ---
+		$age = 5
+		case $age
+		when 0..2
+		    puts "Baby"
+		when 3..6
+		    puts "little child"
+		when 7..12
+		    puts "child"
+		when 13..18
+		    puts "youth"
+		else
+		    puts "adult"
+		end
+
+
+# While loop ---
+	Syntax -- while condition do
+			code ...
+		end
+
+	Eg --
+		$i = 1
+		$num = 10
+		while $i <= $num
+		    puts "Inside the loop i = #$i"
+		    $i += 1
+		end
+
+# While modifier ----
+	Same as do while --
+	Syntax --- code while condition
+			
+			OR
+
+		begin
+			code
+		end while condition
+
+	Eg --
+		$i = 0
+		$num = 5
+		begin
+		    puts "Inside the loop i : #$i"
+		    $i += 1    
+		end while $i <= $num 
+
+
+# Until Statement --
+	Same as while loop but reverse of while conditions
+	Syntax -- until condition [do]
+			code
+		end
+
+	Eg -- 
+		$i = 0
+		$num = 5
+		until $i > $num do
+		    puts "Inside the loop i : #$i"
+		    $i += 1
+		end
+
+
+# Until modifier ---
+	Syntax -- code untill condition
+			OR
+		begin
+			code
+		end until condition
+	
+	Eg --
+		$i = 0
+		$num = 5
+		begin
+		    puts "Inside the loop i : #$i"
+		    $i += 1
+		end until $i > $num
+
+
+# For Loop Statements ---
+	Syntax ---
+		for variable[, variable,...] in expression [do]
+			code
+		end
+
+	Eg ---
+		for i in 0..5
+		    puts "Value of local variable : #{i}"
+		end
+
+		#       OR
+
+		(0..5).each do |i|
+		    puts "Value of local variable : #{i}"
+		end 
+
+
+# Break statment ---
+	It use to terminate the most internal block of either loop or method.
+	Eg --
+
+
+
+
+# Next Statment --- same as continue in python in which it can exit the curent iteration and not let go the complier to the nex instractions and send iterator to next value to iterate.
+
+	Syntax -- With Example --
+	for i in 0..5
+	    if i < 2 then
+	        next
+	    end
+	    puts "Value of local variable is #{i}"
+	end
+
+
+
+# Redo statment --- Use to send iterator to just previous value ans do perform task again and again.
+
+	Syntax --- with exapmlpe ---
+	# For loop with redo statement
+
+	for i in 0..5
+	    if i < 2 then
+        	puts "value is #{i}"
+        	redo
+
+	    end
+
+	end
+
+
+
+# Methods ---- It is same as functions in other programing laguages.
+
+	1) Simple Methods ---
+		Syntax -- def metho_name()
+				code
+			end
+		
+		Eg ---
+			
+			def hello()
+			    puts "Hello World"
+			end
+			hello()
+
+
+	2) Parametrized Methods ---
+
+		Syntax -- def metho_name(arg1, arg2, ...)
+                                code
+                        end
+
+		Eg --
+
+			def sum(a, b)
+			    puts "Sum is #{a + b}"
+			end
+			sum(5, 10)
+
+	3) Default Value parametrized method ---
+
+		Syntax -- def metho_name(arg1, arg2, ...)
+                                code
+                        end
+
+                Eg --
+
+			def test(a = "Ruby", b = "Perl")
+			    puts "1st is #{a}"
+			    puts "2nd is #{b}"
+			end
+
+			test "C", "C++"
+			test
+
+
+# Return statment in method
+
+	Syntax -- With Example --
+
+		def test()
+		    i = 100
+		    j = 200
+		    k = 300
+		    return i, j, k
+		end
+
+		var = test
+		puts var
+
+
+
+# Array as argument in method ---
+
+	Eg -- 
+		def sample(*test)
+		    puts "No. of arguments #{test.length}"
+		    for i in 0...test.length
+		        puts "The parameter are #{test[i]}"
+		    end
+		end
+		sample "Zara", "6", "F"
+
+		sample("Joe", "36", "M", "MCA")
+
+
+
+# Yield statement with methods ---
+
+	Eg --
+		def test
+		    puts "You are in method"
+		    yield 
+		    puts "You are in method again"
+		    yield
+		end
+     
+		test { puts "You are in the block" } 
+	# Second Example ---
+
+		def test
+		    yield 5
+		    puts "You are in the method test"
+		    yield 100
+		end
+		test {|i| puts "You are in the block #{i}"}
+
+
+
+# BEGIN and END Block ---
+	BEGIN block always execute first.
+	END block always execute at last in program.
+
+	Eg --
+		BEGIN { 
+ 
+		   puts "BEGIN code block"
+		} 
+
+		END { 
+ 
+		   puts "END code block"
+		}
+
+		puts "MAIN code block"
+
+
+
+
+# Modules ---- Modules are a way to grouping together methods, classed and constants
+
+	Syntax --- Modules module_name
+			statment
+		end
+
+	Module can have all features like class have.
+	
+	Eg -- 1) Save with name trig.rb
+		# Creating Module name Trig
+		module Trig
+		    PI = 3.141592654
+		    def Trig.sin(x)
+		        return x
+		    end
+
+		    def Trig.cos(x)
+		        return x
+		    end
+
+		end
+		
+		2) save with name mortal.rb
+		# Creating module named mortal
+		module Mortal
+		    VERY_BAD = 0
+		    BAD = 1
+
+		    def Mortal.sin(badness)
+		        return badness
+		    end
+		end
+
+
+# Require Statement ---
+
+	Require statement is use to import module files in any third program
+
+	Syntax -- require filename
+	
+	Eg --- Save another file with any name ---
+	
+		# Test Created modules
+		$LOAD_PATH << '.'
+
+		require 'trig.rb'
+		require 'mortal'
+
+		y = Trig.sin(Trig::PI/4)
+		puts y
+
+		wrongdoing = Mortal.sin(Mortal::VERY_BAD)
+		puts wrongdoing
+
+	NOTES --- There $LOAD_PATH << '.' aware ruby that module file must be searched in the current directory.
+
+
+
+
+
+
+
+
+
