@@ -1,0 +1,954 @@
+String Methods ----
+
+
+# To return a string by creating object of string ---
+
+3.0.1 :004 > s = String.new
+ => ""
+
+
+# To check the encoding format ---
+
+3.0.1 :006 > s.encoding
+ => #<Encoding:ASCII-8BIT> 
+
+# If we give a string to object and encode it with \u then it will return endoded type UTF-8 ---
+
+3.0.1 :007 > s = String.new("Que veut dire \u{e7}a?")
+ => "Que veut dire ça?" 
+3.0.1 :008 > s
+ => "Que veut dire ça?" 
+3.0.1 :009 > s.encoding
+ => #<Encoding:UTF-8> 
+
+
+
+# To encode string with Ascii ---
+
+3.0.1 :010 > s = String.new(encoding: 'ASCII')
+ => "" 
+3.0.1 :011 > s.encoding
+ => #<Encoding:US-ASCII> 
+3.0.1 :012 > s = String.new('foo', encoding: 'ASCII')
+ => "foo" 
+3.0.1 :013 > s.encoding
+ => #<Encoding:US-ASCII> 
+3.0.1 :014 > 
+
+
+
+# Resize the capacity ---
+
+3.0.1 :014 > String.new(capacity: 1)
+ => "" 
+3.0.1 :015 > String.new('Hello World',capacity: 1)
+ => "Hello World"  
+3.0.1 :018 > String.new(capacity: 1)
+ => "" 
+3.0.1 :019 > String.new(capacity: 4096)
+ => "" 
+3.0.1 :020 > s = String.new('hello', encoding: 'UTF-8', capacity: 25)
+ => "hello"
+ 
+# To convert given string by specified encoding format ---
+
+3.0.1 :023 > "%05d" % 123
+ => "00123" 
+3.0.1 :024 > "%04d" % 123
+ => "0123" 
+3.0.1 :025 > "%95d" % 123
+ => "                                                                                            123" 
+3.0.1 :026 > "%05d" % 123
+ => "00123" 
+3.0.1 :027 > "%05e" % 123
+ => "1.230000e+02" 
+3.0.1 :028 > "%05f" % 123
+ => "123.000000" 
+3.0.1 :029 > "%05i" % 123
+ => "00123" 
+
+
+# Make string in fromate of Hash or array ---
+
+
+3.0.1 :030 > "%-5s: %016x" % [ "ID", self.object_id ]
+ => "ID   : 0000000000000118" 
+3.0.1 :031 > "%-2s: %016x" % [ "ID", self.object_id ]
+ => "ID: 0000000000000118" 
+3.0.1 :032 > "%-3s: %016x" % [ "ID", self.object_id ]
+ => "ID : 0000000000000118" 
+
+
+# print string from hash ---
+
+3.0.1 :033 > "foo = %{foo}" % {foo: 'bar'}
+ => "foo = bar" 
+3.0.1 :034 > "foo = %{foo}, baz = %{baz}" % {foo: 'bar', baz: 'bat'}
+ => "foo = bar, baz = bat" 
+
+
+# Show string multiple times ---
+
+3.0.1 :035 > "Ho! " * 3
+ => "Ho! Ho! Ho! " 
+3.0.1 :036 > "Ho! " * 5
+ => "Ho! Ho! Ho! Ho! Ho! " 
+3.0.1 :037 > "Ho! " * 0
+ => "" 
+
+
+# Concatinate 2 or more strings ----
+
+3.0.1 :038 > "Hello from " + self.to_s
+ => "Hello from main" 
+3.0.1 :039 > s = String.new("Hello World")
+ => "Hello World" 
+3.0.1 :040 > s1 = String.new("How are you")
+ => "How are you" 
+3.0.1 :041 > s+s1
+ => "Hello WorldHow are you" 
+3.0.1 :042 > 
+
+
+
+# Concate strings with << method ---
+	It will append the string in First variable 
+
+3.0.1 :039 > s = String.new("Hello World")
+ => "Hello World"
+3.0.1 :040 > s1 = String.new("How are you")
+ => "How are you"
+3.0.1 :045 > s<<s1
+ => "Hello WorldHow are you" 
+.0.1 :045 > s<<s1
+ => "Hello WorldHow are you" 
+3.0.1 :046 > s<<33
+ => "Hello WorldHow are you!" 
+3.0.1 :047 > s
+ => "Hello WorldHow are you!" 
+
+
+
+# To check which string is smaller, greater or equal ----
+
+	-1 if other_string is smaller.
+
+	0 if the two are equal.
+
+	1 if other_string is larger.
+
+	nil if the two are incomparable.
+	
+
+3.0.1 :049 > s = String.new("Hello World")
+ => "Hello World" 
+3.0.1 :050 > s1 = String.new("How are you")
+ => "How are you" 
+3.0.1 :051 > s <=> s1
+ => -1 
+3.0.1 :052 > s1 <=> s
+ => 1 
+3.0.1 :053 > s <=> s
+ => 0 
+
+
+
+# Compare two strings by ( == ) OR ( === ) ---
+
+3.0.1 :054 > s = "Foo"
+ => "Foo" 
+3.0.1 :055 > s
+ => "Foo" 
+3.0.1 :056 > s == "boo"
+ => false 
+3.0.1 :057 > s == "foo"
+ => false 
+3.0.1 :058 > s == "Foo"
+ => true 
+
+3.0.1 :059 > s === 1
+ => false 
+3.0.1 :060 > s === "boo"
+ => false 
+3.0.1 :061 > s === "Foo"
+ => true 
+3.0.1 :062 > s === "foo"
+ => false
+
+
+# To check the character is in string or not ---
+	it will show index of given charector in string if not present in string then show nill.
+
+3.0.1 :063 > 'foo' =~ /f/
+ => 0 
+3.0.1 :064 > 'foo' =~ /o/
+ => 1 
+3.0.1 :065 > 'foo' =~ /x/
+ => nil 
+3.0.1 :066 > 'foo' =~ /a/
+ => nil 
+
+
+# Access string by index ----
+
+3.0.1 :074 > s = "Hello World"
+ => "Hello World" 
+3.0.1 :075 > s[5]
+ => " " 
+3.0.1 :076 > s[2, 5]
+ => "llo W" 
+
+
+# Pattern matching in string ----
+
+3.0.1 :083 > s
+ => "Hello World" 
+3.0.1 :084 > s['o W']
+ => "o W" 
+3.0.1 :085 > s['oa']
+ => nil 
+
+
+# ascii_only? → true or false to check ascii or not ---
+
+3.0.1 :086 > "abc".force_encoding("UTF-8").ascii_only?   
+ => true 
+3.0.1 :087 > "1abc".force_encoding("UTF-8").ascii_only?   
+ => true 
+3.0.1 :088 > "1Xabc".force_encoding("UTF-8").ascii_only?   
+ => true 
+3.0.1 :089 > "abc\u{6666}".force_encoding("UTF-8").ascii_only?
+ => false 
+
+
+# Use Bytesize to check size of string ----
+
+3.0.1 :090 > s = "Hello There"
+ => "Hello There" 
+3.0.1 :091 > s.bytesize
+ => 11 
+
+
+# byteslice(integer) → new_str or nil
+	byteslice(integer, integer) → new_str or nil
+	byteslice(range) → new_str or nil
+
+
+3.0.1 :092 > s.byteslice(2)
+ => "l" 
+3.0.1 :093 > s.byteslice(5)
+ => " " 
+3.0.1 :094 > s.byteslice(4)
+ => "o" 
+3.0.1 :095 > s.byteslice(2, 8)
+ => "llo Ther" 
+3.0.1 :096 > s.byteslice(2..8)
+ => "llo The"
+
+
+
+# capitalize → new_str
+	capitalize([options]) → new_str
+	Returns a copy of str with the first character converted to uppercase and the remainder to lowercase.
+
+3.0.1 :098 > s = "hello there"
+ => "hello there" 
+3.0.1 :099 > s.capitalize
+ => "Hello there" 
+
+
+
+# capitalize! → str or nilclick to toggle source
+capitalize!([options]) → str or nil
+
+	It will update variable by capitalize first charector ----
+
+3.0.1 :102 > s
+ => "hello there" 
+3.0.1 :103 > s.capitalize
+ => "Hello there" 
+3.0.1 :104 > s.capitalize!
+ => "Hello there" 
+3.0.1 :105 > s
+ => "Hello there"
+
+
+
+# Compare two string by ---
+	casecmp(other_str) → -1, 0, 1, or nil
+	Compares self and other_string, ignoring case, and returning:
+
+		-1 if other_string is smaller.
+
+		0 if the two are equal.
+
+		1 if other_string is larger.
+
+		nil if the two are incomparable
+
+3.0.1 :107 > s.casecmp('Hello')
+ => 1 
+3.0.1 :108 > s.casecmp('ll')
+ => -1 
+3.0.1 :109 > s.casecmp('llo the')
+ => -1 
+3.0.1 :110 > s.casecmp('llo there')
+ => -1 
+3.0.1 :111 > s.casecmp('Hello there')
+ => 0 
+3.0.1 :112 > 'FOO'.casecmp('foo')
+ => 0 
+3.0.1 :113 > 'foo'.casecmp('FOO')
+ => 0 
+
+
+
+
+# casecmp?(other_string) → true, false, or nil ---- It is same as above but just give true or false ---
+
+3.0.1 :114 > 'foo'.casecmp?('Foo')
+ => true 
+3.0.1 :115 > 'foo'.casecmp?('doo')
+ => false 
+3.0.1 :116 > 'Foo'.casecmp?('foo')
+ => true 
+
+
+# Center the string by center() ---
+
+	center(width, padstr=' ') → new_str
+
+3.0.1 :117 > s
+ => "Hello there" 
+3.0.1 :118 > s.center(20)
+ => "    Hello there     " 
+3.0.1 :119 > s.center(50)
+ => "                   Hello there                    " 
+3.0.1 :124 > s.center(50,'#')
+ => "###################Hello there####################" 
+3.0.1 :125 > s.center(50,'123')
+ => "1231231231231231231Hello there12312312312312312312" 
+3.0.1 :126 > s.center(50,'.')
+ => "...................Hello there...................." 
+3.0.1 :127 > 
+
+
+
+# split string in from of elements of list ----
+	in Words ---
+
+3.0.1 :131 > s.split
+ => ["Hello", "there"]
+
+
+# Split string in form of elements of list ---
+	in charectors ---
+
+3.0.1 :130 > s.chars
+ => ["H", "e", "l", "l", "o", " ", "t", "h", "e", "r", "e"] 
+
+
+
+# Chomp(separator=$/) → new_str
+Returns a new String with the given record separator removed from the end of str (if present). 
+
+
+3.0.1 :132 > 'Hello'.chomp
+ => "Hello" 
+3.0.1 :134 > 'Hello'.chomp('lo')
+ => "Hel" 
+3.0.1 :135 > 'Hello'.chomp('ll')
+ => "Hello" 
+3.0.1 :136 > 'Hello'.chomp('ell')
+ => "Hello" 
+3.0.1 :137 > 'Hello'.chomp('Hel')
+ => "Hello"
+3.0.1 :138 > "hello\r\n\r\r\n".chomp('')
+ => "hello\r\n\r"
+
+
+
+# Chop → new_str
+Returns a new String with the last character removed. If the string ends with \r\n, both characters are removed.
+
+3.0.1 :139 > s
+ => "Hello there" 
+3.0.1 :140 > s.chop
+ => "Hello ther"
+3.0.1 :145 > s = "Hello World\n\r"
+ => "Hello World\n\r" 
+3.0.1 :146 > s
+ => "Hello World\n\r" 
+3.0.1 :147 > s.chop
+ => "Hello World\n" 
+3.0.1 :148 > s<<"\n\r"
+ => "Hello World\n\r\n\r" 
+3.0.1 :149 > s
+ => "Hello World\n\r\n\r" 
+3.0.1 :150 > 
+3.0.1 :149 > s
+ => "Hello World\n\r\n\r" 
+3.0.1 :150 > s.chop
+ => "Hello World\n\r\n" 
+3.0.1 :151 > s.chop
+ => "Hello World\n\r\n" 
+3.0.1 :153 > s
+ => "Hello World\n\r\n\r" 
+3.0.1 :154 > s.chop.chop
+ => "Hello World\n" 
+
+
+
+# As the above chop method chop! will aslo slice from end the string but it will update this in variable as well ---
+
+
+3.0.1 :155 > s
+ => "Hello World\n\r\n\r" 
+3.0.1 :156 > s.chop!
+ => "Hello World\n\r\n" 
+3.0.1 :157 > s
+ => "Hello World\n\r\n" 
+3.0.1 :158 > s.chop!.chop!
+ => "Hello World" 
+3.0.1 :159 > s
+ => "Hello World"
+
+
+
+# To get first charector from string ---
+	chr is use for this ---
+
+3.0.1 :160 > s
+ => "Hello World" 
+3.0.1 :161 > s.chr
+ => "H" 
+
+
+# Clear method is use to show empty string and update the variable as well.
+
+3.0.1 :162 > s
+ => "Hello World" 
+3.0.1 :163 > s.clear
+ => "" 
+3.0.1 :164 > s
+ => "" 
+
+
+# To know the Ascii Code of string ---
+
+
+3.0.1 :165 > s = "Hello There"
+ => "Hello There"
+3.0.1 :167 > s.codepoints
+ => [72, 101, 108, 108, 111, 32, 84, 104, 101, 114, 101] 
+3.0.1 :168 > 'A'.codepoints
+ => [65] 
+3.0.1 :169 > 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.codepoints
+ => [65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90] 
+3.0.1 :170 > 
+
+ 
+
+
+# Concat() to concate multiple strings together it will update the variable aslo ----
+
+3.0.1 :170 > s
+ => "Hello There" 
+3.0.1 :171 > s.concat('bar', 'foo', 'wao')
+ => "Hello Therebarfoowao" 
+3.0.1 :172 > s1
+ => "How are you" 
+3.0.1 :173 > s.concat('bar', 'foo', 'wao', s1)
+ => "Hello TherebarfoowaobarfoowaoHow are you" 
+3.0.1 :174 > s.concat(32,'bar',32, 'foo',32, 'wao',32, s1)
+ => "Hello TherebarfoowaobarfoowaoHow are you bar foo wao How are you" 
+3.0.1 :175 > s
+ => "Hello TherebarfoowaobarfoowaoHow are you bar foo wao How are you" 
+
+
+
+# Count the charectors in the string ----
+
+3.0.1 :177 > a = "hello world"
+ => "hello world" 
+3.0.1 :178 > a.count"llo"
+ => 5 
+3.0.1 :179 > b = "Hahahallo hhooww are youuuu"
+ => "Hahahallo hhooww are youuuu" 
+3.0.1 :180 > b.count"llo"
+ => 6 
+3.0.1 :181 > b.count"ooww"
+ => 6 
+3.0.1 :182 > b.count"ow"
+ => 6 
+
+
+
+# crypt(salt_str) → new_str ---- it cryot the string using crypt(3) standard crypt library ----
+
+3.0.1 :183 > 'foo'.crypt("$5$rounds=1000$salt$")
+ => "$5$rounds=1000$salt$sOwBWdzaQ/gPXFtLc24VstV7ZQk3/x7k0cDfKUxXsn8" 
+3.0.1 :184 > a
+ => "hello world" 
+3.0.1 :185 > a.crypt("$5$rounds=1000$salt$")
+ => "$5$rounds=1000$salt$ANkvijRhLnYnPkXt0bUaUtmvDl/cTWmfJg/TZGzxy9/" 
+
+
+
+# Detele the charector or string from the string ----
+
+3.0.1 :186 > a
+ => "hello world" 
+3.0.1 :187 > a.delete "ll"
+ => "heo word" 
+3.0.1 :188 > a
+ => "hello world" 
+3.0.1 :189 > a.delete "orl"
+ => "he wd" 
+
+
+# Delete all vowels 'aeiou' except 'e' ---
+
+3.0.1 :190 > a.delete "aeiou","^e"
+ => "hell wrld" 
+
+
+# Delete and update within variable ---
+
+3.0.1 :191 > a
+ => "hello world" 
+3.0.1 :192 > a.delete! "aeiou", "^e"
+ => "hell wrld" 
+3.0.1 :193 > a
+ => "hell wrld" 
+3.0.1 :194 > a.delete! "aeiou", "^e"
+ => nil 
+
+
+# Delete_prefix will show by deleting all the prefix charectors which is given as string from a string ---
+
+3.0.1 :200 > 'hofooboo'.delete_prefix("hof")
+ => "ooboo"
+
+
+# Delete_suffix as same as above but just delete from the end ----
+
+3.0.1 :203 > 'hofooboo'.delete_suffix("boo")
+ => "hofoo" 
+
+
+
+# Convert string into lowercase ---
+
+	downcase → new_str
+
+3.0.1 :208 > s = "Hello Friends HOW ARE YoU"
+ => "Hello Friends HOW ARE YoU" 
+3.0.1 :209 > s.downcase
+ => "hello friends how are you" 
+3.0.1 :210 > s
+ => "Hello Friends HOW ARE YoU"
+
+
+# To save after converting string into lower case ---
+
+3.0.1 :211 > s
+ => "Hello Friends HOW ARE YoU" 
+3.0.1 :212 > s.downcase!
+ => "hello friends how are you" 
+3.0.1 :213 > s
+ => "hello friends how are you"
+3.0.1 :214 > s.downcase!
+ => nil 
+
+
+
+# Dump method of string --- 
+	Returns a quoted version of the string with all non-printing characters replaced by \xHH notation and all special characters escaped.
+
+3.0.1 :215 > 'hello'.dump
+ => "\"hello\"" 
+3.0.1 :216 > "'hello".dump
+ => "\"'hello\"" 
+3.0.1 :217 > s.dump
+ => "\"hello friends how are you\"" 
+
+
+
+# 	each_byte {|integer| block } → str
+	each_byte → an_enumerator
+Passes each byte in str to the given block, or returns an enumerator if no block is given.
+
+It will give ascii value of all charecters of string as it iterate all charectors of a word.
+
+3.0.1 :222 > 'hello'.each_byte {|c| print c, ' '}
+104 101 108 108 111  => "hello" 
+3.0.1 :222 > a
+ => "Hello World" 
+3.0.1 :223 > a.each_byte {|c| print c, ' '}
+72 101 108 108 111 32 87 111 114 108 100  => "Hello World" 
+
+
+
+# Similarly the above method ---- But it will iterate the string and return charectors ---
+
+3.0.1 :224 > a.each_char {|c| print c, ' '}
+H e l l o   W o r l d  => "Hello World" 
+3.0.1 :226 > s.each_char {|c| print c, ' '}
+h e l l o   f r i e n d s   h o w   a r e   y o u  => "hello friends how are you" 
+
+
+
+# .each_codepoints method return the union code of evry charectors ---
+
+
+3.0.1 :229 > a.each_codepoint{|i| print i, ' '}
+72 101 108 108 111 32 87 111 114 108 100  => "Hello World"
+3.0.1 :231 > "Hello\u0639".each_codepoint{|i| print i, ' '}
+72 101 108 108 111 1593  => "Helloع" 
+
+
+
+# Split string in from lines ----
+	each_line(separator=$/, chomp: false) {|substr| block } → str
+
+
+3.0.1 :233 > "hello\nworld".each_line {|s| p s}
+"hello\n"
+"world"
+ => "hello\nworld"
+3.0.1 :238 > "hellofriends\nhowareyou".each_line {|s| p s}
+"hellofriends\n"
+"howareyou"
+ => "hellofriends\nhowareyou" 
+3.0.1 :240 > "hellofriends\nhowareyou".each_line('l') {|s| p s}
+"hel"
+"l"
+"ofriends\nhowareyou"
+ => "hellofriends\nhowareyou" 
+3.0.1 :241 > "hellofriends\nhowareyou".each_line('e') {|s| p s}
+"he"
+"llofrie"
+"nds\nhoware"
+"you"
+ => "hellofriends\nhowareyou"
+3.0.1 :242 > "hello\nworld".each_line(chomp: true) {|s| p s}
+"hello"
+"world"
+ => "hello\nworld" 
+3.0.1 :243 > "hello\nworld".each_line('l', chomp: true) {|s| p s}
+"he"
+""
+"o\nwor"
+"d"
+ => "hello\nworld"
+
+
+
+# Check te string is empty or not ---
+
+3.0.1 :244 > a
+ => "ع" 
+3.0.1 :245 > a.empty?
+ => false 
+3.0.1 :246 > b.empty?
+ => false 
+3.0.1 :247 > b
+ => "Hahahallo hhooww are youuuu" 
+3.0.1 :250 > c = ""
+ => "" 
+3.0.1 :251 > c.empty?
+ => true 
+
+
+
+# Encoding --- Give encoding information ---
+
+3.0.1 :259 > b.encoding
+ => #<Encoding:UTF-8>
+
+
+
+# Check the string that is containing the string at the end of first string ---
+
+	end_with?([suffixes]+) → true or false
+	Returns true if str ends with one of the suffixes given.
+
+3.0.1 :264 > a = "Hello"
+ => "Hello" 
+3.0.1 :268 > a.end_with?("lo")
+ => true 
+3.0.1 :266 > b = "Hello World"
+ => "Hello World"
+3.0.1 :269 > b.end_with?("lo")
+ => false 
+
+
+
+# eql?(object) → true or false
+	Returns true if object has the same length and content; as self; false otherwise:
+
+3.0.1 :270 > a.eql?("hello")
+ => false 
+3.0.1 :271 > a.eql?("Hello")
+ => true 
+3.0.1 :272 > a.eql?("preet")
+ => false 
+
+
+# Freeze() method ----
+
+3.0.1 :278 > a
+ => "Hello" 
+3.0.1 :279 > a.freeze()
+ => "Hello" 
+3.0.1 :280 > b.freeze()
+ => "Hello World" 
+3.0.1 :281 > b
+ => "Hello World" 
+3.0.1 :282 > 
+
+
+# getbyte(index) → 0 .. 255
+returns the indexth byte as an integer.
+
+3.0.1 :278 > a
+ => "Hello"
+3.0.1 :283 > a.getbyte(1)
+ => 101
+3.0.1 :287 > a.getbyte(4)
+ => 111 
+
+
+# grapheme_clusters → an_array
+	It will seprate every charectors into element of array.
+
+3.0.1 :291 > a.grapheme_clusters
+ => ["H", "e", "l", "l", "o"] 
+3.0.1 :292 > b.grapheme_clusters
+ => ["H", "e", "l", "l", "o", " ", "W", "o", "r", "l", "d"] 
+
+
+# gsub(pattern, replacement) → new_str
+gsub(pattern, hash) → new_str
+gsub(pattern) {|match| block } → new_str
+gsub(pattern) → enumerator
+
+	Check the pattern and return by replaceing in sring
+
+3.0.1 :291 > a.grapheme_clusters
+ => ["H", "e", "l", "l", "o"] 
+3.0.1 :292 > b.grapheme_clusters
+ => ["H", "e", "l", "l", "o", " ", "W", "o", "r", "l", "d"] 
+3.0.1 :293 > "hello".gsub(/[aeiou]/, '*') 
+ => "h*ll*" 
+3.0.1 :294 > "hello".gsub(/([aeiou])/, '<\1>')  
+ => "h<e>ll<o>" 
+3.0.1 :295 > "hello".gsub(/./) {|s| s.ord.to_s + ' '}
+ => "104 101 108 108 111 " 
+3.0.1 :296 > "hello".gsub(/(?<foo>[aeiou])/, '{\k<foo>}')
+ => "h{e}ll{o}" 
+3.0.1 :297 > 'hello'.gsub(/[eo]/, 'e' => 3, 'o' => '*')
+ => "h3ll*" 
+
+
+# Get hash of string ----
+	hash --> integer
+
+3.0.1 :298 > a.hash
+ => 2061280363758546566 
+3.0.1 :299 > a
+ => "Hello" 
+
+
+
+# COnvert Hex to decimal string ---
+
+3.0.1 :301 > "0x0a".hex
+ => 10 
+3.0.1 :302 > "-12345".hex
+ => -74565 
+3.0.1 :303 > "Preet".hex
+ => 0 
+3.0.1 :304 > "hello".hex
+ => 0 
+3.0.1 :305 > "0".hex
+ => 0 
+
+
+# Include? other_str → true or false
+	Returns true if str contains the given string or character.
+
+3.0.1 :306 > a
+ => "Hello" 
+3.0.1 :307 > a.include? 'lo'
+ => true 
+3.0.1 :308 > a.include? 'ol'
+ => false 
+3.0.1 :309 > b
+ => "Hello World" 
+3.0.1 :310 > b.include? 'rl'
+ => true 
+
+
+# index(substring, offset = 0) → integer or nil
+	It will show the index of first charector match in first string.
+
+3.0.1 :312 > a
+ => "Hello" 
+3.0.1 :313 > a.index('o')
+ => 4 
+3.0.1 :314 > a.index('l')
+ => 2 
+3.0.1 :315 > a.index('ll')
+ => 2 
+3.0.1 :316 > a.index('lo')
+ => 3 
+3.0.1 :317 > a.index('lo', 1)
+ => 3 
+3.0.1 :318 > a = "Hello hello Hello"
+ => "Hello hello Hello" 
+3.0.1 :319 > a.index('lo', 1)
+ => 3 
+3.0.1 :320 > a.index('lo', 3)
+ => 3 
+3.0.1 :321 > a.index('lo', 4)
+ => 9 
+3.0.1 :322 > a.index('lo', 10)
+ => 15 
+3.0.1 :323 > a.index('lo', -10)
+ => 9 
+3.0.1 :324 > a.index('lo', -5)
+ => 15 
+3.0.1 :325 > a.index('lo', -15)
+ => 3 
+
+
+
+# replace(other_str) → str
+	Replaces the contents of str with the corresponding values in other_str.
+
+3.0.1 :326 > a
+ => "Hello hello Hello" 
+3.0.1 :327 > a.replace "How are you"
+ => "How are you" 
+3.0.1 :328 > a
+ => "How are you" 
+
+
+
+# insert(index, other_string) → self
+	Inserts the given other_string into self; returns self.
+
+	If the Integer index is positive, inserts other_string at offset index:
+
+3.0.1 :328 > a
+ => "How are you" 
+3.0.1 :329 > a[5]
+ => "r" 
+3.0.1 :330 > a.insert(5, "Hello")
+ => "How aHellore you" 
+3.0.1 :331 > 
+3.0.1 :332 > a[-5]
+ => "e" 
+3.0.1 :333 > a.insert(-5, "Hello")
+ => "How aHelloreHello you" 
+
+
+# Inspect → string
+	Returns a printable version of str, surrounded by quote marks, with special characters escaped.
+
+3.0.1 :338 > a
+ => "How are you" 
+3.0.1 :339 > a[5] = "\b"
+ => "\b" 
+3.0.1 :340 > a
+ => "How a\be you" 
+3.0.1 :341 > a.inspect
+ => "\"How a\\be you\""
+
+
+
+# Intern → symbol
+	Returns the Symbol corresponding to str, creating the symbol if it did not previously exist.
+
+3.0.1 :342 > a.intern
+ => :"How a\be you" 
+3.0.1 :343 > a.replace "Hello Wolrd"
+ => "Hello Wolrd" 
+3.0.1 :344 > a
+ => "Hello Wolrd" 
+3.0.1 :345 > a.intern
+ => :"Hello Wolrd" 
+3.0.1 :346 > a.to_sym
+ => :"Hello Wolrd" 
+3.0.1 :347 > a
+ => "Hello Wolrd" 
+3.0.1 :348 > s= 'cat'.to_sym
+ => :cat 
+3.0.1 :349 > s
+ => :cat 
+3.0.1 :350 > s == ':cat'
+ => false 
+3.0.1 :351 > s == ":cat"
+ => false 
+3.0.1 :352 > s
+ => :cat 
+3.0.1 :353 > s == :cat
+ => true 
+3.0.1 :354 > s = 'Dog'
+ => "Dog" 
+3.0.1 :355 > s = 'Dog'.to_sym
+ => :Dog 
+3.0.1 :356 > s == :Dog
+ => true 
+3.0.1 :357 > s == :dog
+ => false 
+
+
+
+# Length method is use to count the length of given string ---
+
+3.0.1 :358 > a
+ => "Hello Wolrd" 
+3.0.1 :359 > a.length
+ => 11 
+3.0.1 :360 > 'Preet'.length
+ => 5 
+3.0.1 :361 > b.length
+ => 11 
+3.0.1 :362 > b
+ => "Hello World" 
+3.0.1 :363 > s.length
+ => 3 
+3.0.1 :364 > s
+ => :Dog 
+3.0.1 :365 > s1
+ => "How are you" 
+3.0.1 :366 > s.length
+ => 3 
+3.0.1 :367 > s1.length
+ => 11 
+
+
+
+# lines(separator=$/, chomp: false) → an_array
+	Returns an array of lines in str split using the supplied record separator ($/ by default). This is a shorthand for str.each_line(separator, getline_args).to_a
+
+3.0.1 :368 > s1
+ => "How are you" 
+3.0.1 :369 > s1.lines
+ => ["How are you"] 
+3.0.1 :370 > s1.lines()
+ => ["How are you"] 
+3.0.1 :371 > s1.lines(' ')
+ => ["How ", "are ", "you"] 
+3.0.1 :373 > "hello\nworld\n".lines(chomp: true)
+ => ["hello", "world"] 
+
+
+
+
+
+
+

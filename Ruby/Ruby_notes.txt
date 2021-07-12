@@ -814,6 +814,114 @@ These variables are as follow ---
 
 
 
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+Date --- 12-July-2021
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+
+
+
+# Include Statement ---
+	Include Statements are use to embed a module in a class.
+
+	Syntax -- include module_name
+
+	Eg -- Save this module file with name support.rb
+		
+		module Week
+		    FIRST_DAY = "Sunday"
+		    def Week.weeks_in_month
+		        puts "You have 4 weeks in a month"
+		    end
+		    def Week.weeks_in_year
+		        puts "You have 52 weeks in a year"
+		    end
+		end
+
+		#Second file to check or include module in class
+
+		$LOAD_PATH << '.'
+
+		require 'support.rb'
+
+		class Decode
+		    include Week
+		    no_of_year = 10
+		    def no_of_months
+		        puts Week::FIRST_DAY
+		        number = 10*12
+		        puts number
+		    end
+		end
+
+		d1 = Decode.new
+		puts Week::FIRST_DAY
+		Week.weeks_in_month
+		Week.weeks_in_year
+		d1.no_of_months
+
+
+
+# Mixins in Ruby ---
+	Mixins is a feature od ruby by which multiple inheritance possible in ruby.
+	When a class can inherit features from more than one parent class, the class is supposed to show multiple inheritance.
+	But in ruby multiple inheritance is not possible directly.
+	So to perform multiple inheritance we can use modules.
+	Modules have some use by which it can fullfill the need for multiple inheritance by providing a facility called a mixin.
+	
+	Eg ---
+		Suppose we have 2 modules --
+		module A
+		    def a1
+		        puts "Module A and method a1"
+		    end
+		    def a2
+		        puts "Module A and method a2"
+		    end
+
+		end
+
+		module B
+		    def b1
+		        puts "Module B and method b1"
+		    end
+		    def b2
+		        puts "Module B and method b2"
+		    end
+		end
+	
+		
+		# Now let make a class file to inhert feature of above modules ---
+
+		$LOAD_PATH << '.'
+
+		require 'mixin_test.rb'
+
+
+		class Sample
+		    include A
+		    include B
+		    def s1
+		        puts "class Sample method s1"
+		    end
+		end
+
+		samp = Sample.new
+		samp.a1
+		samp.a2
+		samp.b1
+		samp.b2
+		samp.s1
+
+
+		#By the above example we can say with the help of modules a class sample is able to perform multiple inheritance with module A & B.
+
+
+
+
+
+
 
 
 
