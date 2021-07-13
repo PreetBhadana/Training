@@ -1,0 +1,587 @@
+----------- Array Built-in Methods and practice -----------
+
+
+# Creating array ---
+
+#Using literal constructor [] Method ---
+
+	3.0.1 :348 > arra = [3, "Preet", 12.5]
+	 => [3, "Preet", 12.5]
+
+
+# Using new class method ---
+
+	3.0.1 :349 > arra = Array.new
+	 => [] 
+
+	3.0.1 :350 > arra = Array.new(5)
+	 => [nil, nil, nil, nil, nil] 
+
+	3.0.1 :352 > arra = Array.new(5, 'Preet')
+	 => ["Preet", "Preet", "Preet", "Preet", "Preet"]
+
+
+# Using new class method add hash as elements of array ---
+
+	3.0.1 :354 > arra = Array.new(4) {Hash.new}
+	 => [{}, {}, {}, {}] 
+
+# Createing array using comprehension way ---
+
+	3.0.1 :355 > arra = Array.new(4) {|i| i.to_s}
+	 => ["0", "1", "2", "3"] 
+	
+	3.0.1 :356 > arra = Array.new(4) {|i| i.to_i}
+	 => [0, 1, 2, 3] 
+	
+	3.0.1 :357 > arra = Array.new(4) {|i| i.to_f}
+	 => [0.0, 1.0, 2.0, 3.0] 
+	
+	3.0.1 :358 > arra = Array.new(4) {|i| i.to_r}
+	 => [(0/1), (1/1), (2/1), (3/1)] 
+
+
+# Multi Dimentional Array --
+
+	3.0.1 :359 > arra = Array.new(3) {Array.new(3) {|i| i.to_i}}
+	 => [[0, 1, 2], [0, 1, 2], [0, 1, 2]]
+
+# Creating Array using array method --
+
+	3.0.1 :360 > arra = Array({:a => "a", :b => "b"})
+	 => [[:a, "a"], [:b, "b"]]
+
+	3.0.1 :362 > arra = Array([1,2,3,4,5])
+	 => [1, 2, 3, 4, 5]
+
+# Access the elements of array ----
+
+	3.0.1 :363 > arra
+	 => [1, 2, 3, 4, 5] 
+
+	3.0.1 :364 > arra[2]
+	 => 3 
+
+	3.0.1 :365 > arra[5]
+	 => nil 
+
+	3.0.1 :366 > arra[4]
+	 => 5 
+	
+	3.0.1 :367 > arra[1..4]
+	 => [2, 3, 4, 5] 
+
+	3.0.1 :368 > arra[1.-4]
+	 => 3 
+
+	3.0.1 :369 > arra[1..-4]
+	 => [2] 
+
+	3.0.1 :370 > arra[1..-3]
+	 => [2, 3] 
+
+	3.0.1 :371 > arra[1, 3]
+	 => [2, 3, 4] 
+
+
+# Access array using at() method --- it works on index ---
+
+	3.0.1 :372 > arra
+	 => [1, 2, 3, 4, 5] 
+
+	3.0.1 :373 > arra.at(3)
+	 => 4 
+
+	3.0.1 :374 > arra.at(2)
+	 => 3 
+
+# Fetch method --- use to directly fetch value of given index ---
+	But if element will not found at that possision or index is empty then show error
+	on other hand we can give a ajustable value if index will show error then that value will trigger
+
+	
+	3.0.1 :376 > arra.fetch(1)
+	 => 2 
+
+	3.0.1 :377 > arra.fetch(100)
+	(irb):377:in `fetch': index 100 outside of array bounds: -5...5 (IndexError)
+		from (irb):377:in `<main>'
+		from /home/beryl/.rvm/rubies/ruby-3.0.1/lib/ruby/gems/3.0.0/gems/irb-1.3.5/exe/irb:11:in `<top (required)>'
+		from /home/beryl/.rvm/rubies/ruby-3.0.1/bin/irb:23:in `load'
+		from /home/beryl/.rvm/rubies/ruby-3.0.1/bin/irb:23:in `<main>'
+
+	3.0.1 :378 > arra.fetch(100, "OOps")
+	 => "OOps" 
+
+
+# First and Last methods --- These methods will help with get first value from array and last value from array respectively --
+
+	3.0.1 :379 > arra.first
+	 => 1 
+
+	3.0.1 :380 > arra.last
+	 => 5
+
+
+# Take and Drop method ---
+	Take method will get values from array upto first given integer in take method --
+	Drop will do reverse of take as it will get the remaining values which is after the given value --
+
+	3.0.1 :384 > arra = Array.new(10){|i| i = i*2}
+	 => [0, 2, 4, 6, 8, 10, 12, 14, 16, 18] 
+
+	3.0.1 :385 > arra.take(3)
+	 => [0, 2, 4] 
+
+	3.0.1 :386 > arra.drop(3)
+	 => [6, 8, 10, 12, 14, 16, 18]
+
+
+# Length and count methods by which we can count the total size of array ---
+
+	3.0.1 :387 > browsers = ['Chrome', 'Firefox', 'Safari', 'Opera', 'IE']
+	 => ["Chrome", "Firefox", "Safari", "Opera", "IE"] 
+
+	3.0.1 :388 > browsers.length
+	 => 5 
+
+	3.0.1 :389 > browsers.count
+	 => 5 
+
+
+
+# Check array is empty or not ---
+	
+	3.0.1 :391 > browsers
+	 => ["Chrome", "Firefox", "Safari", "Opera", "IE"] 
+
+	3.0.1 :392 > browsers.empty?
+	 => false
+
+
+# To check the given element is in array or not ---
+
+	3.0.1 :395 > browsers
+	 => ["Chrome", "Firefox", "Safari", "Opera", "IE"] 
+
+	3.0.1 :396 > browsers.include?("Guruji")
+	 => false 
+
+	3.0.1 :397 > browsers.include?("Hello")
+	 => false 
+
+
+# Adding elements in array ---
+
+	# Using Push method --
+
+	3.0.1 :400 > arra1
+	 => [0, 1, 2, 3, 4] 
+
+	3.0.1 :401 > arra1.push(5)
+	 => [0, 1, 2, 3, 4, 5] 
+
+	3.0.1 :402 > arra1.push(5)
+	 => [0, 1, 2, 3, 4, 5, 5] 
+
+	3.0.1 :403 > arra1.push(7)
+	 => [0, 1, 2, 3, 4, 5, 5, 7]
+
+	
+	# Using << operators ---
+
+	3.0.1 :404 > arra1 << 9
+	 => [0, 1, 2, 3, 4, 5, 5, 7, 9] 
+
+	3.0.1 :405 > arra1 << 8
+	 => [0, 1, 2, 3, 4, 5, 5, 7, 9, 8] 
+
+
+	# Using Unshift --- it will add element at begning of array --
+
+	3.0.1 :408 > arra1.unshift(-1)
+	 => [-1, 0, 1, 2, 3, 4, 5, 5, 7, 9, 8] 
+
+	3.0.1 :409 > arra1.unshift(-2)
+	 => [-2, -1, 0, 1, 2, 3, 4, 5, 5, 7, 9, 8]
+
+	
+	# Using Insert command --- 
+		It will take first argument as index and then take element to add in array elements can be multiple.
+	
+	3.0.1 :411 > arra1.insert(6, 10)
+	 => [-2, -1, 0, 1, 2, 3, 10, 4, 5, 5, 7, 9, 8] 
+
+	3.0.1 :412 > arra1.insert(6, 'Preet', 'Orange', 'Nitin')
+	 => [-2, -1, 0, 1, 2, 3, "Preet", "Orange", "Nitin", 10, 4, 5, 5, 7, 9, 8]
+
+
+	
+# Remove or delete elements from array ---
+	
+	# Using Pop method --- this method remove element from last of array --
+
+	3.0.1 :412 > arra1
+	 => [-2, -1, 0, 1, 2, 3, "Preet", "Orange", "Nitin", 10, 4, 5, 5, 7, 9, 8] 
+	
+	3.0.1 :413 > arra1.pop
+	 => 8 
+
+	3.0.1 :414 > arra1.pop
+	 => 9 
+
+
+	# Using shift method ---
+		As we seen above the unshift method is use to add element at the begning 
+		similarly sift use to delete from the begining ---
+
+	3.0.1 :415 > arra1
+	 => [-2, -1, 0, 1, 2, 3, "Preet", "Orange", "Nitin", 10, 4, 5, 5, 7] 
+
+	3.0.1 :416 > arra1.shift
+	 => -2 
+
+	3.0.1 :417 > arra1.shift
+	 => -1 
+
+
+	# Using Delete_at() method ---
+		By this method we can delete the element by index ---
+
+	3.0.1 :419 > arra1
+	 => [0, 1, 2, 3, "Preet", "Orange", "Nitin", 10, 4, 5, 5, 7] 
+
+	3.0.1 :420 > arra1.delete_at(9)
+	 => 5 
+
+	3.0.1 :421 > arra1.delete_at(7)
+	 => 10 
+
+	3.0.1 :422 > arra1
+	 => [0, 1, 2, 3, "Preet", "Orange", "Nitin", 4, 5, 7]
+
+
+	# Using Compact method ---
+		This method will use to remove nil values from array --
+		Non Destractive method compact
+	3.0.1 :427 > arra1
+	 => [0, 1, 2, nil, 3, "Preet", "Orange", "Nitin", 4, 5, 7, nil] 
+
+	3.0.1 :428 > arra1.compact
+	 => [0, 1, 2, 3, "Preet", "Orange", "Nitin", 4, 5, 7] 
+
+	3.0.1 :429 > arra1
+	 => [0, 1, 2, nil, 3, "Preet", "Orange", "Nitin", 4, 5, 7, nil]
+
+		Destractive method Compact! -- it will save changes in the array variable. 
+
+	3.0.1 :430 > arra1.compact!
+	 => [0, 1, 2, 3, "Preet", "Orange", "Nitin", 4, 5, 7] 
+
+	3.0.1 :431 > arra1
+	 => [0, 1, 2, 3, "Preet", "Orange", "Nitin", 4, 5, 7]
+
+
+	
+	# Using Unique "uniq" method --- it will remove duplicacy from array --
+		Non Destractive method Uniq
+	3.0.1 :436 > arra1
+	 => [0, 1, 2, 3, "Preet", "Orange", "Nitin", 4, 5, 7, 2, "Orange", 5] 
+
+	3.0.1 :437 > arra1.uniq
+	 => [0, 1, 2, 3, "Preet", "Orange", "Nitin", 4, 5, 7] 
+
+	3.0.1 :438 > arra1
+	 => [0, 1, 2, 3, "Preet", "Orange", "Nitin", 4, 5, 7, 2, "Orange", 5] 
+
+		Destractive method Uniq!
+
+	3.0.1 :439 > arra1.uniq!
+	 => [0, 1, 2, 3, "Preet", "Orange", "Nitin", 4, 5, 7] 
+
+	3.0.1 :440 > arra1
+	 => [0, 1, 2, 3, "Preet", "Orange", "Nitin", 4, 5, 7]
+
+
+# Iterate the array ---
+
+	# Using Each loop --
+		
+	3.0.1 :441 > arra1
+	 => [0, 1, 2, 3, "Preet", "Orange", "Nitin", 4, 5, 7] 
+
+	3.0.1 :442 > arra.each {|x| print x -= 10, ' '}
+	-10 -8 -6 -4 -2 0 2 4 6 8  => [0, 2, 4, 6, 8, 10, 12, 14, 16, 18] 
+
+	3.0.1 :443 > arra.each {|x| print x *= 10, ' '}
+	0 20 40 60 80 100 120 140 160 180  => [0, 2, 4, 6, 8, 10, 12, 14, 16, 18]
+	
+		
+
+	# Using Reverse Each Loop --
+
+	3.0.1 :444 > browsers
+	 => ["Chrome", "Firefox", "Safari", "Opera", "IE"] 
+	
+	3.0.1 :445 > a
+	 => ""
+
+	3.0.1 :446 > browsers.reverse_each {|i| a += "#{i}"}
+	 => ["Chrome", "Firefox", "Safari", "Opera", "IE"]
+
+	3.0.1 :447 > a
+	 => "IEOperaSafariFirefoxChrome"
+
+
+
+	# Map Method ---
+		Non Destractive method Map
+
+	3.0.1 :460 > arra1
+	 => [0, 1, 2, 3, 4, 7]
+	
+	3.0.1 :461 > arra1.map {|i| i*2}
+	 => [0, 2, 4, 6, 8, 14]
+
+	3.0.1 :462 > arra1.map {|i| i**2}
+	 => [0, 1, 4, 9, 16, 49] 
+
+		Destractive method Map!
+	
+	3.0.1 :463 > arra1.map! {|i| i*2}
+	 => [0, 2, 4, 6, 8, 14] 
+
+	3.0.1 :464 > arra1
+	 => [0, 2, 4, 6, 8, 14]
+
+
+# Selecting Items from array ---
+
+	
+	# Using Select Method ---
+
+		Non Destractive method Select
+
+	3.0.1 :465 > arra1
+	 => [0, 2, 4, 6, 8, 14] 
+
+	3.0.1 :466 > arra1.select {|a| a >4}
+	 => [6, 8, 14] 
+
+	3.0.1 :467 > arra1.select {|a| a%2 ==0}
+	 => [0, 2, 4, 6, 8, 14] 
+	
+	3.0.1 :468 > arra1.select {|a| a%3 ==0}
+	 => [0, 6]
+
+		Destractive method Select!
+
+	3.0.1 :469 > arra1.select! {|a| a%2 ==0}
+	 => nil 
+
+	3.0.1 :470 > arra1.select! {|a| a%3 ==0}
+	 => [0, 6] 
+
+	3.0.1 :471 > arra1
+	 => [0, 6]
+
+
+
+	# Using Reject method ---
+
+		Non Destractive method Reject	
+
+	3.0.1 :473 > arra1
+	 => [1, 2, 3, 4, 5, 6]  
+
+	3.0.1 :475 > arra1.reject {|a| a < 3}
+	 => [3, 4, 5, 6] 
+
+	3.0.1 :476 > arra1
+	 => [1, 2, 3, 4, 5, 6]
+
+		Destractive method Reject!
+
+	3.0.1 :477 > arra1.reject! {|a| a < 3}
+	 => [3, 4, 5, 6] 
+
+	3.0.1 :478 > arra1
+	 => [3, 4, 5, 6] 
+
+
+
+	# Drop_while method --
+
+		Non Destractive method Drop_while
+
+	3.0.1 :484 > arra1.drop_while {|a| a < 3 }
+	 => [3, 4, 5, 6] 
+
+	3.0.1 :485 > arra1
+	 => [1, 2, 3, 4, 5, 6]
+
+	
+	
+	# Delete_if method --- 
+
+		Destractive method Delete_if
+
+	3.0.1 :487 > arra1
+	 => [1, 2, 3, 4, 5, 6] 
+
+	3.0.1 :488 > arra1.delete_if {|a| a < 4}
+	 => [4, 5, 6] 
+
+	3.0.1 :489 > arra1
+	 => [4, 5, 6] 
+
+
+	# Using Keep_if method --- Destractive method--
+
+	3.0.1 :490 > arra1 = [1, 2, 3, 4, 5, 6]
+	 => [1, 2, 3, 4, 5, 6] 
+
+	3.0.1 :491 > arra1.keep_if {|a| a < 4}
+	 => [1, 2, 3] 
+
+	3.0.1 :492 > arra1
+	 => [1, 2, 3] 
+
+
+
+# Public Intance Methods ---
+
+
+1) Intersection method ---
+	
+	arr1 & arr_other --> new_array
+
+	3.0.1 :493 > [1,2,3] & [3,4,2,1,0]
+	 => [1, 2, 3] 
+
+	3.0.1 :494 > arra
+	 => [0, 2, 4, 6, 8, 10, 12, 14, 16, 18] 
+
+	3.0.1 :495 > arra1
+	 => [1, 2, 3] 
+
+	3.0.1 :496 > arra1 & arra
+	 => [2] 
+
+
+2) Repeat an array N time ---
+
+	array * N --> New_array
+	It will return the array as the result of array N number times.
+
+	3.0.1 :497 > arra1
+	 => [1, 2, 3] 
+
+	3.0.1 :498 > arra1 * 3
+	 => [1, 2, 3, 1, 2, 3, 1, 2, 3] 
+
+
+3) Concatenation of two arrays ---
+	
+	array1 + array2 --> New_array
+	It will return the result as concatenation of other two arrays.
+
+	3.0.1 :499 > arra
+	 => [0, 2, 4, 6, 8, 10, 12, 14, 16, 18] 
+
+	3.0.1 :500 > arra1
+	 => [1, 2, 3] 
+
+	3.0.1 :501 > arra1 + arra
+	 => [1, 2, 3, 0, 2, 4, 6, 8, 10, 12, 14, 16, 18] 
+
+
+4) Difference in between two arrays ---
+
+
+	array - array1 --> new_array
+
+	3.0.1 :499 > arra
+	 => [0, 2, 4, 6, 8, 10, 12, 14, 16, 18] 
+
+	3.0.1 :500 > arra1
+	 => [1, 2, 3]  
+
+	3.0.1 :502 > arra1 - arra
+	 => [1, 3]
+
+
+5) Append in array ---
+	
+	array1 << object ---> array_new
+
+	3.0.1 :504 > arra1
+	 => [1, 2, 3] 
+
+	3.0.1 :505 > arra
+	 => [0, 2, 4, 6, 8, 10, 12, 14, 16, 18] 
+
+	3.0.1 :506 > arra << arra
+	 => [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, [...]]
+
+	3.0.1 :514 > arra << 19
+	 => [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, [...], 19]
+
+
+6) All? Method is to check is there any NIL value in array --
+
+	all? → true or false
+	all? {|element| ... } → true or false
+	all?(obj) → true or false
+	This method is use to check every elements of array that is setisfing the given condition or not.
+
+
+	3.0.1 :520 > arra
+	 => [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 19] 
+
+	3.0.1 :521 > arra.all?  # It will just check the elemets is not nill only
+	 => true 
+
+	3.0.1 :522 > arra.all? {|val| val % 2 == 0}  # this method check the block condition is setisfied or not.
+	 => false 
+
+	3.0.1 :523 > arra.pop
+	 => 19 
+
+	3.0.1 :524 > arra.all? {|val| val % 2 == 0}
+	 => true 
+
+	3.0.1 :525 > arra.all? {|val| val > 0}
+	 => false 
+
+	3.0.1 :526 > arra.all? {|val| val >=  0}
+	 => true 
+
+	3.0.1 :527 > arra.all?(/foo/) # Foo is a object which directly comparing with every elements of arra.
+	 => false
+
+
+
+# Any? method is use to check the elements is there or not atleast a single one --
+
+	any? → true or false
+	any? {|element| ... } → true or false
+	any?(obj) → true or false
+
+	
+	3.0.1 :528 > [nil, 0, false].any?
+	 => true 
+
+	3.0.1 :529 > [nil, false].any?
+	 => false 
+
+	3.0.1 :530 > [].any?
+	 => false 
+	
+	
+
+
+
+
+
+

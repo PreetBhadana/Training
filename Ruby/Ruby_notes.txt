@@ -921,7 +921,62 @@ Date --- 12-July-2021
 
 
 
+-=-=-=-=-==-=-===-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+Date --- 13-July-2021
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
+
+# String Object ---
+	It is like arbitary sequence of one or more bytes, typically represents characters that repersents human language.
+
+# Expression Substitution ---
+	Means embedding the value of any Ruby expression into a string using #{}--
+	Eg --
+		x,y,z = 12,36,72
+		puts"The value of x is #{x}"
+		puts"The sum of x and y is #{x + y}"
+		puts"The product of x,y and z is #{x*y*z}"
+
+# String Built-in methods ---- In file Ruby_String_methods_and_practice.txt
+
+
+
+
+
+
+# Array --- array is collection of hetrogenious datatype 
+	Each element in an array is associated with and referred to by an index.
+	
+
+
+# Create Array ---
+	1) By new class method --
+		eg -- name = Array.new
+	
+	2) By Array[] method --
+		eg -- num = Array.[](1,2,3,4,5)
+			OR
+		num = Array[1,2,3,4,5]
+
+	3) By range method --
+		eg -- digits = Array(0..9)
+
+
+# By new class method ---
+	In class method to make array we can pass size of array as well
+	eg--
+		num = Array.new(4)
+	
+	If we pass any value with size of array then it will become element of array and repeate as much the size of array.
+	eg--
+		name = Array.new(4, "Mac")
+
+	We can define and initialize array with for loop or can say in comprehension way --
+	eg -- 
+ 		nums = Array.new(10), {|e| e = e * 2}
+
+
+# Array Built-in Methods ----- In the file Ruby_Array_Built-in_Methods_and_practice.txt
 
 
 
