@@ -1,0 +1,395 @@
+---------- Hash Built-in Methods ----------
+
+
+# Hash --- A Hash maps each of its unique keys to a specific value.
+	
+
+	Syntax -- Direct Syntax --
+		a = {:foo => 100, :boo => 200, :bar => 300}
+		
+				OR
+
+		a = {foo : 100, bar : 300, boo : 200}
+		
+	
+	3.0.1 :457 > a = {:foo => 100, :boo => 200, :bar => 300}
+	 => {:foo=>100, :boo=>200, :bar=>300} 
+
+	3.0.1 :458 > a
+	 => {:foo=>100, :boo=>200, :bar=>300} 
+
+	3.0.1 :459 > b = {foo: 100, boo: 200, bar: 300}
+	 => {:foo=>100, :boo=>200, :bar=>300} 
+
+	3.0.1 :460 > b
+	 => {:foo=>100, :boo=>200, :bar=>300}
+
+
+
+# Comman use of hash ---
+
+	Person = {:Name => "Preet", :Language => "Ruby"}
+
+3.0.1 :463 > person = {:Name => "Preet", :Language =>"Ruby" }
+ => {:Name=>"Preet", :Language=>"Ruby"} 
+3.0.1 :464 > person
+ => {:Name=>"Preet", :Language=>"Ruby"} 
+
+	
+
+
+
+
+# One more example with method ---
+		
+	def name(hash)
+		p hash
+	end
+	
+	name({:Name => "Preet", :Language => "Ruby"})
+
+
+3.0.1 :466 > def name(hash)
+3.0.1 :467 >   p hash
+3.0.1 :468 > end
+ => :name 
+3.0.1 :469 > name({:Name => "Preet", :Language => "Ruby"})
+{:Name=>"Preet", :Language=>"Ruby"}
+ => {:Name=>"Preet", :Language=>"Ruby"}
+
+
+
+
+
+# One more exaple with object and class ---
+
+	class Dev
+	  attr_accessor :name, :language
+	  def initialize(hash)
+	    self.name = hash[:name]
+	    self.language = hash[:language]
+	  end
+	end
+	matz = Dev.new(name: 'Matz', language: 'Ruby')
+	matz
+
+3.0.1 :472 > class Dev
+3.0.1 :473 >   attr_accessor :name, :laguage
+3.0.1 :474 >   def name(hash)
+3.0.1 :475 >     self.name = hash[:name]
+3.0.1 :476 >     self.language = hash[:language]
+3.0.1 :477 >     puts ":name => #{self.name}"
+3.0.1 :478 >     puts ":language => #{self.language}"
+3.0.1 :479 >   end
+3.0.1 :480 > end
+ => :name 
+3.0.1 :481 > matz = Dev.new(name: 'Matz', language: 'Ruby')
+3.0.1 :506 > matz
+ => nil
+
+
+
+# Creating Hash ---
+
+	Hash can be created by --
+
+	1) Method Hash.new
+	2) Method Hash[]
+	3) Literal form : {}
+
+
+
+# Creating hash using .new() method ---
+	
+	3.0.1 :508 > h = Hash.new
+	 => {} 
+	3.0.1 :509 > h
+	 => {} 
+
+# Creating Hash by [] method ---
+	
+	3.0.1 :510 > s = Hash[]
+	 => {} 
+	3.0.1 :511 > s
+	 => {} 
+
+# Creating Hash by literal Method {} ---
+
+	3.0.1 :512 > a = {}
+	 => {} 
+	3.0.1 :513 > a
+	 => {}
+
+
+# Insert value in hash and check ---
+
+3.0.1 :514 > h = Hash[Name: "Preet", Age: 25, Salary: 15000]
+ => {:Name=>"Preet", :Age=>25, :Salary=>15000} 
+3.0.1 :515 > h
+ => {:Name=>"Preet", :Age=>25, :Salary=>15000}
+3.0.1 :520 > h.class
+ => Hash 
+3.0.1 :521 > h
+ => {:Name=>"Preet", :Age=>25, :Salary=>15000} 
+3.0.1 :522 > h[:Name]
+ => "Preet" 
+3.0.1 :523 > h[:Salary]
+ => 15000 
+
+
+# Delete hash key-value ---
+
+3.0.1 :524 > h.delete(:Age)
+ => 25 
+3.0.1 :525 > h
+ => {:Name=>"Preet", :Salary=>15000}
+
+
+
+# Check default value of hash ---
+
+3.0.1 :526 > h
+ => {:Name=>"Preet", :Salary=>15000} 
+3.0.1 :527 > h.default
+ => nil 
+
+
+
+# Hash Methods --------------------------------------------------------
+
+
+	Hash[] → new_empty_hash
+	Hash[hash] → new_hash
+	Hash[ [*2_element_arrays] ] → new_hash
+	Hash[*objects] → new_hash
+	
+	Returns a new Hash object populated with the given objects, if any. See ::new.
+
+	With no argument, returns a new empty Hash.
+
+	When the single given argument is a Hash, returns a new Hash populated with the entries from the given Hash
+
+3.0.1 :528 > h
+ => {:Name=>"Preet", :Salary=>15000} 
+3.0.1 :529 > Hash[h]
+ => {:Name=>"Preet", :Salary=>15000} 
+3.0.1 :530 > Hash[]
+ => {} 
+3.0.1 :531 > a0 = [:foo, 0]
+ => [:foo, 0] 
+3.0.1 :532 > a1 = [:bar, 1]
+ => [:bar, 1] 
+3.0.1 :533 > Hash[[a0, a1]]
+ => {:foo=>0, :bar=>1} 
+3.0.1 :534 > a3 = [:boo, 2, 3, 4]
+ => [:boo, 2, 3, 4]
+3.0.1 :536 > Hash[:foo=>0, :bar=>1]
+ => {:foo=>0, :bar=>1} 
+
+
+
+
+# Set Default value in Hash ---
+
+	new(default_value = nil) → new_hash
+	new {|hash, key| ... } → new_hash
+	
+	Returns a new empty Hash object.
+
+	The initial default value and initial default proc for the new hash depend on which form above was used
+
+3.0.1 :554 > h
+ => {:Name=>"Preet", :Salary=>15000} 
+3.0.1 :555 > h.default
+ => -1 
+3.0.1 :556 > h.default_proc
+ => nil 
+3.0.1 :557 > h.default = false
+ => false 
+3.0.1 :560 > h.default_proc.class
+ => NilClass 
+
+3.0.1 :561 > h[:Age]
+ => false 
+
+3.0.1 :562 > h = Hash.new {|hash, key| "Default value for #{key}" }
+ => {} 
+3.0.1 :563 > h[:Age]
+ => "Default value for Age" 
+
+
+
+# Hash < method to check the hash is proper subset of other subset or not ---
+
+	hash < other_hash → true or false
+	Returns true if hash is a proper subset of other_hash, false otherwise:
+
+3.0.1 :578 > h < s
+ => false 
+3.0.1 :579 > h > s
+ => false 
+3.0.1 :580 > s = {Name: "Preet", Salary: 15000 }
+ => {:Name=>"Preet", :Salary=>15000} 
+3.0.1 :581 > h < s
+ => false 
+3.0.1 :582 > h > s
+ => false 
+3.0.1 :585 > s = {Name: "Preet", Salary: 15000, Age: 25 }
+ => {:Name=>"Preet", :Salary=>15000, :Age=>25} 
+3.0.1 :586 > h < s
+ => true 
+
+
+
+# Hash <= method to check the hash is subset of other hash or not ---
+
+	hash <= other_hash → true or false
+	Returns true if hash is a subset of other_hash, false otherwise:
+
+
+3.0.1 :583 > h = s
+ => {:Name=>"Preet", :Salary=>15000} 
+3.0.1 :584 > h <= s
+ => true
+3.0.1 :585 > s = {Name: "Preet", Salary: 15000, Age: 25 }
+ => {:Name=>"Preet", :Salary=>15000, :Age=>25} 
+3.0.1 :586 > h < s
+ => true 
+3.0.1 :587 > h <= s
+ => true 
+3.0.1 :588 > s <= h
+ => false
+
+
+
+# Hash == method is use to compare the hash with other hash ---
+
+	hash == object → true or false
+	
+	Returns true if all of the following are true:
+
+	object is a Hash object.
+
+	hash and object have the same keys (regardless of order).
+
+	For each key key, hash[key] == object[key].
+
+	Otherwise, returns false 
+
+3.0.1 :589 > s
+ => {:Name=>"Preet", :Salary=>15000, :Age=>25} 
+3.0.1 :590 > h
+ => {:Name=>"Preet", :Salary=>15000} 
+3.0.1 :591 > s == h
+ => false 
+3.0.1 :592 > h == s
+ => false 
+3.0.1 :593 > h = {:Name=>"Preet", :Salary=>15000, :Age=>25}
+ => {:Name=>"Preet", :Salary=>15000, :Age=>25} 
+3.0.1 :594 > s == h
+ => true 
+3.0.1 :595 > h == s
+ => true 
+
+
+
+# Hash > other_hash method is use to check the other hash is proper subset of hash 1 or not ---
+
+	hash > other_hash → true or false
+	Returns true if hash is a proper superset of other_hash, false otherwise:
+
+3.0.1 :597 > s
+ => {:Name=>"Preet", :Salary=>15000, :Age=>25} 
+3.0.1 :598 > h
+ => {:Name=>"Preet", :Salary=>15000} 
+3.0.1 :599 > s > h
+ => true 
+3.0.1 :600 > s < h
+ => false
+
+
+
+# Hash >= other_hash method is use to check the other hash is subset of hash 1 or not ---
+
+	hash >= other_hash → true or false
+	Returns true if hash is a superset of other_hash, false otherwise:
+
+3.0.1 :597 > s
+ => {:Name=>"Preet", :Salary=>15000, :Age=>25} 
+3.0.1 :598 > h
+ => {:Name=>"Preet", :Salary=>15000}  
+3.0.1 :601 > s >= h
+ => true
+
+
+
+# Check the value through keys in hash ---
+
+	hash[key] → value
+	Returns the value associated with the given key, if found:
+
+3.0.1 :602 > h
+ => {:Name=>"Preet", :Salary=>15000} 
+3.0.1 :603 > h[:Name]
+ => "Preet" 
+3.0.1 :604 > h[:Salary]
+ => 15000 
+3.0.1 :605 > s[:Age]
+ => 25 
+3.0.1 :606 > h[:Age]
+ => nil 
+
+
+
+# Update the value through keys in hash ---
+
+	hash[key] = value → value
+	Associates the given value with the given key; returns value
+
+3.0.1 :609 > h[:Salary] = 15000
+ => 15000 
+3.0.1 :610 > h[:Salary] = 16000
+ => 16000 
+3.0.1 :611 > h
+ => {:Name=>"Preet", :Salary=>16000} 
+
+
+
+# Any? Method to check the given key-value is in hash or not ---
+
+	any? → true or false
+	any?(object) → true or false
+	any? {|key, value| ... } → true or false
+	
+	Returns true if any element satisfies a given criterion; false otherwise.
+
+	With no argument and no block, returns true if self is non-empty; false if empty
+
+
+3.0.1 :612 > h.any?([:Name, "Preet"])
+ => true 
+3.0.1 :613 > h.any?([:Name, "Nitin"])
+ => false 
+3.0.1 :614 > h.any?([:Salary, 16000])
+ => true 
+3.0.1 :615 > h.any?([:Salary, 15000])
+ => false
+3.0.1 :619 > a = {foo: 0, bar: 1, baz: 2}
+ => {:foo=>0, :bar=>1, :baz=>2} 
+3.0.1 :620 > a.any? {|key, value| value < 3}
+ => true 
+3.0.1 :621 > a.any? {|key, value| value > 3}
+ => false 
+
+
+
+
+
+
+
+
+
+
+
+
+

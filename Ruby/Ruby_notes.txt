@@ -981,3 +981,40 @@ Date --- 13-July-2021
 
 
 
+
+
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=
+Date --- 14-July-21
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+
+
+# Hashes --- Just like dictionaries in python, Hashes is collection of key-value pairs like "Salary" => 5000
+	It is similar to Array except that indexing is done via arbitary keys of any object type, not an integer index.
+
+
+
+# Creating Hashes ---
+	As with arrays, there is variety of ways to create hashes --
+	
+	1) Class method --	
+		Eg -- Month = Hash.new
+
+		Similarly we can give default value to hash.
+		Eg -- month = Hash.new("month")
+				OR
+			month = Hash.new "month"
+
+
+	2) Hash[] method --
+		Eg --
+			month = Hash["a" => 100, "b" => 200]
+
+
+# Hash Built in methods ------ In file Ruby_Hash_Built-in_Methods.txt
+
+
+
+
+
