@@ -578,7 +578,1000 @@
 	3.0.1 :530 > [].any?
 	 => false 
 	
+
+
+# Assoc method is use to return either element or nil if it fround the given object at first possition in the nested array.
+	assoc(obj) → found_array or nil
+
+	3.0.1 :012 > arra
+	 => [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, {:foo=>"Boo"}, [4, 5, 7, 9]] 
+
+	3.0.1 :013 > arra.assoc(4)
+	 => [4, 5, 7, 9] 
+
+	3.0.1 :014 > arra.assoc(8)
+	 => nil 
+
+	3.0.1 :015 > arra.assoc(5)
+	 => nil 
+
+	3.0.1 :016 > arra.assoc(0)
+	 => nil	
+
+
+# At method to search element by integer ---
+	at(index) → object
+	Returns the element at Integer offset index; does not modify self.
+
+	3.0.1 :017 > arra
+	 => [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, {:foo=>"Boo"}, [4, 5, 7, 9]] 
+
+	3.0.1 :018 > arra[0]
+	 => 0 
+
+	3.0.1 :019 > arra[1]
+	 => 1 
+
+	3.0.1 :020 > arra[10]
+	 => 10 
+
+	3.0.1 :021 > arra[12]
+	 => {:foo=>"Boo"} 
+
+	3.0.1 :022 > arra[13]
+	 => [4, 5, 7, 9] 
+
+	3.0.1 :023 > arra[13][3]
+	 => 9
+
+
+
+# Bsearch Method to search elements ---
 	
+	bsearch {|element| ... } → object
+	bsearch → new_enumerator
+	Returns an element from self selected by a binary search. self should be sorted, but this is not checked.
+
+	By using binary search, finds a value from this array which meets the given condition in O(log n) where n is the size of the array.
+	
+	3.0.1 :038 > arra
+	 => [0, 2, 4, 6, 8, 10, 12, 14, 16, 18] 
+
+	3.0.1 :039 > arra.bsearch {|x| x >= 4 }
+	 => 4 
+
+	3.0.1 :040 > arra.bsearch {|x| x >= 5 }
+	 => 6 
+
+	3.0.1 :041 > arra.bsearch {|x| x >=  -1}
+	 => 0 
+
+	3.0.1 :042 > arra.bsearch {|x| x >=  100}
+	 => nil 
+
+
+# Bsearch_Index method of array search as above method but serch index of array.
+
+	bsearch_index {|element| ... } → integer or nil
+	bsearch_index → new_enumerator
+	Searches self as described at method bsearch, but returns the index of the found element instead of the element itself.
+
+	3.0.1 :044 > arra.bsearch_index {|x| x >= 4 }
+	 => 2 
+
+	3.0.1 :045 > arra.bsearch_index {|x| x >= 5 }
+	 => 3 
+
+	3.0.1 :046 > arra.bsearch_index {|x| x >= -1 }
+	 => 0 
+
+	3.0.1 :047 > arra.bsearch_index {|x| x >= 100}
+	 => nil 
+
+
+# Map method to perform condition and iterate array accordingly ---
+	
+	map {|element| ... } → new_array
+	map → new_enumerator
+	Calls the block, if given, with each element of self; returns a new Array whose elements are the return values from the block:
+
+	3.0.1 :049 > arra
+	 => [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, "Hello", 25.87, "Preet", [24, 5, 6, 87], {:foo=>"boo"}] 
+
+	3.0.1 :050 > arra.map {|a| a.class}
+	 => [Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, String, Float, String, Array, Hash] 
+
+	3.0.1 :051 > arra.map
+	 => #<Enumerator: ...> 
+
+	
+
+
+
+	map! {|element| ... } → self
+	map! → new_enumerator
+
+	Same as above just save the results of block ---
+
+
+# Combination method is use to return subsets by making as much as possible combinations ---
+	combination(n) {|element| ... } → self
+	combination(n) → new_enumerator
+	Calls the block, if given, with combinations of elements of self; returns self. The order of combinations is indeterminate.
+
+
+3.0.1 :052 > a = [0, 1, 2]
+3.0.1 :053 > a.combination(2) {|combination| p combination }
+[0, 1]
+[0, 2]
+3.0.1 :054 > a = [0, 1, 2, 4, 9]
+3.0.1 :055 > a.combination(2) {|combination| p combination }
+[0, 1]
+[0, 2]
+[0, 4]
+[0, 9]
+[1, 4]
+[1, 9]
+[2, 4]
+[2, 9]
+[4, 9]
+ => [0, 1, 2, 4, 9] 
+3.0.1 :056 > a = [0, 1, 2, 4, 9]
+3.0.1 :057 > a.combination(3) {|combination| p combination }
+[0, 1, 2]
+[0, 1, 4]
+[0, 1, 9]
+[0, 2, 4]
+[0, 2, 9]
+[0, 4, 9]
+[1, 2, 4]
+[1, 2, 9]
+[1, 4, 9]
+[2, 4, 9]
+ => [0, 1, 2, 4, 9] 
+3.0.1 :058 > a = [0, 1, 2, 4, 9]
+3.0.1 :059 > a.combination(4) {|combination| p combination }
+[0, 1, 2, 4]
+[0, 1, 2, 9]
+[0, 1, 4, 9]
+[0, 2, 4, 9]
+[1, 2, 4, 9]
+ => [0, 1, 2, 4, 9] 
+3.0.1 :060 > a = [0, 1, 2, 4, 9]
+
+
+
+# Compact method is use to reduce the duplicacy to compact the array size --
+
+	compact → new_arrayclick to toggle source
+	Returns a new Array containing all non-nil elements from self:
+
+
+3.0.1 :063 > a
+ => [1, 2, 5, 7, 3, 2, nil, 4, 5, 9, nil] 
+3.0.1 :064 > a.compact
+ => [1, 2, 5, 7, 3, 2, 4, 5, 9] 
+
+
+	compact! → self or nil
+	Removes all nil elements from self.
+
+3.0.1 :065 > a
+ => [1, 2, 5, 7, 3, 2, nil, 4, 5, 9, nil] 
+3.0.1 :066 > a.compact!
+ => [1, 2, 5, 7, 3, 2, 4, 5, 9] 
+3.0.1 :067 > a
+ => [1, 2, 5, 7, 3, 2, 4, 5, 9]
+
+
+
+# Concate method ---
+	
+	concat(*other_arrays) → self
+	Adds to array all elements from each Array in other_arrays; returns self:
+
+3.0.1 :068 > b = ['hello', 'bhai', 'how', 'are', 'you']
+ => ["hello", "bhai", "how", "are", "you"] 
+3.0.1 :069 > a
+ => [1, 2, 5, 7, 3, 2, 4, 5, 9] 
+3.0.1 :070 > a.concat(b)
+ => [1, 2, 5, 7, 3, 2, 4, 5, 9, "hello", "bhai", "how", "are", "you"] 
+
+
+
+# Count method to count all elements of array ---
+
+	count → an_integer
+	count(obj) → an_integer
+	count {|element| ... } → an_integer
+	Returns a count of specified elements.
+
+3.0.1 :071 > a.count
+ => 14 
+3.0.1 :072 > a.count(2)
+ => 2 
+3.0.1 :073 > a.count(5)
+ => 2 
+3.0.1 :076 > a = [1, 2, 5, 7, 3, 2, 4, 5, 9,]
+ => [1, 2, 5, 7, 3, 2, 4, 5, 9] 
+3.0.1 :077 > a.count {|a| a> 2}
+ => 6
+
+
+# Iterate an array we can also use cycle method --
+
+	cycle {|element| ... } → nil
+	cycle(count) {|element| ... } → nil
+	cycle → new_enumerator
+	cycle(count) → new_enumerator
+	
+3.0.1 :076 > a = [1, 2, 5, 7, 3, 2, 4, 5, 9,]
+ => [1, 2, 5, 7, 3, 2, 4, 5, 9] 
+
+3.0.1 :078 > a.cycle
+ => #<Enumerator: ...> 
+
+3.0.1 :080 > a.cycle(2) {|a| a> 2}
+ => nil 
+3.0.1 :081 > a.cycle(3) {|a| a> 2}
+ => nil 
+3.0.1 :082 > a.cycle(3) {|a| p a}
+2
+5
+7
+3
+2
+4
+5
+9
+1
+2
+7
+2
+5
+9
+1
+2
+5
+7
+3
+2
+4
+5
+9
+ => nil 
+3.0.1 :083 > a.cycle(1) {|a| p a}
+1
+2
+5
+7
+3
+2
+4
+5
+9
+ => nil 
+3.0.1 :084 > a.cycle(1) {|a| print a, ' '}
+1 2 5 7 3 2 4 5 9  => nil 
+3.0.1 :085 > a.cycle(1) {|a| b.push(a)}
+ => nil 
+3.0.1 :086 > b
+ => ["hello", "bhai", "how", "are", "you", 1, 2, 5, 7, 3, 2, 4, 5, 9]
+
+
+
+
+# Delete Method to delete elemets from array ---
+
+	delete(obj) → deleted_object
+	delete(obj) {|nosuch| ... } → deleted_object or block_return
+	Removes zero or more elements from self; returns self.
+
+3.0.1 :089 > b
+ => ["hello", "bhai", "how", "are", "you", 1, 2, 5, 7, 3, 2, 4, 5, 9] 
+3.0.1 :090 > b.delete(5)
+ => 5 
+3.0.1 :091 > b
+ => ["hello", "bhai", "how", "are", "you", 1, 2, 7, 3, 2, 4, 9] 
+3.0.1 :092 > b.delete(5) {|a| a.to_i} 
+ => 5 
+3.0.1 :093 > b
+ => ["hello", "bhai", "how", "are", "you", 1, 2, 7, 3, 2, 4, 9] 
+3.0.1 :094 > b.delete(9) {|a| a.to_i} 
+ => 9 
+3.0.1 :095 > b
+ => ["hello", "bhai", "how", "are", "you", 1, 2, 7, 3, 2, 4] 
+3.0.1 :096 > b.delete('hello') {|a| a.to_s} 
+ => "hello" 
+3.0.1 :097 > b
+ => ["bhai", "how", "are", "you", 1, 2, 7, 3, 2, 4] 
+3.0.1 :098 > b.delete('you')
+ => "you" 
+3.0.1 :099 > b
+ => ["bhai", "how", "are", 1, 2, 7, 3, 2, 4]
+
+
+
+# Delete by index ---
+
+	delete_at(index) → deleted_object or nil
+	Deletes an element from self, per the given Integer index.
+
+	When index is non-negative, deletes the element at offset index:
+
+3.0.1 :100 > b
+ => ["bhai", "how", "are", 1, 2, 7, 3, 2, 4] 
+3.0.1 :101 > b.delete_at(1)
+ => "how" 
+3.0.1 :102 > b
+ => ["bhai", "are", 1, 2, 7, 3, 2, 4] 
+3.0.1 :103 > b.delete_at(-1)
+ => 4 
+3.0.1 :104 > b
+ => ["bhai", "are", 1, 2, 7, 3, 2] 
+
+
+
+# Delete with condtion ---
+
+	delete_if {|element| ... } → self
+	delete_if → Enumerator
+	Removes each element in self for which the block returns a truthy value; returns self:
+
+3.0.1 :107 > b
+ => ["bhai", "are", 1, 2, 7, 3, 2] 
+3.0.1 :108 > b.delete_if {|a| a.to_s.start_with?('b')}
+ => ["are", 1, 2, 7, 3, 2] 
+3.0.1 :109 > b
+ => ["are", 1, 2, 7, 3, 2] 
+3.0.1 :110 > b.delete_if {|a| a == 2}
+ => ["are", 1, 7, 3] 
+3.0.1 :111 > b
+ => ["are", 1, 7, 3]
+
+
+
+# Check deiffrence in arrays ---
+
+	difference(*other_arrays) → new_array
+	Returns a new Array containing only those elements from self that are not found in any of the Arrays other_arrays; items are compared using eql?; order from self is preserved:
+
+
+3.0.1 :115 > a
+ => [1, 2, 5, 7, 3, 2, 4, 5, 9] 
+3.0.1 :116 > b
+ => ["are", 1, 7, 3] 
+3.0.1 :117 > a.difference(b)
+ => [2, 5, 2, 4, 5, 9]
+
+
+
+# Dig method --- in ruby this method is use to dig out the elements from nested arrays ---
+
+	dig(index, *identifiers) → object
+	Finds and returns the object in nested objects that is specified by index and identifiers. The nested objects may be instances of various classes
+
+3.0.1 :118 > arra
+ => [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, "Hello", 25.87, "Preet", [24, 5, 6, 87], {:foo=>"boo"}] 
+3.0.1 :119 > arra.dig(1)
+ => 2 
+3.0.1 :120 > arra.dig(2)
+ => 4 
+3.0.1 :121 > arra.dig(13)
+ => [24, 5, 6, 87] 
+3.0.1 :122 > arra.dig(13, 1)
+ => 5 
+3.0.1 :123 > arra.dig(14, 1)
+ => nil 
+3.0.1 :124 > arra.dig(14)
+ => {:foo=>"boo"}
+
+
+
+# Dopr method in array to drop elements of array --- it works on elements directly ---
+	It will drop the elements till the range what we gave in drop(n) method as n is for range ---
+	
+	drop(n) → new_array
+	Returns a new Array containing all but the first n element of self, where n is a non-negative Integer; does not modify self.
+
+
+3.0.1 :125 > arra
+ => [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, "Hello", 25.87, "Preet", [24, 5, 6, 87], {:foo=>"boo"}] 
+3.0.1 :126 > arra.drop(1)
+ => [2, 4, 6, 8, 10, 12, 14, 16, 18, "Hello", 25.87, "Preet", [24, 5, 6, 87], {:foo=>"boo"}] 
+3.0.1 :127 > arra.drop(5)
+ => [10, 12, 14, 16, 18, "Hello", 25.87, "Preet", [24, 5, 6, 87], {:foo=>"boo"}]
+
+
+
+# delete while block condition is setisfied ---
+
+	drop_while {|element| ... } → new_array
+	drop_while → new_enumerator
+	Returns a new Array containing zero or more trailing elements of self; does not modify self
+
+3.0.1 :127 > arra
+ => [10, 12, 14, 16, 18, "Hello", 25.87, "Preet", [24, 5, 6, 87], {:foo=>"boo"}] 
+3.0.1 :128 > arra.drop_while {|element| element < 3 }
+ => [4, 6, 8, 10, 12, 14, 16, 18, "Hello", 25.87, "Preet", [24, 5, 6, 87], {:foo=>"boo"}]
+
+
+
+
+
+# Each loop to iterate array ---
+	
+	each {|element| ... } → self
+	each → Enumerator
+	Iterates over array elements.
+
+	When a block given, passes each successive array element to the block; returns self:
+
+3.0.1 :129 > arra
+ => [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, "Hello", 25.87, "Preet", [24, 5, 6, 87], {:foo=>"boo"}] 
+3.0.1 :130 > arra.each {|a| puts "#{a.class} : #{a}"}
+Integer : 0
+Integer : 2
+Integer : 4
+Integer : 6
+Integer : 8
+Integer : 10
+Integer : 12
+Integer : 14
+Integer : 16
+Integer : 18
+String : Hello
+Float : 25.87
+String : Preet
+Array : [24, 5, 6, 87]
+Hash : {:foo=>"boo"}
+ => [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, "Hello", 25.87, "Preet", [24, 5, 6, 87], {:foo=>"boo"}] 
+3.0.1 :131 > arra.each {|a| puts a}
+0
+2
+4
+6
+8
+10
+12
+14
+16
+18
+Hello
+25.87
+Preet
+24
+5
+6
+87
+{:foo=>"boo"}
+ => [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, "Hello", 25.87, "Preet", [24, 5, 6, 87], {:foo=>"boo"}] 
+
+3.0.1 :133 > arra.each {|a| puts a; a.clear if a.to_s.start_with?('H')}
+0
+2
+4
+6
+8
+10
+12
+14
+16
+18
+Hello
+25.87
+Preet
+24
+5
+6
+87
+{:foo=>"boo"}
+ => [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, "", 25.87, "Preet", [24, 5, 6, 87], {:foo=>"boo"}]
+
+
+
+
+# Each loop to iterate array by index ---
+
+	each_index {|index| ... } → self
+	each_index → Enumerator
+	Iterates over array indexes.
+
+3.0.1 :135 > arra.each_index {|a| puts "#{a} : #{arra[a]}"}
+1 : 2
+2 : 4
+3 : 6
+4 : 8
+5 : 10
+6 : 12
+7 : 14
+8 : 16
+9 : 18
+10 : 
+11 : 25.87
+12 : Preet
+13 : [24, 5, 6, 87]
+14 : {:foo=>"boo"}
+ => [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, "", 25.87, "Preet", [24, 5, 6, 87], {:foo=>"boo"}] 
+
+
+
+# TO replace the elements in array we can also use fill method ---
+
+	fill(obj) → self
+	fill(obj, start) → self
+	fill(obj, start, length) → self
+	fill(obj, range) → self
+	fill {|index| ... } → self
+	fill(start) {|index| ... } → self
+	fill(start, length) {|index| ... } → self
+	fill(range) {|index| ... } → self
+	Replaces specified elements in self with specified objects; returns self.
+
+	With argument obj and no block given, replaces all elements with that one object
+
+3.0.1 :139 > arra = [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, "", 25.87, "Preet", [24, 5, 6, 87], {:foo=>"boo"}]
+ => [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, "", 25.87, "Preet", [24, 5, 6, 87], {:foo=>"boo"}] 
+3.0.1 :140 > arra.fill(nil)
+ => [nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil] 
+3.0.1 :141 > arra = [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, "", 25.87, "Preet", [24, 5, 6, 87], {:foo=>"boo"}]
+ => [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, "", 25.87, "Preet", [24, 5, 6, 87], {:foo=>"boo"}] 
+3.0.1 :142 > arra.fill(nil, 10)  
+ => [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, nil, nil, nil, nil, nil] 
+3.0.1 :143 > arra = [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, "", 25.87, "Preet", [24, 5, 6, 87], {:foo=>"boo"}]
+ => [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, "", 25.87, "Preet", [24, 5, 6, 87], {:foo=>"boo"}] 
+3.0.1 :144 > arra.fill(nil, 10..10)  
+ => [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, nil, 25.87, "Preet", [24, 5, 6, 87], {:foo=>"boo"}] 
+3.0.1 :145 > arra = [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, "", 25.87, "Preet", [24, 5, 6, 87], {:foo=>"boo"}]
+ => [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, "", 25.87, "Preet", [24, 5, 6, 87], {:foo=>"boo"}] 
+3.0.1 :146 > arra.fill(nil, 10, 10)  
+ => [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil] 
+3.0.1 :147 > arra = [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, "", 25.87, "Preet", [24, 5, 6, 87], {:foo=>"boo"}]
+ => [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, "", 25.87, "Preet", [24, 5, 6, 87], {:foo=>"boo"}] 
+3.0.1 :148 > arra.fill(nil, 10...10)  
+ => [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, "", 25.87, "Preet", [24, 5, 6, 87], {:foo=>"boo"}] 
+3.0.1 :149 > arra.fill(nil, 10..10)  
+ => [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, nil, 25.87, "Preet", [24, 5, 6, 87], {:foo=>"boo"}] 
+
+
+
+
+# Replace the array with other array's elements ---
+	replace(other_array) → self
+	Replaces the content of self with the content of other_array; returns self:
+
+3.0.1 :184 > a
+ => [0, 1, 2, 3, 4, 5] 
+3.0.1 :185 > b
+ => ["are", 1, 7, 3] 
+3.0.1 :186 > a.replace(b)
+ => ["are", 1, 7, 3] 
+3.0.1 :187 > a
+ => ["are", 1, 7, 3] 
+3.0.1 :188 > a.replace(s)
+ => [0, [1, [2, 3], 4], 5] 
+3.0.1 :189 > a
+ => [0, [1, [2, 3], 4], 5] 
+
+
+
+
+
+# Iterate array's elements using index method ----
+
+	index(object) → integer or nil
+	index {|element| ... } → integer or nil
+	index → new_enumerator
+	Returns the index of a specified element.
+
+3.0.1 :150 > arra
+ => [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, nil, 25.87, "Preet", [24, 5, 6, 87], {:foo=>"boo"}] 
+3.0.1 :151 > arra.index(12)
+ => 6 
+3.0.1 :152 > arra.index('Preet')
+ => 12 
+3.0.1 :153 > arra.index() {|a| a[13] == 24 }
+
+
+
+
+# TO get First or first n elements from array ---
+
+	first → object or nil
+	first(n) → new_array
+	Returns elements from self; does not modify self.
+
+	When no argument is given, returns the first element:
+
+3.0.1 :154 > arra
+ => [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, nil, 25.87, "Preet", [24, 5, 6, 87], {:foo=>"boo"}] 
+3.0.1 :155 > arra.first
+ => 0 
+3.0.1 :156 > arra.first(5)
+ => [0, 2, 4, 6, 8] 
+3.0.1 :157 > arra.first(13)
+ => [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, nil, 25.87, "Preet"] 
+3.0.1 :158 > arra.first(15)
+ => [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, nil, 25.87, "Preet", [24, 5, 6, 87], {:foo=>"boo"}] 
+3.0.1 :159 > arra.first(16)
+ => [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, nil, 25.87, "Preet", [24, 5, 6, 87], {:foo=>"boo"}] 
+
+
+
+
+# TO get last or Last n elementrs ---
+
+	last → object or nil
+	last(n) → new_array
+	Returns elements from self; self is not modified.
+
+	When no argument is given, returns the last element:
+
+3.0.1 :192 > arra
+ => [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, nil, 25.87, "Preet", [24, 5, 6, 87], {:foo=>"boo"}] 
+3.0.1 :193 > arra.last
+ => {:foo=>"boo"} 
+3.0.1 :194 > arra.last(5)
+ => [nil, 25.87, "Preet", [24, 5, 6, 87], {:foo=>"boo"}] 
+
+
+
+# Flatten method to make nested array into single layer array --
+
+	flatten → new_array
+	flatten(level) → new_array
+	Returns a new Array that is a recursive flattening of self:
+
+	Each non-Array element is unchanged.
+
+	Each Array is replaced by its individual elements.
+
+
+3.0.1 :161 > a
+ => [0, [1, [2, 3], 4], 5] 
+3.0.1 :162 > a.flatten(0)
+ => [0, [1, [2, 3], 4], 5] 
+3.0.1 :163 > a.flatten(1)
+ => [0, 1, [2, 3], 4, 5] 
+3.0.1 :164 > a
+ => [0, [1, [2, 3], 4], 5] 
+3.0.1 :165 > a.flatten(2)
+ => [0, 1, 2, 3, 4, 5]
+
+
+	flatten! → self or nil
+	flatten!(level) → self or nil
+	Replaces each nested Array in self with the elements from that Array; returns self if any changes, nil otherwise.
+
+3.0.1 :166 > a
+ => [0, [1, [2, 3], 4], 5] 
+3.0.1 :167 > a.flatten!(0)
+ => nil 
+3.0.1 :168 > a.flatten!(1)
+ => [0, 1, [2, 3], 4, 5] 
+3.0.1 :169 > a.flatten!(2)
+ => [0, 1, 2, 3, 4, 5] 
+3.0.1 :170 > a.flatten!(3)
+ => nil 
+
+
+
+# Hash method for array is use to create hash of array ---
+	hash is a integer value which act as encrypted.
+	hash → integer
+	Returns the integer hash value for self.
+
+3.0.1 :175 > a
+ => [0, 1, 2, 3, 4, 5] 
+3.0.1 :176 > a.hash
+ => 1990254612351336000 
+3.0.1 :177 > a
+ => [0, 1, 2, 3, 4, 5] 
+3.0.1 :178 > b.hash
+ => -2154497479121295192 
+3.0.1 :179 > arra.hash
+ => -4113651681482587268 
+
+
+# Include method ---- to check the element is in array or not ---
+
+	include?(obj) → true or false
+	Returns true if for some index i in self, obj == self[i]; otherwise
+
+3.0.1 :180 > a
+ => [0, 1, 2, 3, 4, 5] 
+3.0.1 :181 > a.include?(4)
+ => true 
+3.0.1 :182 > a.include?(6)
+ => false 
+3.0.1 :183 > a.include?('preet')
+ => false 
+
+
+
+
+# Inspect method -- to get a whole array into string ---
+
+	inspect → new_string
+	Returns the new String formed by calling method #inspect on each array element
+
+3.0.1 :196 > a.inspect
+ => "[0, [1, [2, 3], 4], 5]" 
+3.0.1 :197 > arra.inspect
+ => "[0, 2, 4, 6, 8, 10, 12, 14, 16, 18, nil, 25.87, \"Preet\", [24, 5, 6, 87], {:foo=>\"boo\"}]" 
+
+
+
+# Intersection method is use to intersect multiple arrays ---
+	intersection(*other_arrays) → new_array
+Returns a new Array containing each element found both in self and in all of the given Arrays other_arrays; duplicates are omitted; items are compared using eql?:
+
+
+3.0.1 :198 > a
+ => [0, [1, [2, 3], 4], 5] 
+3.0.1 :199 > b
+ => ["are", 1, 7, 3] 
+3.0.1 :200 > arra
+ => [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, nil, 25.87, "Preet", [24, 5, 6, 87], {:foo=>"boo"}] 
+3.0.1 :201 > a.intersection(b)
+ => [] 
+3.0.1 :202 > arra.intersection(b)
+ => [] 
+3.0.1 :203 > arra.intersection(a)
+ => [0] 
+
+
+
+# Join Method as name prefers, this method is use to join elements in a single string ----
+	join →new_string
+	join(separator = $,) → new_string
+	Returns the new String formed by joining the array elements after conversion. For each element element
+
+	Uses element.to_s if element is not a kind_of?(Array).
+
+	Uses recursive element.join(separator) if element is a kind_of?(Array)
+
+3.0.1 :204 > a
+ => [0, [1, [2, 3], 4], 5] 
+3.0.1 :205 > a.join
+ => "012345" 
+3.0.1 :206 > b.join
+ => "are173" 
+3.0.1 :207 > arra.join
+ => "02468101214161825.87Preet245687{:foo=>\"boo\"}" 
+3.0.1 :208 > a.join('\n')
+ => "0\\n1\\n2\\n3\\n4\\n5" 
+3.0.1 :209 > a.join("\n")
+ => "0\n1\n2\n3\n4\n5" 
+3.0.1 :210 > a.join(" ")
+ => "0 1 2 3 4 5" 
+3.0.1 :211 > arra.join(" ")
+ => "0 2 4 6 8 10 12 14 16 18  25.87 Preet 24 5 6 87 {:foo=>\"boo\"}" 
+3.0.1 :212 > b.join(" ")
+ => "are 1 7 3"
+
+
+
+
+# Max method to get max element from array ---
+
+	max → element
+	max {|a, b| ... } → element
+	max(n) → new_array
+	max(n) {|a, b| ... } → new_array
+	Returns one of the following:
+
+	The maximum-valued element from self.
+
+	A new Array of maximum-valued elements selected from self.	
+
+3.0.1 :223 > a
+ => [0, 1, 2, 3, 4, 5] 
+3.0.1 :224 > a.max
+ => 5 
+3.0.1 :225 > a.max(3)
+ => [5, 4, 3]
+3.0.1 :227 > ['0', '00', '000'].max {|a, b| a.size <=> b.size }
+ => "000" 
+
+
+# Min Method to get minimum element from array ---
+
+	min → element
+	min { |a, b| ... } → element
+	min(n) → new_array
+	min(n) { |a, b| ... } → new_array
+	Returns one of the following:
+
+	The minimum-valued element from self.
+
+	A new Array of minimum-valued elements selected from self.
+
+	When no block is given, each element in self must respond to method <=> with an Integer.
+
+3.0.1 :228 > a.min
+ => 0 
+3.0.1 :229 > a.min {|a, b| a.size <=> b.size }
+ => 0 
+3.0.1 :230 > a.min(3)
+ => [0, 1, 2] 
+3.0.1 :231 > a.min(3) {|a, b| a.size <=> b.size }
+ => [2, 0, 4]
+
+
+
+# MinMax method to get min and max value from array ---
+
+	minmax → [min_val, max_val]
+	minmax {|a, b| ... } → [min_val, max_val]
+
+3.0.1 :232 > a
+ => [0, 1, 2, 3, 4, 5] 
+3.0.1 :233 > a.minmax
+ => [0, 5] 
+3.0.1 :235 > a.minmax() {|a, b| a.size <=> b.size }
+ => [0, 0] 
+
+
+
+# Check the array contains nil or nan value only ----
+
+	none? → true or false
+	none? {|element| ... } → true or false
+	none?(obj) → true or false
+	Returns true if no element of self meet a given criterion.
+
+3.0.1 :236 > a
+ => [0, 1, 2, 3, 4, 5] 
+3.0.1 :237 > a.none?
+ => false 
+3.0.1 :238 > b
+ => ["are", 1, 7, 3] 
+3.0.1 :239 > b.none?
+ => false 
+3.0.1 :240 > arra
+ => [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, nil, 25.87, "Preet", [24, 5, 6, 87], {:foo=>"boo"}] 
+3.0.1 :241 > arra.none?
+ => false 
+3.0.1 :242 > [nil, false].none?
+ => true 
+3.0.1 :243 > [].none?
+ => true 
+3.0.1 :244 > a
+ => [0, 1, 2, 3, 4, 5] 
+3.0.1 :245 > a.none? {|a| a>6}
+ => true 
+3.0.1 :246 > a.none? {|a| a<6}
+ => false 
+
+
+
+# One method to check the elements in array either only 1 or select one element by block condition ---
+
+	one? → true or false
+	one? {|element| ... } → true or false
+	one?(obj) → true or false
+	Returns true if exactly one element of self meets a given criterion.
+
+3.0.1 :247 > a.one?
+ => false 
+3.0.1 :248 > a
+ => [0, 1, 2, 3, 4, 5] 
+3.0.1 :249 > a.one?{|a| a == 0}
+ => true 
+3.0.1 :250 > a.append(1, 5)
+ => [0, 1, 2, 3, 4, 5, 1, 5] 
+3.0.1 :251 > a.one?{|a| a == 1}
+ => false 
+3.0.1 :252 > a.one?(0)
+ => true 
+3.0.1 :253 > a.one?(1)
+ => false 
+
+
+# Pack method to return bufferstring according Template string ---
+
+	pack( aTemplateString ) → aBinaryString
+	pack( aTemplateString, buffer: aBufferString ) → aBufferString 
+
+3.0.1 :256 > a = [ "a", "b", "c" ]
+ => ["a", "b", "c"] 
+3.0.1 :257 > a.pack("A3A3A3")
+ => "a  b  c  " 
+3.0.1 :258 > a.pack("a3a3a3")
+ => "a\x00\x00b\x00\x00c\x00\x00" 
+3.0.1 :259 > n = [ 65, 66, 67 ]
+ => [65, 66, 67] 
+3.0.1 :260 > n.pack("ccc")  
+ => "ABC" 
+
+
+# To make Subsets from a given array ---
+
+	permutation {|element| ... } → selfclick to toggle source
+	permutation(n) {|element| ... } → self
+	permutation → new_enumerator
+	permutation(n) → new_enumerator
+
+
+3.0.1 :261 > a
+ => ["a", "b", "c"] 
+3.0.1 :262 > a.permutation(2) {|permutation| p permutation }
+["a", "b"]
+["a", "c"]
+["b", "a"]
+["b", "c"]
+["c", "a"]
+["c", "b"]
+ => ["a", "b", "c"] 
+3.0.1 :263 > a.permutation(-1) {|permutation| fail 'Cannot happen' }
+ => ["a", "b", "c"] 
+3.0.1 :264 > a.permutation(-4) {|permutation| fail 'Cannot happen' }
+ => ["a", "b", "c"] 
+3.0.1 :265 > a.permutation(4) {|permutation| fail 'Cannot happen' }
+ => ["a", "b", "c"] 
+3.0.1 :266 > a.permutation {|permutation| p permutation }
+["a", "b", "c"]
+["a", "c", "b"]
+["b", "a", "c"]
+["b", "c", "a"]
+["c", "a", "b"]
+["c", "b", "a"]
+ => ["a", "b", "c"] 
+3.0.1 :267 > a.permutation
+ => #<Enumerator: ...> 
+3.0.1 :268 > a.permutation(2)
+ => #<Enumerator: ...> 
+
+
+
+
+# Delete with help pop method ---
+
+	pop → object or nil
+	pop(n) → new_array
+	Removes and returns trailing elements.
+
+3.0.1 :269 > a
+ => ["a", "b", "c"] 
+3.0.1 :270 > a.pop
+ => "c" 
+3.0.1 :272 > arra
+ => [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, nil, 25.87, "Preet", [24, 5, 6, 87], {:foo=>"boo"}] 
+3.0.1 :273 > arra.pop
+ => {:foo=>"boo"} 
+3.0.1 :274 > arra.pop(2)
+ => ["Preet", [24, 5, 6, 87]] 
+
+
+
+
+# Product method -----
+
+	product(*other_arrays) → new_array
+	product(*other_arrays) {|combination| ... } → self
+	Computes and returns or yields all combinations of elements from all the Arrays, including both self and other_arrays.
+
+	The number of combinations is the product of the sizes of all the arrays, including both self and other_arrays.
+
+	The order of the returned combinations is indeterminate.
+
+	When no block is given, returns the combinations as an Array of Arrays:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
