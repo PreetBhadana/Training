@@ -1,0 +1,1028 @@
+---------- Date and Time ----------
+
+# Date ---
+
+Date is a module which help to get current date from system ---
+
+3.0.2 :010 > require 'date'
+ => true 
+3.0.2 :011 > date1 = Date.parse('10 December 2021')
+ => #<Date: 2021-12-10 ((2459559j,0s,0n),+0s,2299161j)> 
+3.0.2 :012 > puts date1.year
+2021
+ => nil 
+3.0.2 :013 > Date.parse('10 December 2021')
+ => #<Date: 2021-12-10 ((2459559j,0s,0n),+0s,2299161j)> 
+3.0.2 :014 > puts Date.parse('10 December 2021')
+2021-12-10
+ => nil 
+3.0.2 :015 > puts Date.parse('10 December 2021').year
+2021
+ => nil 
+
+
+# Create a Date class object ---
+
+3.0.2 :003 > date1 = Date.new
+ => #<Date: -4712-01-01 ((0j,0s,0n),+0s,2299161j)> 
+3.0.2 :004 > date1.year
+ => -4712
+
+
+
+
+# parse method --- 
+
+3.0.2 :007 > Date._parse('2001-2-3')
+ => {:year=>2001, :mon=>2, :mday=>3} 
+3.0.2 :008 > d = Date.parse('3rd Feb 2001')
+ => #<Date: 2001-02-03 ((2451944j,0s,0n),+0s,2299161j)> 
+3.0.2 :009 > d.year
+ => 2001 
+3.0.2 :010 > d.month
+ => 2 
+3.0.2 :011 > d.day
+ => 3 
+3.0.2 :012 > d.wday
+ => 6 
+3.0.2 :013 > d.yday
+ => 34 
+
+
+
+
+# Class methods ---
+
+
+
+
+# _httpdate(string) → hash
+Returns a hash of parsed elements.
+
+3.0.1 :007 > Date._httpdate('2020-07-10')
+ => {}
+3.0.1 :010 > Date._httpdate("Thu, 14 Oct 2021 11:30:12 GMT")
+ => {:wday=>4, :mday=>14, :mon=>10, :year=>2021, :hour=>11, :min=>30, :sec=>12, :zone=>"GMT", :offset=>0}
+
+
+
+# _iso8601(string) → hash
+	Returns a hash of parsed elements
+
+3.0.1 :011 > Date.iso8601("2021-12-14")
+ => #<Date: 2021-12-14 ((2459563j,0s,0n),+0s,2299161j)> 
+3.0.1 :012 > Date._iso8601("2021-12-14")
+ => {:mday=>14, :year=>2021, :mon=>12} 
+
+
+# _jisx0301(string) → hash
+	Returns a hash of parsed elements.
+
+3.0.1 :013 >  Date.jisx0301("2021-10-15")
+ => #<Date: 2021-10-15 ((2459503j,0s,0n),+0s,2299161j)> 
+3.0.1 :014 >  Date._jisx0301("2021-10-15")
+ => {:mday=>15, :year=>2021, :mon=>10} 
+
+
+# _parse(string[, comp=true]) → hash
+	Parses the given representation of date and time, and returns a hash of parsed elements.
+
+3.0.1 :008 > d = Date.parse('3rd Feb 2001')
+ => #<Date: 2001-02-03 ((2451944j,0s,0n),+0s,2299161j)> 
+3.0.1 :009 > d.year
+ => 2001 
+ => 2 
+3.0.1 :011 > d.day
+ => 3 
+3.0.1 :012 > d.wday
+ => 6 
+ => 34 
+3.0.1 :015 > Date._parse('3rd Feb 2001')
+ => {:year=>2001, :mon=>2, :mday=>3}
+3.0.1 :016 >  Date.parse('20210622')
+ => #<Date: 2021-06-22 ((2459388j,0s,0n),+0s,2299161j)> 
+3.0.1 :017 >  Date._parse('20210622')
+ => {:year=>2021, :mon=>6, :mday=>22}
+
+
+
+
+# _strptime(string[, format='%F']) → hash
+	Parses the given representation of date and time with the given template, and returns a hash of parsed elements. _strptime does not support specification of flags and width unlike strftime.
+
+
+3.0.1 :020 > Date.strptime('2001-02-03', '%Y-%m-%d')
+ => #<Date: 2001-02-03 ((2451944j,0s,0n),+0s,2299161j)> 
+3.0.1 :021 > Date._strptime('2001-02-03', '%Y-%m-%d')
+ => {:year=>2001, :mon=>2, :mday=>3} 
+3.0.1 :022 > Date._strptime('2001-02-10', '%Y-%m-%d')
+ => {:year=>2001, :mon=>2, :mday=>10} 
+3.0.1 :023 > Date._strptime('2001-12-10', '%Y-%m-%d')
+ => {:year=>2001, :mon=>12, :mday=>10} 
+
+
+
+# commercial([cwyear=-4712[, cweek=1[, cwday=1[, start=Date::ITALY]]]]) → date
+	Creates a date object denoting the given week date.
+
+	The week and the day of week should be a negative or a positive number (as a relative week/day from the end of year/week when negative). They should not be zero.
+
+3.0.1 :027 > Date.commercial(2001)
+ => #<Date: 2001-01-01 ((2451911j,0s,0n),+0s,2299161j)> 
+3.0.1 :028 > Date.commercial(2001,5,6)
+ => #<Date: 2001-02-03 ((2451944j,0s,0n),+0s,2299161j)> 
+3.0.1 :029 > Date.commercial(2021,5,6)
+ => #<Date: 2021-02-06 ((2459252j,0s,0n),+0s,2299161j)>
+
+
+
+# TO cehck the given year is leap year or not ---
+	gregorian_leap?(year) → bool
+	
+	Returns true if the given year is a leap year of the proleptic Gregorian calendar.
+
+3.0.1 :031 > Date.gregorian_leap?(2021)
+ => false 
+3.0.1 :032 > Date.gregorian_leap?(2020)
+ => true 
+3.0.1 :033 > Date.gregorian_leap?(1998)
+ => false 
+3.0.1 :034 > Date.gregorian_leap?(1999)
+ => false 
+3.0.1 :035 > Date.gregorian_leap?(2000)
+ => true 
+
+
+
+# httpdate method ---
+
+	httpdate(string='Mon, 01 Jan -4712 00:00:00 GMT'[, start=Date::ITALY]) → date
+	Creates a new Date object by parsing from a string according to some RFC 2616 format
+
+Date.httpdate('Sat, 03 Feb 2001 00:00:00 GMT')
+ => #<Date: 2001-02-03 ((2451944j,0s,0n),+0s,2299161j)> 
+3.0.1 :042 > Date.httpdate('Sat, 03 Feb 2001 00:00:00 GMT')
+ => #<Date: 2001-02-03 ((2451944j,0s,0n),+0s,2299161j)> 
+3.0.1 :043 > Date.httpdate('Sun, 03 Feb 2001 00:00:00 GMT')
+ => #<Date: 2001-02-03 ((2451944j,0s,0n),+0s,2299161j)> 
+3.0.1 :044 > Date.httpdate('Sun, 03 Jul 2001 00:00:00 GMT')
+ => #<Date: 2001-07-03 ((2452094j,0s,0n),+0s,2299161j)> 
+3.0.1 :045 > Date.httpdate('Sun, 03 Jul 2021 00:00:00 GMT')
+ => #<Date: 2021-07-03 ((2459399j,0s,0n),+0s,2299161j)> 
+3.0.1 :046 > Date.httpdate('Sun, 15 Jul 2021 00:00:00 GMT')
+ => #<Date: 2021-07-15 ((2459411j,0s,0n),+0s,2299161j)> 
+
+
+
+# Creates a date object denoting the given chronological Julian day number
+
+	jd([jd=0[, start=Date::ITALY]]) → date
+
+3.0.1 :047 > Date.jd(2451944)
+ => #<Date: 2001-02-03 ((2451944j,0s,0n),+0s,2299161j)> 
+3.0.1 :048 > Date.jd(2451945)
+ => #<Date: 2001-02-04 ((2451945j,0s,0n),+0s,2299161j)> 
+3.0.1 :049 > Date.jd(0)
+ => #<Date: -4712-01-01 ((0j,0s,0n),+0s,2299161j)>
+
+
+# Creates a new Date object by parsing from a string according to some typical JIS X 0301 formats.
+
+	jisx0301(string='-4712-01-01'[, start=Date::ITALY]) → date
+
+3.0.1 :050 > Date.jisx0301('H13.02.03')
+ => #<Date: 2001-02-03 ((2451944j,0s,0n),+0s,2299161j)>
+3.0.1 :051 > Date.jisx0301('13.02.03')
+ => #<Date: 2001-02-03 ((2451944j,0s,0n),+0s,2299161j)> 
+
+
+
+# julian_leap?(year) → bool
+	Returns true if the given year is a leap year of the proleptic Julian calendar.
+
+3.0.1 :052 > Date.julian_leap?(1900)
+ => true 
+3.0.1 :053 > Date.julian_leap?(1901)
+ => false 
+
+
+
+# leap?(year) → bool
+	Returns true if the given year is a leap year of the proleptic Gregorian calendar.
+
+3.0.1 :054 > Date.gregorian_leap?(1900)
+ => false 
+3.0.1 :055 > Date.gregorian_leap?(2000)
+ => true 
+
+
+
+# Creates a date object denoting the given ordinal date.
+	ordinal([year=-4712[, yday=1[, start=Date::ITALY]]]) → date
+
+3.0.1 :056 > Date.ordinal(2001)
+ => #<Date: 2001-01-01 ((2451911j,0s,0n),+0s,2299161j)> 
+3.0.1 :057 > Date.ordinal(2001,34)
+ => #<Date: 2001-02-03 ((2451944j,0s,0n),+0s,2299161j)> 
+3.0.1 :058 > Date.ordinal(2001,-1)
+ => #<Date: 2001-12-31 ((2452275j,0s,0n),+0s,2299161j)> 
+
+
+
+
+# parse(string='-4712-01-01'[, comp=true[, start=Date::ITALY]]) → date
+	Parses the given representation of date and time, and creates a date object
+
+3.0.1 :059 > Date.parse('2001-02-03')
+ => #<Date: 2001-02-03 ((2451944j,0s,0n),+0s,2299161j)> 
+3.0.1 :060 > Date.parse('20010203')
+ => #<Date: 2001-02-03 ((2451944j,0s,0n),+0s,2299161j)> 
+3.0.1 :061 > Date.parse('3rd Feb 2001')
+ => #<Date: 2001-02-03 ((2451944j,0s,0n),+0s,2299161j)> 
+3.0.1 :062 > 
+
+
+
+
+# rfc2822(string='Mon, 1 Jan -4712 00:00:00 +0000'[, start=Date::ITALY]) → date
+	Creates a new Date object by parsing from a string according to some typical RFC 2822 formats
+
+Date.rfc2822('Sat, 3 Feb 2001 00:00:00 +0000')
+ => #<Date: 2001-02-03 ((2451944j,0s,0n),+0s,2299161j)> 
+
+
+
+# rfc3339(string='-4712-01-01T00:00:00+00:00'[, start=Date::ITALY]) → date
+	Creates a new Date object by parsing from a string according to some typical RFC 3339 formats.
+
+3.0.1 :063 > Date.rfc3339('2001-02-03T04:05:06+07:00')
+ => #<Date: 2001-02-03 ((2451944j,0s,0n),+0s,2299161j)>
+
+
+
+# rfc822(string='Mon, 1 Jan -4712 00:00:00 +0000'[, start=Date::ITALY]) → date
+	Creates a new Date object by parsing from a string according to some typical RFC 2822 formats.
+
+Date.rfc2822('Sat, 3 Feb 2001 00:00:00 +0000')
+
+
+
+
+# strptime([string='-4712-01-01'[, format='%F'[, start=Date::ITALY]]]) → date
+	Parses the given representation of date and time with the given template, and creates a date object. strptime does not support specification of flags and width unlike strftime.
+
+
+3.0.1 :065 > Date.strptime('2001-02-03', '%Y-%m-%d')
+ => #<Date: 2001-02-03 ((2451944j,0s,0n),+0s,2299161j)> 
+3.0.1 :066 > Date.strptime('03-02-2001', '%d-%m-%Y')
+ => #<Date: 2001-02-03 ((2451944j,0s,0n),+0s,2299161j)> 
+3.0.1 :067 > Date.strptime('2001-034', '%Y-%j')
+ => #<Date: 2001-02-03 ((2451944j,0s,0n),+0s,2299161j)> 
+3.0.1 :068 > Date.strptime('2001-W05-6', '%G-W%V-%u')
+ => #<Date: 2001-02-03 ((2451944j,0s,0n),+0s,2299161j)> 
+3.0.1 :069 > Date.strptime('2001 04 6', '%Y %U %w')
+ => #<Date: 2001-02-03 ((2451944j,0s,0n),+0s,2299161j)> 
+3.0.1 :070 > Date.strptime('2001 05 6', '%Y %W %u')
+ => #<Date: 2001-02-03 ((2451944j,0s,0n),+0s,2299161j)> 
+3.0.1 :071 > Date.strptime('sat3feb01', '%a%d%b%y')
+ => #<Date: 2001-02-03 ((2451944j,0s,0n),+0s,2299161j)>
+
+
+
+
+# To know today's date ---
+
+	today([start=Date::ITALY]) → date
+	Creates a date object denoting the present day.
+
+Date.today
+ => #<Date: 2021-07-15 ((2459411j,0s,0n),+0s,2299161j)> 
+3.0.1 :073 > a = Date.today
+ => #<Date: 2021-07-15 ((2459411j,0s,0n),+0s,2299161j)> 
+3.0.1 :074 > a
+ => #<Date: 2021-07-15 ((2459411j,0s,0n),+0s,2299161j)>
+
+
+
+
+# valid_civil?(year, month, mday[, start=Date::ITALY]) → bool
+	
+	Returns true if the given calendar date is valid, and false if not. Valid in this context is whether the arguments passed to this method would be accepted by ::new.
+
+
+3.0.1 :075 > Date.valid_date?(2001,2,3)
+ => true 
+3.0.1 :076 > Date.valid_date?(2001,2,29)
+ => false 
+3.0.1 :077 > Date.valid_date?(2001,2,-1)
+ => true 
+
+
+
+# valid_commercial?(cwyear, cweek, cwday[, start=Date::ITALY]) → bool
+	Returns true if the given week date is valid, and false if not.
+
+3.0.1 :078 > Date.valid_commercial?(2001,5,6)
+ => true 
+3.0.1 :079 > Date.valid_commercial?(2001,5,8)
+ => false
+
+
+
+# valid_date?(year, month, mday[, start=Date::ITALY]) → bool
+	Returns true if the given calendar date is valid, and false if not. Valid in this context is whether the arguments passed to this method would be accepted by ::new.
+
+3.0.1 :080 > Date.valid_date?(2001,2,3)
+ => true 
+3.0.1 :081 > Date.valid_date?(2001,2,29)
+ => false 
+3.0.1 :082 > Date.valid_date?(2001,2,-1)
+ => true 
+
+
+
+# valid_jd?(jd[, start=Date::ITALY]) → bool
+	Just returns true. It’s nonsense, but is for symmetry.
+
+
+3.0.1 :083 > Date.valid_jd?(2451944) 
+ => true 
+
+
+
+# valid_ordinal?(year, yday[, start=Date::ITALY]) → bool
+	Returns true if the given ordinal date is valid, and false if not.
+
+3.0.1 :084 > Date.valid_ordinal?(2001,34)
+ => true 
+3.0.1 :085 > Date.valid_ordinal?(2001,366)
+ => false 
+
+
+
+# xmlschema(string='-4712-01-01'[, start=Date::ITALY]) → date
+	Creates a new Date object by parsing from a string according to some typical XML Schema formats.
+
+3.0.1 :086 > Date.xmlschema('2001-02-03')
+ => #<Date: 2001-02-03 ((2451944j,0s,0n),+0s,2299161j)>
+
+
+
+# Change day by adding day --
+	
+	d + other → date
+	Returns a date object pointing other days after self. The other should be a numeric value. If the other is a fractional number, assumes its precision is at most nanosecond.
+
+
+3.0.1 :087 > Date.new(2001,2,3) + 1
+ => #<Date: 2001-02-04 ((2451945j,0s,0n),+0s,2299161j)> 
+3.0.1 :088 > Date.new(2001,2,3)
+ => #<Date: 2001-02-03 ((2451944j,0s,0n),+0s,2299161j)>
+3.0.1 :089 > DateTime.new(2001,2,3) + Rational(1,2)
+ => #<DateTime: 2001-02-03T12:00:00+00:00 ((2451944j,43200s,0n),+0s,2299161j)> 
+3.0.1 :090 > DateTime.new(2001,2,3) + Rational(-1,2)
+ => #<DateTime: 2001-02-02T12:00:00+00:00 ((2451943j,43200s,0n),+0s,2299161j)> 
+3.0.1 :091 > DateTime.jd(0,12) + DateTime.new(2001,2,3).ajd
+ => #<DateTime: 2001-02-03T00:00:00+00:00 ((2451944j,0s,0n),+0s,2299161j)>
+
+
+
+
+# Change day by subtracting ----
+
+	d - other → date or rational
+	Returns the difference between the two dates if the other is a date object. If the other is a numeric value, returns a date object pointing other days before self. If the other is a fractional number, assumes its precision is at most nanosecond.
+
+
+3.0.1 :092 > Date.new(2001,2,3) - 1 
+ => #<Date: 2001-02-02 ((2451943j,0s,0n),+0s,2299161j)> 
+3.0.1 :093 > DateTime.new(2001,2,3) - Rational(1,2)
+ => #<DateTime: 2001-02-02T12:00:00+00:00 ((2451943j,43200s,0n),+0s,2299161j)> 
+3.0.1 :094 > Date.new(2001,2,3) - Date.new(2001)
+ => (33/1) 
+3.0.1 :095 > DateTime.new(2001,2,3) - DateTime.new(2001,2,2,12)
+ => (1/2) 
+
+
+
+
+# d << n → date
+	Returns a date object pointing n months before self. The argument n should be a numeric value.
+
+
+3.0.1 :096 > Date.new(2001,2,3)  <<  1
+ => #<Date: 2001-01-03 ((2451913j,0s,0n),+0s,2299161j)> 
+3.0.1 :097 > Date.new(2001,2,3)  << -2
+ => #<Date: 2001-04-03 ((2452003j,0s,0n),+0s,2299161j)> 
+3.0.1 :098 > Date.new(2001,3,28) << 1
+ => #<Date: 2001-02-28 ((2451969j,0s,0n),+0s,2299161j)> 
+3.0.1 :099 > Date.new(2001,3,31) << 1 << 1
+ => #<Date: 2001-01-28 ((2451938j,0s,0n),+0s,2299161j)> 
+3.0.1 :100 > Date.new(2001,3,31) << 1 << -1
+ => #<Date: 2001-03-28 ((2451997j,0s,0n),+0s,2299161j)>
+
+
+# d <=> other → -1, 0, +1 or nilclick to toggle source
+	Compares the two dates and returns -1, zero, 1 or nil. The other should be a date object or a numeric value as an astronomical Julian day number.
+
+3.0.1 :101 > Date.new(2001,2,3) <=> Date.new(2001,2,4)
+ => -1 
+3.0.1 :102 > Date.new(2001,2,3) <=> Date.new(2001,2,3)
+ => 0 
+3.0.1 :103 > Date.new(2001,2,3) <=> Date.new(2001,2,2)
+ => 1 
+3.0.1 :104 > Date.new(2001,2,3) <=> Object.new 
+ => nil 
+3.0.1 :105 > Date.new(2001,2,3) <=> Rational(4903887,2)
+ => 0
+
+
+
+# d === other → bool
+Returns true if they are the same day.
+
+
+3.0.1 :106 > Date.new(2001,2,3) === Date.new(2001,2,3)
+ => true 
+3.0.1 :107 > Date.new(2001,2,3) === Date.new(2001,2,4)
+ => false 
+3.0.1 :108 > DateTime.new(2001,2,3) === DateTime.new(2001,2,3,12)
+ => true 
+3.0.1 :109 > 
+3.0.1 :110 > DateTime.new(2001,2,3) === DateTime.new(2001,2,3,0,0,0,'+24:00')
+ => true 
+3.0.1 :111 > DateTime.new(2001,2,3) === DateTime.new(2001,2,4,0,0,0,'+24:00')
+ => false 
+
+
+
+# d >> n → date
+	Returns a date object pointing n months after self. The argument n should be a numeric value.
+
+3.0.1 :112 > Date.new(2001,2,3)  >>  1 
+ => #<Date: 2001-03-03 ((2451972j,0s,0n),+0s,2299161j)> 
+3.0.1 :115 > Date.new(2001,2,3)  >> -2 
+ => #<Date: 2000-12-03 ((2451882j,0s,0n),+0s,2299161j)> 
+3.0.1 :115 > Date.new(2001,2,3)  >> -2 
+ => #<Date: 2000-12-03 ((2451882j,0s,0n),+0s,2299161j)> 
+3.0.1 :116 > Date.new(2001,1,31) >> 2
+ => #<Date: 2001-03-31 ((2452000j,0s,0n),+0s,2299161j)> 
+3.0.1 :117 > Date.new(2001,1,31) >> 1 >> 1 
+ => #<Date: 2001-03-28 ((2451997j,0s,0n),+0s,2299161j)> 
+3.0.1 :118 > Date.new(2001,1,31) >> 1 >> -1
+ => #<Date: 2001-01-28 ((2451938j,0s,0n),+0s,2299161j)>
+
+
+
+
+# ajd → rational
+	Returns the astronomical Julian day number. This is a fractional number, which is not adjusted by the offset.
+
+3.0.1 :119 > DateTime.new(2001,2,3,4,5,6,'+7').ajd 
+ => (11769328217/4800) 
+3.0.1 :120 > DateTime.new(2001,2,2,14,5,6,'-7').year
+ => 2001 
+3.0.1 :121 > DateTime.new(2001,2,2,14,5,6,'-7').ajd
+ => (11769328217/4800) 
+
+
+
+
+# amjd → rational
+	Returns the astronomical modified Julian day number. This is a fractional number, which is not adjusted by the offset.
+
+3.0.1 :122 > DateTime.new(2001,2,3,4,5,6,'+7').amjd
+ => (249325817/4800) 
+3.0.1 :123 > DateTime.new(2001,2,2,14,5,6,'-7').amjd 
+ => (249325817/4800)
+
+
+
+# cwday → fixnum
+	Returns the day of calendar week (1-7, Monday is 1). 
+
+.0.1 :124 > Date.new(2001,2,3).cwday 
+ => 6 
+
+
+
+# cweek → fixnum
+	Returns the calendar week number (1-53).
+
+3.0.1 :125 > Date.new(2001,2,3).cweek   
+ => 5 
+
+
+
+# cwyear → integer
+	Returns the calendar week based year.
+
+3.0.1 :126 > Date.new(2001,2,3).cwyear 
+ => 2001 
+3.0.1 :127 > Date.new(2000,1,1).cwyear 
+ => 1999 
+
+
+
+# day → fixnum
+	Returns the day of the month (1-31).
+
+3.0.1 :128 > Date.new(2001,2,3).mday 
+ => 3
+
+
+
+# day_fraction → rational
+	Returns the fractional part of the day.
+
+3.0.1 :129 > DateTime.new(2001,2,3,12).day_fraction
+ => (1/2)
+
+
+
+# gregorian? → bool
+	Returns true if the date is on or after the day of calendar reform.
+
+3.0.1 :130 > Date.new(1582,10,15).gregorian? 
+ => true 
+3.0.1 :131 > (Date.new(1582,10,15) - 1).gregorian? 
+ => false
+
+
+
+# inspect → string
+	Returns the value as a string for inspection.
+
+3.0.1 :132 > Date.new(2001,2,3).inspect
+ => "#<Date: 2001-02-03 ((2451944j,0s,0n),+0s,2299161j)>" 
+3.0.1 :133 > DateTime.new(2001,2,3,4,5,6,'-7').inspect
+ => "#<DateTime: 2001-02-03T04:05:06-07:00 ((2451944j,39906s,0n),-25200s,2299161j)>" 
+
+
+
+# httpdate → string
+	This method is equivalent to strftime(‘%a, %d %b %Y %T GMT’). See also RFC 2616.
+
+3.0.1 :134 > DateTime.new(2001,2,3,4,5,6,'-7').httpdate
+ => "Sat, 03 Feb 2001 11:05:06 GMT" 
+3.0.1 :135 > Date.new(2001,2,3).httpdate
+ => "Sat, 03 Feb 2001 00:00:00 GMT" 
+
+
+# italy → date
+	This method is equivalent to #new_start(Date::ITALY).
+
+3.0.1 :136 > Date.new(2001,2,3).italy
+ => #<Date: 2001-02-03 ((2451944j,0s,0n),+0s,2299161j)> 
+3.0.1 :137 > DateTime.new(2001,2,3,4,5,6,'-7').italy
+ => #<DateTime: 2001-02-03T04:05:06-07:00 ((2451944j,39906s,0n),-25200s,2299161j)>
+
+
+
+
+# jd → integer
+	Returns the Julian day number. This is a whole number, which is adjusted by the offset as the local time.
+
+3.0.1 :138 > DateTime.new(2001,2,3,4,5,6,'+7').jd
+ => 2451944 
+3.0.1 :139 > DateTime.new(2001,2,3,4,5,6,'-7').jd 
+ => 2451944 
+
+
+
+
+# jisx0301 → stringclick to toggle source
+	Returns a string in a JIS X 0301 format.
+
+3.0.1 :140 > Date.new(2001,2,3).jisx0301 
+ => "H13.02.03"
+
+
+
+# julian → dateclick to toggle source
+	This method is equivalent to #new_start(Date::JULIAN).
+
+3.0.1 :141 > Date.new(2001,2,3).julian
+ => #<Date: 2001-01-21 ((2451944j,0s,0n),+0s,Infj)>
+
+
+
+
+# julian? → bool
+	Returns true if the date is before the day of calendar reform.
+
+3.0.1 :142 > Date.new(1582,10,15).julian?
+ => false 
+3.0.1 :143 > (Date.new(1582,10,15) - 1).julian? 
+ => true 
+
+
+
+# ld → integerclick to toggle source
+	Returns the Lilian day number. This is a whole number, which is adjusted by the offset as the local time.
+
+3.0.1 :144 > Date.new(2001,2,3).ld
+ => 152784 
+
+
+
+
+# leap? → bool
+	Returns true if the year is a leap year.
+
+3.0.1 :148 > Date.new(2000).leap?
+ => true 
+3.0.1 :149 > Date.new(2010).leap?
+ => false 
+3.0.1 :150 > Date.new(2012).leap?
+ => true 
+3.0.1 :151 > Date.new(2001).leap?
+ => false 
+3.0.1 :152 > Date.new(2040).leap?
+ => true 
+3.0.1 :153 > Date.new(2020).leap?
+ => true 
+3.0.1 :154 > Date.new(2021).leap?
+ => false 
+
+
+
+# mday → fixnum
+	Returns the day of the month (1-31).
+
+3.0.1 :155 > Date.new(2001,2,3).mday 
+ => 3 
+3.0.1 :156 > Date.new(2001,2,28).mday 
+ => 28 
+3.0.1 :157 > Date.new(2001,3,28).mday 
+ => 28 
+
+
+
+# mjd → integer
+	Returns the modified Julian day number. This is a whole number, which is adjusted by the offset as the local time.
+
+3.0.1 :158 > DateTime.new(2001,2,3,4,5,6,'+7').mjd 
+ => 51943 
+3.0.1 :159 > DateTime.new(2001,2,3,4,5,6,'-7').mjd
+ => 51943
+
+
+
+
+# mon → fixnum
+month → fixnum
+	Returns the month (1-12).
+
+3.0.1 :160 > Date.new(2001,2,3).mon 
+ => 2 
+3.0.1 :161 > Date.new(2001,3,28).mon 
+ => 3 
+3.0.1 :162 > Date.new(2001,10,28).mon 
+ => 10 
+3.0.1 :164 > Date.new(2001,10,28).month 
+ => 10 
+
+
+
+
+# monday? → bool
+	Returns true if the date is Monday.
+
+
+3.0.1 :167 > Date.new(2001,10,28).monday?
+ => false 
+3.0.1 :168 > Date.new(2001,10,21).monday?
+ => false 
+3.0.1 :169 > Date.new(2001,10,22).monday?
+ => true
+
+
+
+# new_start([start=Date::ITALY]) → date
+	Duplicates self and resets its day of calendar reform.
+
+3.0.1 :170 > d = Date.new(1582,10,15)
+ => #<Date: 1582-10-15 ((2299161j,0s,0n),+0s,2299161j)> 
+3.0.1 :171 > d.new_start(Date::JULIAN)
+ => #<Date: 1582-10-05 ((2299161j,0s,0n),+0s,Infj)>
+
+
+
+# next → date
+	Returns a date object denoting the following da
+
+3.0.1 :172 > Date.new(2001,10,22).next
+ => #<Date: 2001-10-23 ((2452206j,0s,0n),+0s,2299161j)> 
+3.0.1 :173 > Date.new(2001,10,21).next
+ => #<Date: 2001-10-22 ((2452205j,0s,0n),+0s,2299161j)> 
+3.0.1 :174 > Date.new(2001,10,11).next
+ => #<Date: 2001-10-12 ((2452195j,0s,0n),+0s,2299161j)> 
+
+
+
+
+# next_day([n=1]) → date
+	This method is equivalent to d + n.
+
+3.0.1 :175 > Date.new(2001,10,11).next_day
+ => #<Date: 2001-10-12 ((2452195j,0s,0n),+0s,2299161j)> 
+3.0.1 :176 > Date.new(2001,10,15).next_day
+ => #<Date: 2001-10-16 ((2452199j,0s,0n),+0s,2299161j)> 
+3.0.1 :177 > Date.new(2001,10,25).next_day
+ => #<Date: 2001-10-26 ((2452209j,0s,0n),+0s,2299161j)>
+
+
+
+# next_month([n=1]) → date
+	This method is equivalent to d >> n.
+
+3.0.1 :178 > Date.new(2001,10,25).next_month
+ => #<Date: 2001-11-25 ((2452239j,0s,0n),+0s,2299161j)> 
+3.0.1 :179 > Date.new(2001,12,25).next_month
+ => #<Date: 2002-01-25 ((2452300j,0s,0n),+0s,2299161j)> 
+3.0.1 :180 > Date.new(2001,01,25).next_month
+ => #<Date: 2001-02-25 ((2451966j,0s,0n),+0s,2299161j)> 
+
+
+
+# next_year([n=1]) → date
+	This method is equivalent to d >> (n * 12).
+
+3.0.1 :181 > Date.new(2001,10,25).next_year
+ => #<Date: 2002-10-25 ((2452573j,0s,0n),+0s,2299161j)> 
+3.0.1 :182 > Date.new(2051,10,25).next_year
+ => #<Date: 2052-10-25 ((2470836j,0s,0n),+0s,2299161j)> 
+3.0.1 :183 > Date.new(2000,10,25).next_year
+ => #<Date: 2001-10-25 ((2452208j,0s,0n),+0s,2299161j)> 
+
+
+
+# prev_day([n=1]) → date
+	This method is equivalent to d - n.
+
+3.0.1 :184 > Date.new(2000,10,25).prev_day
+ => #<Date: 2000-10-24 ((2451842j,0s,0n),+0s,2299161j)> 
+3.0.1 :185 > Date.new(2000,1,01).prev_day
+ => #<Date: 1999-12-31 ((2451544j,0s,0n),+0s,2299161j)> 
+3.0.1 :186 > Date.new(2000,10,05).prev_day
+ => #<Date: 2000-10-04 ((2451822j,0s,0n),+0s,2299161j)>
+
+
+
+# prev_month([n=1]) → date
+	This method is equivalent to d << n.
+
+3.0.1 :187 > Date.new(2000,10,05).prev_month
+ => #<Date: 2000-09-05 ((2451793j,0s,0n),+0s,2299161j)> 
+3.0.1 :188 > Date.new(2000,1,01).prev_month
+ => #<Date: 1999-12-01 ((2451514j,0s,0n),+0s,2299161j)> 
+3.0.1 :189 > Date.new(2000,10,25).prev_month
+ => #<Date: 2000-09-25 ((2451813j,0s,0n),+0s,2299161j)> 
+
+
+
+# prev_year([n=1]) → date
+	This method is equivalent to d << (n * 12).
+
+3.0.1 :190 > Date.new(2000,10,25).prev_year
+ => #<Date: 1999-10-25 ((2451477j,0s,0n),+0s,2299161j)> 
+3.0.1 :191 > Date.new(2001,10,25).prev_year
+ => #<Date: 2000-10-25 ((2451843j,0s,0n),+0s,2299161j)> 
+3.0.1 :192 > Date.new(2021,10,25).prev_year
+ => #<Date: 2020-10-25 ((2459148j,0s,0n),+0s,2299161j)> 
+3.0.1 :193 > Date.new(2221,10,25).prev_year
+ => #<Date: 2220-10-25 ((2532196j,0s,0n),+0s,2299161j)> 
+
+
+
+# saturday? → bool
+	Returns true if the date is Saturday.
+
+3.0.1 :194 > Date.new(2221,10,25).saturday?
+ => false 
+3.0.1 :195 > Date.new(2221,10,20).saturday?
+ => true 
+3.0.1 :196 > Date.new(2221,10,13).saturday?
+ => true 
+3.0.1 :197 > Date.new(2221,10,10).saturday?
+ => false 
+
+
+
+
+# start → float
+	Returns the Julian day number denoting the day of calendar reform.
+
+3.0.1 :198 > Date.new(2001,2,3).start 
+ => 2299161.0 
+3.0.1 :199 > Date.new(2001,2,3,Date::GREGORIAN).start
+ => -Infinity 
+
+
+
+
+# step(limit[, step=1]) → enumerator
+step(limit[, step=1]){|date| ...} → self
+	Iterates evaluation of the given block, which takes a date object. The limit should be a date object.
+
+3.0.1 :200 > Date.new(2001).step(Date.new(2001,-1,-1)).select{|d| d.sunday?}.size
+ => 52
+
+
+
+
+# succ → date
+	Returns a date object denoting the following day.
+
+3.0.1 :201 > Date.new(2221,10,20).succ
+ => #<Date: 2221-10-21 ((2532557j,0s,0n),+0s,2299161j)> 
+3.0.1 :202 > Date.new(2221,10,25).succ
+ => #<Date: 2221-10-26 ((2532562j,0s,0n),+0s,2299161j)> 
+3.0.1 :203 > Date.new(2221,10,01).succ
+ => #<Date: 2221-10-02 ((2532538j,0s,0n),+0s,2299161j)> 
+
+
+
+# sunday? → bool
+	Returns true if the date is Sunday.
+
+3.0.1 :204 > Date.new(2221,10,01).sunday?
+ => false 
+3.0.1 :205 > Date.new(2221,10,21).sunday?
+ => true 
+3.0.1 :206 > Date.new(2221,10,22).sunday?
+ => false 
+
+
+
+
+# thursday? → bool
+	Returns true if the date is Thursday.
+
+3.0.1 :207 > Date.new(2221,10,22).thursday?
+ => false 
+3.0.1 :208 > Date.new(2221,10,19).thursday?
+ => false 
+3.0.1 :209 > Date.new(2221,10,20).thursday?
+ => false 
+3.0.1 :210 > Date.new(2221,10,18).thursday?
+ => true 
+
+
+
+
+# to_date → self
+	Returns self.
+
+3.0.1 :211 > Date.new(2221,10,18).to_date
+ => #<Date: 2221-10-18 ((2532554j,0s,0n),+0s,2299161j)> 
+3.0.1 :212 > Date.new(2021,10,18).to_date
+ => #<Date: 2021-10-18 ((2459506j,0s,0n),+0s,2299161j)> 
+3.0.1 :214 > Date.new(2021,10,8).to_date
+ => #<Date: 2021-10-08 ((2459496j,0s,0n),+0s,2299161j)> 
+
+
+
+# to_datetime → datetime
+	Returns a DateTime object which denotes self.
+
+
+3.0.1 :215 > Date.new(2021,10,8).to_datetime
+ => #<DateTime: 2021-10-08T00:00:00+00:00 ((2459496j,0s,0n),+0s,2299161j)>
+3.0.1 :218 > Date.new(2021,12,8).to_datetime
+ => #<DateTime: 2021-12-08T00:00:00+00:00 ((2459557j,0s,0n),+0s,2299161j)> 
+
+
+
+# to_s → string
+	Returns a string in an ISO 8601 format. (This method doesn’t use the expanded representations.)
+
+3.0.1 :219 > Date.new(2021,12,8).to_s
+ => "2021-12-08" 
+3.0.1 :220 > Date.new(2021,12,10).to_s
+ => "2021-12-10" 
+3.0.1 :221 > Date.new(2021,12,25).to_s
+ => "2021-12-25"
+
+
+
+# to_time → time
+	Returns a Time object which denotes self. If self is a julian date, convert it to a gregorian date before converting it to Time
+
+
+3.0.1 :222 > Date.new(2021,12,25).to_time
+ => 2021-12-25 00:00:00 +0530 
+3.0.1 :223 > Date.new(2021,12,8).to_time
+ => 2021-12-08 00:00:00 +0530 
+3.0.1 :224 > Date.new(2021,10,8).to_time
+ => 2021-10-08 00:00:00 +0530 
+
+
+
+# tuesday? → bool
+	Returns true if the date is Tuesday.
+
+3.0.1 :225 > Date.new(2021,12,5).tuesday?
+ => false 
+3.0.1 :226 > Date.new(2021,12,7).tuesday?
+ => true 
+3.0.1 :227 > Date.new(2021,12,9).tuesday?
+ => false 
+
+
+
+
+# wday → fixnum
+	Returns the day of week (0-6, Sunday is zero).
+
+3.0.1 :228 > Date.new(2021,12,9).wday
+ => 4 
+3.0.1 :229 > Date.new(2021,12,7).wday
+ => 2 
+3.0.1 :230 > Date.new(2021,12,10).wday
+ => 5 
+3.0.1 :242 > Date.new(1998,10,5).wday
+ => 1 
+3.0.1 :243 > Date.new(1997,12,5).wday
+ => 5
+
+
+# wednesday? → bool
+	Returns true if the date is Wednesday.
+
+3.0.1 :233 > Date.new(2021,12,9).wednesday?
+ => false 
+3.0.1 :234 > Date.new(2021,12,10).wednesday?
+ => false 
+3.0.1 :235 > Date.new(2021,12,8).wednesday?
+ => true 
+3.0.1 :236 > Date.new(2021,12,2).wednesday?
+ => false 
+3.0.1 :237 > Date.new(2021,12,1).wednesday?
+ => true 
+
+
+
+# xmlschema → string
+	This method is equivalent to strftime(‘%F’).
+
+3.0.1 :238 > Date.new(2021,12,1).xmlschema
+ => "2021-12-01" 
+3.0.1 :239 > Date.new(2021,10,1).xmlschema
+ => "2021-10-01" 
+3.0.1 :240 > Date.new(2021,10,5).xmlschema
+ => "2021-10-05" 
+3.0.1 :241 > Date.new(1998,10,5).xmlschema
+ => "1998-10-05"
+
+
+
+
+# yday → fixnum
+	Returns the day of the year (1-366).
+
+3.0.1 :245 > Date.new(1997,1,5).yday
+ => 5 
+3.0.1 :246 > Date.new(1998,1,5).yday
+ => 5 
+3.0.1 :247 > Date.new(1998,3,5).yday
+ => 64 
+3.0.1 :248 > Date.new(1999,3,5).yday
+ => 64 
+3.0.1 :249 > Date.new(2000,3,5).yday
+ => 65 
+
+
+
+# year → integer
+	Returns the year.
+
+3.0.1 :250 > Date.new(2000,3,5).year
+ => 2000 
+3.0.1 :251 > Date.new(2020,3,5).year
+ => 2020 
+3.0.1 :252 > Date.new(150,3,5).year
+ => 150 
+3.0.1 :253 > Date.new(2150,3,5).year
+ => 2150 
+3.0.1 :254 > Date.new(2050,3,5).year
+ => 2050 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
