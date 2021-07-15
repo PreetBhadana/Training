@@ -384,6 +384,965 @@
 
 
 
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Date --- 15 - July - 2021
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+
+
+# Associate method --- use to access hash --
+	
+	assoc(key) → new_array or nil
+	If the given key is found, returns a 2-element Array containing that key and its value 
+
+3.0.1 :021 > h.assoc(:Age)
+ => [:Age, 25] 
+3.0.1 :022 > h.assoc(:Name)
+ => [:Name, "Preet"] 
+3.0.1 :023 > h.assoc(:Salary)
+ => [:Salary, 15000]
+
+
+
+
+# Clear method of hash is use to clear all elements of hash and let a empty hash ---
+	clear → self
+	Removes all hash entries; returns sel
+
+3.0.1 :024 > a = Hash[Name: "Preet", Age: 25, Salary: 15000]
+ => {:Name=>"Preet", :Age=>25, :Salary=>15000} 
+3.0.1 :025 > a.clear
+ => {} 
+3.0.1 :026 > a
+ => {} 
+
+
+
+# Compact method --- use to remove all nil values from hash ----
+		Non - Destructive method compact	
+	compact → new_hash
+	Returns a copy of self with all nil-valued entries removed
+
+3.0.1 :027 > a = Hash[Name: "Preet", Salary: nil, Age: 25, Addr: "India"]
+ => {:Name=>"Preet", :Salary=>nil, :Age=>25, :Addr=>"India"} 
+3.0.1 :028 > a.compact
+ => {:Name=>"Preet", :Age=>25, :Addr=>"India"} 
+3.0.1 :029 > a[:Salary]
+ => nil 
+
+
+
+		Destructive method compact!
+	
+	compact! → self or nilclick to toggle source
+	Returns self with all its nil-valued entries removed (in place)
+
+
+3.0.1 :030 > a
+ => {:Name=>"Preet", :Salary=>nil, :Age=>25, :Addr=>"India"} 
+3.0.1 :031 > a.compact!
+ => {:Name=>"Preet", :Age=>25, :Addr=>"India"} 
+3.0.1 :032 > a
+ => {:Name=>"Preet", :Age=>25, :Addr=>"India"} 
+
+
+
+
+# To compare hashes by there there keys ---
+	
+	compare_by_identity → self
+	Sets self to consider only identity in comparing keys; two keys are considered the same only if they are the same object
+
+	compare_by_identity? → true or false
+	Returns true if compare_by_identity has been called, false otherwise
+
+h.compare_by_identity?
+ => false 
+3.0.1 :038 > h[s0] = 0
+ => 0 
+3.0.1 :039 > h[s1] = 1
+ => 1 
+3.0.1 :040 > h
+ => {:Name=>"Preet", :Age=>25, :Salary=>15000, "x"=>1} 
+3.0.1 :041 > h[:x]
+ => nil 
+3.0.1 :042 > h["x"]
+ => 1 
+3.0.1 :043 > h.compare_by_identity?
+ => false 
+3.0.1 :044 > h.compare_by_identity
+ => {:Name=>"Preet", :Age=>25, :Salary=>15000, "x"=>1} 
+3.0.1 :045 > h = {}
+ => {} 
+3.0.1 :046 > h.compare_by_identity
+ => {} 
+3.0.1 :047 > h.compare_by_identity?
+ => true 
+3.0.1 :048 > h[s0] = 0
+ => 0 
+3.0.1 :049 > h[s1] = 1
+ => 1 
+3.0.1 :050 > h
+ => {"x"=>0, "x"=>1} 
+
+
+
+
+# Edit or change default value and proc ---
+
+	default → object
+	default(key) → object
+	Returns the default value for the given key. The returned value will be determined either by the default proc or by the default value
+
+3.0.1 :051 > h.default
+ => nil 
+3.0.1 :052 > h.default(:Addr)
+ => nil 
+3.0.1 :054 > h = Hash.new {|hash, key| hash[key] =  "No Key #{key}"}
+ => {} 
+3.0.1 :055 > h.default(:Addr)
+ => "No Key Addr" 
+
+
+	default = value → object
+	Sets the default value to value
+
+3.0.1 :056 > h
+ => {:Addr=>"No Key Addr"} 
+3.0.1 :057 > h.default
+ => nil 
+3.0.1 :058 > h.default = false
+ => false 
+
+
+
+	default_proc → proc or nil
+	Returns the default proc for self
+
+3.0.1 :060 > h.default_proc
+ => nil
+
+
+	default_proc = proc → proc
+	Sets the default proc for self to proc
+
+3.0.1 :062 > h
+ => {:Addr=>"No Key Addr"} 
+3.0.1 :063 > h.default_proc
+ => nil 
+3.0.1 :064 > h.default_proc = proc { |hash, key| "Default value for #{key}" }
+ => #<Proc:0x0000561c191514c8 (irb):64> 
+3.0.1 :065 > h.default_proc.class
+ => Proc 
+3.0.1 :066 > h.default_proc
+ => #<Proc:0x0000561c191514c8 (irb):64> 
+3.0.1 :067 > h.default_proc = nil
+ => nil 
+3.0.1 :068 > h.default_proc
+ => nil 
+
+
+
+
+# To delete Key from hash --- We use delete method with key as argument of delete ---
+
+	delete(key) → value or nil
+	delete(key) {|key| ... } → object
+	Deletes the entry for the given key and returns its associated value.
+
+3.0.1 :071 > h
+ => {:Addr=>"No Key Addr", :Name=>"Rahul", :Salary=>26000} 
+3.0.1 :072 > h.delete(:Addr)
+ => "No Key Addr" 
+3.0.1 :073 > h
+ => {:Name=>"Rahul", :Salary=>26000}
+
+
+
+# If we want to delete hash using conditions ---
+
+	delete_if {|key, value| ... } → self
+	delete_if → new_enumerator
+	If a block given, calls the block with each key-value pair; deletes each entry for which the block returns a truthy value
+
+3.0.1 :076 > h = {foo: 0, bar: 1, baz: 2}
+ => {:foo=>0, :bar=>1, :baz=>2} 
+3.0.1 :077 > h.delete_if {|key, value| value > 0}
+ => {:foo=>0} 
+3.0.1 :078 > h
+ => {:foo=>0} 
+
+
+
+# Dig method to dig out values from nested hashes ---
+
+	dig(key, *identifiers) → object
+	Finds and returns the object in nested objects that is specified by key and identifiers. The nested objects may be instances of various classes
+
+
+3.0.1 :079 > h = {Emp_Detail: {Name: {First_Name: "Preet", Last_name: "Bhadana"}}}
+ => {:Emp_Detail=>{:Name=>{:First_Name=>"Preet", :Last_name=>"Bhadana"}}} 
+3.0.1 :080 > h
+ => {:Emp_Detail=>{:Name=>{:First_Name=>"Preet", :Last_name=>"Bhadana"}}}
+3.0.1 :082 > h.dig(:Emp_Detail)
+ => {:Name=>{:First_Name=>"Preet", :Last_name=>"Bhadana"}} 
+3.0.1 :083 > h.dig(:Emp_Detail, :Name, :First_Name)
+ => "Preet" 
+3.0.1 :084 > h.dig(:Emp_Detail, :Name, :First_name)
+ => nil 
+3.0.1 :085 > h.dig(:Emp_Detail, :Name, 2)
+ => nil 
+3.0.1 :086 > h.dig(:Emp_Detail, :Name, 1)
+ => nil 
+
+
+
+
+# Each and Each_pair methods ---
+	It is loop to fetch key-value pairs from hash ---
+
+	each {|key, value| ... } → self
+	each_pair {|key, value| ... } → self
+	each → new_enumerator
+	each_pair → new_enumerator
+
+	Calls the given block with each key-value pair
+
+h.each_pair {|key, value|puts "Key : #{key} Value : #{value}"}
+Key : Name Value : {:First_Name=>"Preet", :Last_name=>"Bhadana"}
+Key : Salary Value : 15000
+Key : Age Value : 25
+ => {:Name=>{:First_Name=>"Preet", :Last_name=>"Bhadana"}, :Salary=>15000, :Age=>25}
+
+
+
+
+# Each Key method is use to iterate hash via keys ---
+	
+	each_key {|key| ... } → self
+	each_key → new_enumerator
+	Calls the given block with each key
+
+3.0.1 :093 > h
+ => {:Name=>{:First_Name=>"Preet", :Last_name=>"Bhadana"}, :Salary=>15000, :Age=>25} 
+3.0.1 :094 > h.each_key
+ => #<Enumerator: ...> 
+3.0.1 :095 > h.each_key {|key| puts key}
+Name
+Salary
+Age
+ => {:Name=>{:First_Name=>"Preet", :Last_name=>"Bhadana"}, :Salary=>15000, :Age=>25}
+
+
+
+# To iterate hash with values we use Each_value loop to get values from hash ---
+
+	each_value {|value| ... } → self
+	each_value → new_enumerator
+	Calls the given block with each value
+
+3.0.1 :096 > h
+ => {:Name=>{:First_Name=>"Preet", :Last_name=>"Bhadana"}, :Salary=>15000, :Age=>25} 
+3.0.1 :097 > h.each_value 
+ => #<Enumerator: ...> 
+3.0.1 :098 > h.each_value {|value| value}
+ => {:Name=>{:First_Name=>"Preet", :Last_name=>"Bhadana"}, :Salary=>15000, :Age=>25} 
+3.0.1 :099 > h.each_value {|value| puts value}
+{:First_Name=>"Preet", :Last_name=>"Bhadana"}
+15000
+25
+ => {:Name=>{:First_Name=>"Preet", :Last_name=>"Bhadana"}, :Salary=>15000, :Age=>25}
+
+
+
+# Empty methof is use to check hash is empty or not ---
+
+	empty? → true or false
+	Returns true if there are no hash entries	
+
+3.0.1 :102 > h.empty?
+ => false 
+3.0.1 :103 > a.empty?
+ => false 
+3.0.1 :104 > b.empty?
+ => true 
+3.0.1 :105 > h
+ => {:Name=>{:First_Name=>"Preet", :Last_name=>"Bhadana"}, :Salary=>15000, :Age=>25} 
+3.0.1 :106 > a
+ => {:Name=>"Preet", :Age=>25, :Addr=>"India"} 
+3.0.1 :107 > b
+ => {} 
+
+
+# Eql? method as we have checked it before no. of time it check the type of objects wich means in hash it will check by keys --
+
+	eql? object → true or false
+	
+	Returns true if all of the following are true:
+
+	1) object is a Hash object.
+
+	2) hash and object have the same keys (regardless of order).
+
+	3) For each key key, h[key] eql? object[key].
+
+	4) Otherwise, returns false
+
+.0.1 :112 > a
+ => {:Name=>"Preet", :Age=>25, :Addr=>"India", :Salary=>15000} 
+3.0.1 :113 > h
+ => {:Name=>{:First_Name=>"Preet", :Last_name=>"Bhadana"}, :Salary=>15000, :Age=>25, :Addr=>"India"} 
+3.0.1 :114 > a.eql?(h)
+ => false 
+3.0.1 :115 > b
+ => {} 
+3.0.1 :117 > b =  h
+ => {:Name=>{:First_Name=>"Preet", :Last_name=>"Bhadana"}, :Salary=>15000, :Age=>25, :Addr=>"India"} 
+3.0.1 :118 > h.clear
+ => {} 
+3.0.1 :119 > h = a
+ => {:Name=>"Preet", :Age=>25, :Addr=>"India", :Salary=>15000} 
+3.0.1 :120 > a.eql?(h)
+ => true 
+
+
+
+# Except method is use to --- left the particular key and there value ---
+
+	except(*keys) → a_hash
+	Returns a new Hash excluding entries for the given keys:
+
+3.0.1 :121 > a
+ => {:Name=>"Preet", :Age=>25, :Addr=>"India", :Salary=>15000} 
+3.0.1 :122 > a.except(:Age)
+ => {:Name=>"Preet", :Addr=>"India", :Salary=>15000}
+3.0.1 :123 > a.except(:Addr)
+ => {:Name=>"Preet", :Age=>25, :Salary=>15000}
+
+
+# Fetch key method is use to fetch values through keys ---
+	
+	fetch(key) → object
+	fetch(key, default_value) → object
+	fetch(key) {|key| ... } → object
+	
+	Returns the value for the given key, if found then return default value  ---
+
+
+3.0.1 :124 > h
+ => {:Name=>"Preet", :Age=>25, :Addr=>"India", :Salary=>15000} 
+3.0.1 :125 > h.fetch(:Age)
+ => 25 
+3.0.1 :128 > h.fetch(:Ename, :default)
+ => :default 
+3.0.1 :130 > h.fetch(:nosuch) {|key| "No key #{key}"}
+ => "No key nosuch" 
+3.0.1 :131 > h.fetch(:Name) {|key| "No key #{key}"}
+ => "Preet"
+
+
+
+# As the above fetch method --- Fetch_values is also a method which is use to fetch multiple keys value ---
+
+	fetch_values(*keys) → new_array
+	fetch_values(*keys) {|key| ... } → new_array
+	Returns a new Array containing the values associated with the given keys *keys
+
+3.0.1 :132 > h
+ => {:Name=>"Preet", :Age=>25, :Addr=>"India", :Salary=>15000} 
+3.0.1 :133 > h.fetch_values(:Name)
+ => ["Preet"] 
+3.0.1 :134 > h.fetch_values(:Name, :Age)
+ => ["Preet", 25] 
+3.0.1 :135 > h.fetch_values(:Name, :Age, :Addr)
+ => ["Preet", 25, "India"] 
+3.0.1 :136 > h.fetch_values(:Name, :Age, :Addr, :Salary)
+ => ["Preet", 25, "India", 15000] 
+
+
+
+# As the fetch we have select method in ruby --- it will select the key-value pare according to condtions ---
+	
+		Non Destructive method Select
+	select {|key, value| ... } → new_hash
+	select → new_enumerator
+
+	Returns a new Hash object whose entries are those for which the block returns a truthy value:
+
+3.0.1 :153 > h.select {|key, value| puts value.class}
+String
+Integer
+String
+Integer
+ => {}
+
+3.0.1 :150 > h.select {|key, value| value.class == "Integer" && value <= 25}
+ => {}
+3.0.1 :154 > h.select {|key, value| value}
+ => {:Name=>"Preet", :Age=>25, :Addr=>"India", :Salary=>15000}
+
+		Destructive method Select!
+
+	select! {|key, value| ... } → self or nil
+	select! → new_enumerator
+
+	Returns self, whose entries are those for which the block returns a truthy value
+
+h.select {|key, value| value  == 25}
+ => {:Age=>25} 
+3.0.1 :159 > h
+ => {:Name=>"Preet", :Age=>25, :Addr=>"India", :Salary=>15000} 
+3.0.1 :160 > h.select! {|key, value| value  == 25}
+ => {:Age=>25} 
+3.0.1 :161 > h
+ => {:Age=>25} 
+
+
+
+# As we done in array flatten is use to remove levels of array similarly in hash flatten is use to remove levels in hash  where key contains an array as value ---
+
+	flatten → new_array
+	flatten(level) → new_array
+	
+	Returns a new Array object that is a 1-dimensional flattening of self
+
+3.0.1 :179 > b
+ => {} 
+3.0.1 :180 > b = {foo: 0, bar: [:bat, 3], baz: 2} 
+ => {:foo=>0, :bar=>[:bat, 3], :baz=>2} 
+3.0.1 :181 > b.flatten
+ => [:foo, 0, :bar, [:bat, 3], :baz, 2] 
+3.0.1 :182 > b.flatten(0)
+ => [[:foo, 0], [:bar, [:bat, 3]], [:baz, 2]] 
+3.0.1 :183 > b.flatten(1)
+ => [:foo, 0, :bar, [:bat, 3], :baz, 2] 
+3.0.1 :184 > b.flatten(2)
+ => [:foo, 0, :bar, :bat, 3, :baz, 2] 
+
+
+
+# TO check the given key is in hash as key or not ---
+
+	has_key?(key) → true or false
+3.0.1 :187 > h
+ => {:Name=>{:First_Name=>"Preet", :Last_name=>"Bhadana"}, :Salary=>15000, :Age=>25}
+3.0.1 :189 > h.has_key?(:Name)
+ => true 
+3.0.1 :190 > h.has_key?(:First_Name)
+ => false 
+
+# TO check the geiven value is in hash as value or not ---
+
+	has_value?(value) → true or false
+	Returns true if value is a value in self, otherwise false
+
+3.0.1 :191 > h.has_value?("Preet")
+ => false 
+3.0.1 :192 > h.has_value?(15000)
+ => true 
+
+
+
+# Include method -- to check key in hash or not ---
+	include?(key) → true or false
+	
+	Returns true if key is a key in self, otherwise false
+
+3.0.1 :194 > h
+ => {:Name=>{:First_Name=>"Preet", :Last_name=>"Bhadana"}, :Salary=>15000, :Age=>25} 
+3.0.1 :195 > h.include?(:Age)
+ => true 
+3.0.1 :196 > h.include?(:Arra)
+ => false 
+3.0.1 :197 > h.include?(:Addr)
+ => false 
+
+
+
+# Replace the key-values from hash with othe hash key-values --
+
+	replace(other_hash) → self
+	Replaces the entire contents of self with the contents of other_hash; returns self
+
+3.0.1 :200 > b
+ => {:foo=>0, :bar=>[:bat, 3], :baz=>2} 
+3.0.1 :201 > b.replace(a)
+ => {:Name=>{:First_Name=>"Preet", :Last_name=>"Bhadana"}, :Salary=>15000, :Age=>25} 
+3.0.1 :202 > b
+ => {:Name=>{:First_Name=>"Preet", :Last_name=>"Bhadana"}, :Salary=>15000, :Age=>25} 
+
+
+
+
+# Inspect method is use to change hash into string ---
+
+	inspect → new_string
+	Returns a new String containing the hash entries
+
+3.0.1 :204 > h.inspect
+ => "{:Name=>{:First_Name=>\"Preet\", :Last_name=>\"Bhadana\"}, :Salary=>15000, :Age=>25}" 
+3.0.1 :205 > h
+ => {:Name=>{:First_Name=>"Preet", :Last_name=>"Bhadana"}, :Salary=>15000, :Age=>25} 
+3.0.1 :206 > b.inspect
+ => "{:Name=>{:First_Name=>\"Preet\", :Last_name=>\"Bhadana\"}, :Salary=>15000, :Age=>25}" 
+
+
+
+# Invert Method is use to invert keys into value and value into keys ---
+
+	invert → new_hash
+	Returns a new Hash object with the each key-value pair inverted
+
+3.0.1 :207 > a
+ => {:Name=>{:First_Name=>"Preet", :Last_name=>"Bhadana"}, :Salary=>15000, :Age=>25} 
+3.0.1 :208 > a.invert
+ => {{:First_Name=>"Preet", :Last_name=>"Bhadana"}=>:Name, 15000=>:Salary, 25=>:Age} 
+3.0.1 :209 > a
+ => {:Name=>{:First_Name=>"Preet", :Last_name=>"Bhadana"}, :Salary=>15000, :Age=>25}
+
+
+
+
+# Keep_if method as we doene in array --- this method is use to filter the hash and then keep those key-value pairs only ---
+		Also replce the data with filtered datas --
+	keep_if {|key, value| ... } → self
+	keep_if → new_enumerator
+	Calls the block for each key-value pair; retains the entry if the block returns a truthy value; otherwise deletes the entry
+
+.0.1 :213 > h = {foo: 0, bar: 1, baz: 2}
+ => {:foo=>0, :bar=>1, :baz=>2}
+3.0.1 :215 > h.keep_if {|key, value| key.start_with?('b')}
+ => {:bar=>1, :baz=>2} 
+3.0.1 :216 > h
+ => {:bar=>1, :baz=>2}
+
+
+
+# Key method --- To iterate the hash with keys ---
+
+	key(value) → key or nil
+	Returns the key for the first-found entry with the given value
+
+3.0.1 :219 > h
+ => {:bar=>1, :baz=>2} 
+3.0.1 :221 > h.key(0)
+ => nil 
+3.0.1 :222 > h.key(1)
+ => :bar 
+3.0.1 :223 > h.key(:baz)
+ => nil 
+
+
+
+# Key? method to check the key is in hash or not ---
+
+	key?(key) → true or false
+
+	Returns true if key is a key in self, otherwise false
+
+3.0.1 :224 > h.key?(:baz)
+ => true 
+3.0.1 :225 > h.key?(:bar)
+ => true 
+
+
+
+
+# key method to check all keys from hash ---
+
+	keys → new_array
+	Returns a new Array containing all keys
+
+3.0.1 :227 > a
+ => {:Name=>{:First_Name=>"Preet", :Last_name=>"Bhadana"}, :Salary=>15000, :Age=>25} 
+3.0.1 :228 > a.keys()
+ => [:Name, :Salary, :Age] 
+3.0.1 :229 > a.keys
+ => [:Name, :Salary, :Age] 
+
+
+
+# Length method as usually do count the data or we can say size  ----
+
+	length → integer
+	Returns the count of entries in self
+
+3.0.1 :230 > h.length
+ => 2 
+3.0.1 :231 > a.length
+ => 3 
+3.0.1 :232 > b.length
+ => 3 
+
+
+
+# Member method is use to check the key is in hash or not ---
+
+	member?(key) → true or false
+	
+	Returns true if key is a key in self, otherwise false
+
+3.0.1 :233 > a
+ => {:Name=>{:First_Name=>"Preet", :Last_name=>"Bhadana"}, :Salary=>15000, :Age=>25} 
+3.0.1 :234 > a.include?(:Name)
+ => true 
+3.0.1 :235 > a.include?(:Salary)
+ => true 
+3.0.1 :236 > a.include?(:Addr)
+ => false 
+3.0.1 :237 > a.include?(:Age)
+ => true 
+
+
+
+# Merge method ---
+
+		Non Destructive method Merge
+
+	merge → copy_of_self
+	merge(*other_hashes) → new_hash
+	merge(*other_hashes) { |key, old_value, new_value| ... } → new_hash
+
+	Returns the new Hash formed by merging each of other_hashes into a copy of self.
+
+	1) Each argument in other_hashes must be a Hash.
+
+	2) With arguments and no block:
+
+	3) Returns the new Hash object formed by merging each successive Hash in other_hashes into self.
+
+	4) Each new-key entry is added at the end.
+
+	5) Each duplicate-key entry’s value overwrites the previous value.
+
+
+3.0.1 :242 > h
+ => {:foo=>0, :bar=>1, :baz=>2} 
+3.0.1 :243 > h1
+ => {:bat=>3, :bar=>4} 
+3.0.1 :244 > h2
+ => {:bam=>5, :bat=>6} 
+3.0.1 :245 > h3 = h.merge(h1,h2) {|key, old_value, new_value| old_value + new_value }
+ => {:foo=>0, :bar=>5, :baz=>2, :bat=>9, :bam=>5} 
+3.0.1 :246 > h3
+ => {:foo=>0, :bar=>5, :baz=>2, :bat=>9, :bam=>5}
+3.0.1 :247 > h
+ => {:foo=>0, :bar=>1, :baz=>2}
+3.0.1 :248 > h.merge(h1,h2)
+ => {:foo=>0, :bar=>4, :baz=>2, :bat=>6, :bam=>5} 
+
+
+		Destructive method Merge!
+
+	merge! → self
+	merge!(*other_hashes) → self
+	merge!(*other_hashes) { |key, old_value, new_value| ... } → self
+	Merges each of other_hashes into self; returns self.
+
+	Each argument in other_hashes must be a Hash.
+
+	
+	With arguments and no block:
+
+	1) Returns self, after the given hashes are merged into it.
+
+	2) The given hashes are merged left to right.
+
+	3) Each new entry is added at the end.
+
+	4) Each duplicate-key entry’s value overwrites the previous value.
+
+
+
+3.0.1 :069 > h
+ => {:Addr=>"No Key Addr"} 
+3.0.1 :070 > h.merge!(Name: "Rahul", Salary: 26000)
+ => {:Addr=>"No Key Addr", :Name=>"Rahul", :Salary=>26000}
+
+3.0.1 :252 > h
+ => {:foo=>0, :bar=>1, :baz=>2} 
+3.0.1 :253 > h1
+ => {:bat=>3, :bar=>4} 
+3.0.1 :254 > h2
+ => {:bam=>5, :bat=>6} 
+3.0.1 :255 > h.merge!(h1,h2)
+ => {:foo=>0, :bar=>4, :baz=>2, :bat=>6, :bam=>5} 
+3.0.1 :256 > h
+ => {:foo=>0, :bar=>4, :baz=>2, :bat=>6, :bam=>5} 
+
+3.0.1 :257 > h.merge!(h1,h2) {|key, old_value, new_value| old_value + new_value }
+ => {:foo=>0, :bar=>8, :baz=>2, :bat=>15, :bam=>10} 
+
+
+
+
+# Rassoc method ---
+	
+	rassoc(value) → new_array or nil
+	Returns a new 2-element Array consisting of the key and value of the first-found entry whose value is == to value
+
+3.0.1 :258 > h
+ => {:foo=>0, :bar=>8, :baz=>2, :bat=>15, :bam=>10} 
+3.0.1 :259 > h.rassoc(2)
+ => [:baz, 2] 
+3.0.1 :260 > h.rassoc(15)
+ => [:bat, 15] 
+3.0.1 :261 > h[:bam] = 2
+ => 2 
+3.0.1 :262 > h.rassoc(2)
+ => [:baz, 2] 
+3.0.1 :263 > h
+ => {:foo=>0, :bar=>8, :baz=>2, :bat=>15, :bam=>2} 
+
+
+
+# Reject method ---
+
+		 Non Destructive method Reject
+
+	reject {|key, value| ... } → new_hash
+	reject → new_enumerator
+	Returns a new Hash object whose entries are all those from self for which the block returns false or nil
+
+3.0.1 :270 > h
+ => {:foo=>0, :bar=>8, :baz=>2, :bat=>15, :bam=>2} 
+3.0.1 :271 > h.reject {|key, value| value >2}
+ => {:foo=>0, :baz=>2, :bam=>2}
+3.0.1 :273 > h.reject {|key, value| key.start_with?('f')}
+ => {:bar=>8, :baz=>2, :bat=>15, :bam=>2} 
+
+
+		Destructive method Reject!
+
+	reject! {|key, value| ... } → self or nil
+	reject! → new_enumerator
+
+3.0.1 :274 > h
+ => {:foo=>0, :bar=>8, :baz=>2, :bat=>15, :bam=>2} 
+3.0.1 :275 > h.reject! {|key, value| key.start_with?('f')}
+ => {:bar=>8, :baz=>2, :bat=>15, :bam=>2} 
+3.0.1 :276 > h
+ => {:bar=>8, :baz=>2, :bat=>15, :bam=>2} 
+3.0.1 :277 > h.reject! {|key, value| value >2}
+ => {:baz=>2, :bam=>2} 
+3.0.1 :278 > h
+ => {:baz=>2, :bam=>2} 
+
+
+
+
+# Shift method as in array --- it will Remove first entry --
+
+	shift → [key, value] or default_value
+	Removes the first hash entry (see Entry Order); returns a 2-element Array containing the removed key and value
+
+3.0.1 :281 > h
+ => {:foo=>0, :bar=>8, :baz=>2, :bat=>15, :bam=>2} 
+3.0.1 :282 > h.shift
+ => [:foo, 0] 
+3.0.1 :283 > h
+ => {:bar=>8, :baz=>2, :bat=>15, :bam=>2} 
+
+
+
+# Size Method ---
+
+	size → integer
+	Returns the count of entries in self
+
+3.0.1 :286 > a.size
+ => 3 
+3.0.1 :287 > h.size
+ => 4 
+
+
+
+# Slice method ---
+
+	slice(*keys) → new_hash
+	Returns a new Hash object containing the entries for the given keys
+
+3.0.1 :288 > h
+ => {:bar=>8, :baz=>2, :bat=>15, :bam=>2} 
+3.0.1 :289 > h.slice(:baz, :foo)
+ => {:baz=>2} 
+3.0.1 :290 > h
+ => {:bar=>8, :baz=>2, :bat=>15, :bam=>2} 
+3.0.1 :291 > h.slice(:baz, :bat)
+ => {:baz=>2, :bat=>15} 
+
+
+
+
+# Store method --- use to update the value of key in hash ---
+
+	store(key, value)
+
+	Associates the given value with the given key; returns value.	
+
+
+
+3.0.1 :292 > h
+ => {:bar=>8, :baz=>2, :bat=>15, :bam=>2} 
+3.0.1 :293 > h[:foo] = 3
+ => 3 
+3.0.1 :294 > h
+ => {:bar=>8, :baz=>2, :bat=>15, :bam=>2, :foo=>3} 
+3.0.1 :295 > h[:foo] = 4
+ => 4 
+3.0.1 :296 > h.store(:foo, 5)
+ => 5 
+3.0.1 :297 > h
+ => {:bar=>8, :baz=>2, :bat=>15, :bam=>2, :foo=>5}
+
+
+
+
+# Convert hash into array ---
+	to_a → new_array
+	Returns a new Array of 2-element Array objects; each nested Array contains a key-value pair from self
+
+
+3.0.1 :299 > h.to_a
+ => [[:bar, 8], [:baz, 2], [:bat, 15], [:bam, 2], [:foo, 5]] 
+
+
+
+# Convert into hash ---
+
+	to_h → self or new_hash
+	to_h {|key, value| ... } → new_hash
+
+3.0.1 :298 > h
+ => {:bar=>8, :baz=>2, :bat=>15, :bam=>2, :foo=>5} 
+3.0.1 :299 > h.to_a
+ => [[:bar, 8], [:baz, 2], [:bat, 15], [:bam, 2], [:foo, 5]] 
+3.0.1 :300 > h.to_a.to_h
+ => {:bar=>8, :baz=>2, :bat=>15, :bam=>2, :foo=>5} 
+3.0.1 :301 > h.to_h {|key, value| [value, key] }
+ => {8=>:bar, 2=>:bam, 15=>:bat, 5=>:foo}
+
+
+# Convert into proc ---
+
+	to_proc → proc
+	Returns a Proc object that maps a key to its value
+
+3.0.1 :303 > h.to_proc
+ => #<Proc:0x0000561c196fff50 (lambda)> 
+3.0.1 :304 > h.class
+ => Hash 
+3.0.1 :305 > h1 = h.to_proc
+ => #<Proc:0x0000561c195315c0 (lambda)> 
+3.0.1 :306 > h1.class
+ => Proc 
+
+
+
+# Convert into string ---
+
+	to_s()
+	Same as inspect method ---
+
+3.0.1 :307 > h
+ => {:bar=>8, :baz=>2, :bat=>15, :bam=>2, :foo=>5} 
+3.0.1 :308 > h.inspect
+ => "{:bar=>8, :baz=>2, :bat=>15, :bam=>2, :foo=>5}" 
+3.0.1 :309 > h.to_s
+ => "{:bar=>8, :baz=>2, :bat=>15, :bam=>2, :foo=>5}" 
+3.0.1 :310 > h.to_s()
+ => "{:bar=>8, :baz=>2, :bat=>15, :bam=>2, :foo=>5}"
+
+
+
+
+# Transform_keys method --- use to update in keys ---
+
+	transform_keys {|key| ... } → new_hash
+	transform_keys(hash2) → new_hash
+	transform_keys(hash2) {|other_key| ...} → new_hash
+	transform_keys → new_enumerator
+	
+	Returns a new Hash object; each entry has:
+
+	* A key provided by the block.
+
+	* The value from self.
+
+	An optional hash argument can be provided to map keys to new keys. Any key not given will be mapped using the provided block, or remain the same if no block is given
+
+
+3.0.1 :311 > h
+ => {:bar=>8, :baz=>2, :bat=>15, :bam=>2, :foo=>5} 
+3.0.1 :312 > h1 = h.transform_keys {|key| key.to_s }
+ => {"bar"=>8, "baz"=>2, "bat"=>15, "bam"=>2, "foo"=>5} 
+3.0.1 :313 > h1
+ => {"bar"=>8, "baz"=>2, "bat"=>15, "bam"=>2, "foo"=>5} 
+3.0.1 :314 > h.transform_keys(foo: :bar, bar: :foo)
+ => {:foo=>8, :baz=>2, :bat=>15, :bam=>2, :bar=>5} 
+3.0.1 :315 > h.transform_keys(foo: :hello, &:to_s)
+ => {"bar"=>8, "baz"=>2, "bat"=>15, "bam"=>2, :hello=>5}
+
+
+
+
+	transform_keys! {|key| ... } → self
+	transform_keys!(hash2) → self
+	transform_keys!(hash2) {|other_key| ...} → self
+	transform_keys! → new_enumerator
+
+
+
+# Transform_values method --- use to update in Values ---
+
+	transform_values {|value| ... } → new_hash
+	transform_values → new_enumerator
+	
+	Returns a new Hash object; each entry has:
+
+	* A key from self.
+
+	* A value provided by the block
+h
+ => {:bar=>8, :baz=>2, :bat=>15, :bam=>2, :foo=>5} 
+3.0.1 :317 > h1 = h.transform_values {|value| value * 100}
+ => {:bar=>800, :baz=>200, :bat=>1500, :bam=>200, :foo=>500} 
+3.0.1 :318 > h1
+ => {:bar=>800, :baz=>200, :bat=>1500, :bam=>200, :foo=>500} 
+
+
+		Destructive Method --
+
+	transform_values! {|value| ... } → selfclick to toggle source
+	transform_values! → new_enumerator
+
+3.0.1 :316 > h
+ => {:bar=>8, :baz=>2, :bat=>15, :bam=>2, :foo=>5} 
+3.0.1 :317 > h1 = h.transform_values {|value| value * 100}
+ => {:bar=>800, :baz=>200, :bat=>1500, :bam=>200, :foo=>500} 
+3.0.1 :318 > h1
+ => {:bar=>800, :baz=>200, :bat=>1500, :bam=>200, :foo=>500} 
+3.0.1 :319 > h.transform_values! {|value| value * 100}
+ => {:bar=>800, :baz=>200, :bat=>1500, :bam=>200, :foo=>500}
+
+
+# Value at method to check the value at a key ---
+
+	values_at(*keys) → new_array
+	Returns a new Array containing values for the given keys
+
+3.0.1 :320 > h
+ => {:bar=>800, :baz=>200, :bat=>1500, :bam=>200, :foo=>500} 
+3.0.1 :321 > h.values_at(:bar)
+ => [800] 
+3.0.1 :322 > h.values_at(:bam)
+ => [200] 
+3.0.1 :323 > h.values_at(:foo)
+ => [500] 
+
+
+
+
 
 
 
