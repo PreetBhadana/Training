@@ -1,0 +1,91 @@
+
+
+-------- Time Methods --------
+
+
+
+Note -- Time methods are as same as date methods ---
+
+
+##### TO do anything thing with time module first we need to require it in file ---
+
+3.0.1 :257 > require 'time'
+ => true 
+
+
+
+
+# httpdate(date)
+	Parses date as an HTTP-date defined by RFC 2616 and converts it to a Time object.
+
+3.0.1 :257 > require 'time'
+ => true 
+3.0.1 :258 > Time.httpdate("Thu, 06 Oct 2011 02:26:12 GMT")
+ => 2011-10-06 02:26:12 UTC
+
+
+
+# parse(date, now=self.now)
+	Takes a string representation of a Time and attempts to parse it using a heuristic.
+
+3.0.1 :261 > Time.parse("2010-10-31")
+ => 2010-10-31 00:00:00 +0530 
+3.0.1 :262 > Time.parse("2010-05-3")
+ => 2010-05-03 00:00:00 +0530 
+3.0.1 :263 > Time.parse("12:00")
+ => 2021-07-15 12:00:00 +0530 
+3.0.1 :264 > Time.parse("1:00")
+ => 2021-07-15 01:00:00 +0530 
+3.0.1 :265 > Time.parse("1:45")
+ => 2021-07-15 01:45:00 +0530 
+3.0.1 :266 > Time.parse("01-10-31") {|year| year + (year < 70 ? 2000 : 1900)}
+ => 2001-10-31 00:00:00 +0530 
+3.0.1 :267 > Time.parse("70-10-31") {|year| year + (year < 70 ? 2000 : 1900)}
+ => 1970-10-31 00:00:00 +0530 
+3.0.1 :268 > Time.parse("Thu Nov 29 14:33:20 2001")
+ => 2001-11-29 14:33:20 +0530
+
+
+
+
+# rfc2822(date)
+	Parses date as date-time defined by RFC 2822 and converts it to a Time object. The format is identical to the date format defined by RFC 822 and updated by RFC 1123.
+
+
+3.0.1 :269 > Time.rfc2822("Wed, 05 Oct 2011 22:26:12 -0400")
+ => 2011-10-05 22:26:12 -0400 
+3.0.1 :270 > Time.rfc2822("Thu, 05 Jul 2011 22:26:12 -0400")
+ => 2011-07-05 22:26:12 -0400 
+3.0.1 :271 > Time.rfc2822("Thu, 15 Jul 2011 22:26:12 -0400")
+ => 2011-07-15 22:26:12 -0400 
+3.0.1 :272 > Time.rfc2822("Thu, 15 Jul 2021 22:26:12 -0400")
+ => 2021-07-15 22:26:12 -0400
+
+
+
+
+# strptime(date, format, now=self.now)
+	Works similar to parse except that instead of using a heuristic to detect the format of the input string, you provide a second argument that describes the format of the string.
+
+
+3.0.1 :273 > Time.strptime("2000-10-31", "%Y-%m-%d")
+ => 2000-10-31 00:00:00 +0530 
+3.0.1 :274 > Time.strptime("20-2000-10-31", "%C-%Y-%m-%d")
+ => 4000-10-31 00:00:00 +0530 
+3.0.1 :275 > Time.strptime("19-2000-10-31", "%C-%Y-%m-%d")
+ => 3900-10-31 00:00:00 +0530 
+3.0.1 :277 > Time.strptime("19-2000-10-31-Sun", "%C-%Y-%m-%d-%a")
+ => 3900-10-31 00:00:00 +0530 
+3.0.1 :278 > Time.strptime("19-2000-10-31-Sunday", "%C-%Y-%m-%d-%A")
+ => 3900-10-31 00:00:00 +0530 
+3.0.1 :279 > Time.strptime("19-2000-1-31-Jan", "%C-%Y-%m-%d-%b")
+ => 3900-01-31 00:00:00 +0530 
+3.0.1 :280 > Time.strptime("19-2000-1-31-January", "%C-%Y-%m-%d-%B")
+ => 3900-01-31 00:00:00 +0530 
+
+
+
+
+
+
+
