@@ -1067,11 +1067,116 @@ Notes --
 
 
 
+=-=-=-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-==-=-=--=-==-
+Date -- 16-July-2021
+=-=-=-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-==-=-=--=-==-
+
+
+
+# Range --- 
+	Range occurs everywhere : Jan to Dec, 0 to 9, line 50 through 67 and so on.
+	Range can be use in various ways in Ruby --
+	1) Range as Sequence
+	2) Range as Condition
+	3) Range as intervals
+
+
+
+# Range as Sequence ---
+
+	The most natural use of ranges is to express a sequence. 
+	As sequence have a start point an end point and a way to produce succesive value in the sequence.
+
+	Ruby creates these sequences using the ".." and "..." range operators.
+	Double dot is for inclusive range and tripal dot is for exclusive range.
+
+	Eg --- 	(1..5)     => 1,2,3,4,5
+		(1...5)    => 1,2,3,4
+		('a'..'b') => 'a','b','c','d'
+
+	Eg --
+		#Range as sequence
+		range1 = (1..5).to_a
+		range2 = ('a'..'d').to_a
+		range3 = ('bar'..'baz').to_a
+		puts "#{range1}"
+		puts "#{range2}"
+		puts "#{range3}"
+
+	#Check some Ruby built-in methods with range---
+
+		# Check built-in methods with range
+
+		digits  = 0..9
+		puts digits.include?(9)
+
+		ret = digits.min
+		puts "Min value is #{ret}"
+
+		ret = digits.max
+		puts "Max value is #{ret}"
+
+		ret = digits.reject{|i| i < 5}
+		puts "Reject values are :  #{ret}"
+
+		digits.each do |digit|
+		    puts "In Loop #{digit}"
+		end
+
+
+
+# Ranges as Conditions ---
+
+	Ranges may also be used as conditional expressions.
+
+	# Range as condition 
+	
+	while gets
+	    print if /start/../end/
+	end
+	
+
+	## Similar --- Use with case statements ---
+
+	score = 73
+
+	result = case score
+	    when 0..40 then "Fail"
+	    when 41..60 then "Pass"
+	    when 61..70 then "Pass with Merit"
+	    when 71..100 then "Pass with Distinction"
+	    else "Invalid Score"
+	    end
+
+	    puts result 
+
+
+# Range as interval ---
+	Range as Intervsl is like some value falls with in the interval represented by the range. 
+	This is done using ===, then case equality operator.
+
+	Eg ---
+		# Range as Interval
+
+		if ((1..10) === 5)
+		    puts "5 lies in (1..10)"
+		end
+
+		if (('a'..'j' === 'c'))
+		    puts "c lies in (a..j)"
+		end
+
+		if (('a'..'j') === 'z')
+		    puts "'z' lies in (a..j)"
+		else puts "False"
+		end
 
 
 
 
 
+
+	
 
 
 
