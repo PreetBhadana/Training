@@ -1171,6 +1171,40 @@ Date -- 16-July-2021
 		else puts "False"
 		end
 
+# Iterators ----
+
+	We have two iterators in ruby --
+	1) Each
+	2) Collect
+
+
+1) Each ---
+	eg--
+		#Iterators
+
+		ary = [1,2,3,4,5]
+		ary.each do |i|
+		    p i
+		end
+
+
+
+2) Collect ---
+	eg --
+		a = [1,2,3,4,5]
+		b = Array.new
+		b = a.collect
+		puts b
+
+
+		# Similarly --
+
+		a = [1,2,3,4,5]
+		b = a.collect {|x| 10*x}
+		puts b
+
+
+
 
 
 
