@@ -86,6 +86,126 @@ Note -- Time methods are as same as date methods ---
 
 
 
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Date --- 16-July2021
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+
+
+
+3.0.2 :002 > Time.strptime("19-2000-1-31-January", "%C-%Y-%m-%d-%B")
+ => 3900-01-31 00:00:00 +0530 
+3.0.2 :003 > Time.strptime("19-2000-January-31-", "%C-%Y-%B-%d-")
+ => 3900-01-31 00:00:00 +0530 
+3.0.2 :004 > Time.strptime("19-January-31-", "%C-%B-%d-")
+ => 2021-01-31 00:00:00 +0530 
+3.0.2 :007 > Time.strptime("19-January-24", "%C-%B-%H")
+ => 2021-01-02 00:00:00 +0530 
+3.0.2 :008 > Time.strptime("19-January-23", "%C-%B-%H")
+ => 2021-01-01 23:00:00 +0530 
+3.0.2 :010 > Time.strptime("19-January-23-23", "%C-%B-%H-%j")
+ => 2021-01-23 23:00:00 +0530 
+3.0.2 :012 > Time.strptime("19-January-23-11", "%C-%B-%H-%l")
+ => 2021-01-01 11:00:00 +0530 
+3.0.2 :015 > Time.strptime("19-January-23-11-AM", "%C-%B-%H-%N-%p")
+ => 2021-01-01 11:00:00.11 +0530 
+3.0.2 :016 > Time.strptime("19-January-23-11-PM", "%C-%B-%H-%N-%p")
+ => 2021-01-01 23:00:00.11 +0530
+3.0.2 :013 > Time.strptime("19-January-23-11", "%C-%B-%H-%N")
+ => 2021-01-01 23:00:00.11 +0530 
+
+
+
+
+
+
+# xmlschema(time)
+	Parses time as a dateTime defined by the XML Schema and converts it to a Time object. The format is a restricted version of the format defined by ISO 8601.
+
+	ArgumentError is raised if time is not compliant with the format or if the Time class cannot represent the specified time.
+
+
+3.0.2 :018 > Time.xmlschema("2011-10-05T22:26:12-04:00").year
+ => 2011 
+3.0.2 :019 > Time.xmlschema("2011-10-05T22:26:12-04:00").sec
+ => 12 
+3.0.2 :020 > Time.xmlschema("2011-10-05T22:26:12-04:00").usec
+ => 0 
+3.0.2 :021 > Time.xmlschema("2011-10-05T22:26:12-04:19").usec
+ => 0 
+3.0.2 :022 > Time.xmlschema("2011-10-05T22:26:12-04:00").month
+ => 10 
+
+
+
+
+# zone_offset(zone, year=self.now.year)
+	Return the number of seconds the specified time zone differs from UTC.
+
+	Numeric time zones that include minutes, such as -10:00 or +1330 will work, as will simpler hour-only time zones like -10 or +13
+
+	Atlantic Standard Time (AST), Eastern Standard Time (EST), Central Standard Time (CST), Mountain Standard Time (MST), Pacific Standard Time (PST), Alaskan Standard Time (AKST), Hawaii-Aleutian Standard Time (HST), Samoa standard time (UTC-11) and Chamorro Standard Time (UTC+10)
+
+
+3.0.2 :023 > Time.zone_offset("EST")
+ => -18000 
+3.0.2 :024 > Time.zone_offset("UST")
+ => nil 
+3.0.2 :025 > Time.zone_offset("AST")
+ => nil 
+3.0.2 :026 > Time.zone_offset("CST")
+ => -21600 
+3.0.2 :027 > Time.zone_offset("MST")
+ => -25200 
+3.0.2 :028 > Time.zone_offset("PST")
+ => -28800 
+3.0.2 :029 > Time.zone_offset("AKST")
+ => nil 
+3.0.2 :030 > Time.zone_offset("HST")
+ => nil 
+3.0.2 :031 > Time.zone_offset("UTC")
+ => 0 
+3.0.2 :032 > Time.zone_offset("UTC-11")
+ => nil 
+3.0.2 :033 > Time.zone_offset("UTC+10")
+ => nil 
+
+
+
+
+
+# httpdate()
+	Returns a string which represents the time as RFC 1123 date of HTTP-date defined by RFC 2616:
+
+3.0.2 :035 > Time.new.httpdate()
+ => "Fri, 16 Jul 2021 04:54:49 GMT" 
+
+
+
+# iso8601(fraction_digits=0)
+
+
+3.0.2 :036 > Time.new.iso8601()
+ => "2021-07-16T10:25:43+05:30" 
+
+
+
+# rfc2822()
+	Returns a string which represents the time as date-time defined by RFC 2822:
+
+3.0.2 :037 > Time.new.rfc2822
+ => "Fri, 16 Jul 2021 10:27:02 +0530" 
+
+
+
+# xmlschema(fraction_digits=0)
+	Returns a string which represents the time as a dateTime defined by XML Schema:	
+
+3.0.2 :038 > Time.new.xmlschema()
+ => "2021-07-16T10:28:05+05:30"
+3.0.2 :039 > Time.new.iso8601
+ => "2021-07-16T10:29:03+05:30" 
+
 
 
 
