@@ -1206,11 +1206,352 @@ Date -- 16-July-2021
 
 
 
+# File I/O ---
+
+	Ruby provides a whole set of I/O-related methods implemented in the Kernel module. 
+	All the I/O methods are derived from the class IO.
+
+	Basic Methods of I/O class --
+	1) Read
+	2) Write
+	3) Gets
+	4) Puts
+	5) Readline
+	6) Getc
+	7) printf
 
 
 
+# The Puts statements ---
+	Puts statements is use to display the valaue store in the variable.
+	Eg ---
+		# Puts Statemets ---
+
+		val1 = "This is variable one"
+		val2 = "This is variable two"
+		puts val1
+		puts val2 
+
+# The Gets Statements ---
+	Gets statements is use to take any input from user from standard Screen called STDIN. 
+	And the inputs will stored in a variable and then we can print it on STDOUT.
+	Eg --
+		# Gets Statement
+		puts "Enter Input here : "
+		val1 = gets
+		puts val1
+
+
+# The Putc Statment  ---
+	this statement is use to display one charector at a time on STDOUT.
+	Eg -- Str = "Hello World"
+		putc str
+
+
+# The Print Statement ---
+
+	The print statement is use to display the output like puts 
+	But the puts use to go on next line after display its value 
+	where print is use to be on same line after display their value.
+	
+	Eg -- str1 = "Hello World"
+		print str1+"\n"
+		print"Buenos Dias\n"
+
+
+# Opening And Closing Files In Ruby ----
+
+	As till now we have been reading and writing to the standard input and output. 
+	Now, we will see how to play with actual data files.
+
+# Create file class object using File.new method ---
+
+	Syntax -- afile = File.new("filename", "mode")
+			# process the file
+		afile.close
+
+
+# The File.open method ---
+	The same methods that we've been using for 'simple' I/O are available for all file objects. 
+	So, gets reads a line from standard input, and aFile.gets reads a line from the file object aFile.
+
+	Syntax -- File.open("filename", "mode") do |afile|
+			# Process the file.
+		end
+
+
+
+
+# Modes to open files in Ruby ---
+
+1) r -- Read-only mode. 
+	The file pointer is placed at the beginning of the file. This is the default mode.
+
+
+2) r+ -- Read-write mode. 
+	The file pointer will be at the beginning of the file.
+
+
+3) w -- Write-only mode. 
+	Overwrites the file if the file exists. 
+	If the file does not exist, creates a new file for writing.
+
+
+4) w+ -- Read-write mode. 
+	Overwrites the existing file if the file exists. 
+	If the file does not exist, creates a new file for reading and writing.
+
+
+5) a -- Write-only mode. 
+	The file pointer is at the end of the file if the file exists. That is, the file is in the append mode. 
+	If the file does not exist, it creates a new file for writing.
+
+
+6) a+ -- Read and write mode. 
+	The file pointer is at the end of the file if the file exists. 
+	The file opens in the append mode. If the file does not exist, it creates a new file for reading and writing.
+
+
+
+
+#  The Sysread Method -- (Read mode "r")
+	It is use to open file in sysread mode.
+	Eg --
+		#Open_FIle_in_Sysread_mode
+		afile = File.new("test.txt", "r")
+		if afile
+		    content = afile.sysread(20)
+		    puts content
+		else
+		    puts"Unable to open file"
+		end
+
+
+
+# The syswrite method --- (Write mode "r+")
+	It is use to open file into sys write or read + mode.
+
+	Eg --
+		afile = File.new("test.txt", "r+")
+		if afile
+		    afile.syswrite("ABCDEFG")
+		else
+		    puts"Unable to open file"
+		end
+
+
+
+# The Each_byte method --- 
+	It will help to iterate each charectors from file one by one ---
+	
+	Eg ---
+		#Open_File_write_and_each_byte_method.rb
+		afile  = File.new("test.txt", "r+")
+		if afile
+		    afile.syswrite("ABCDEFG")
+		    afile.each_byte {|ch| putc ch; putc ?.}
+		else
+		    puts "Unable to open file!"
+		end
+	
+# The IO.readline Method ---
+	The class File is a subclass of the class IO. The class IO also has some methods, which can be used to manipulate files
+	One of the IO class methods is IO.readlines. This method returns the contents of the file line by line. 
+
+	Eg ---
+		#Open_file_with_IO_Readline_Method.rb
+		arr = IO.readlines("test.txt")
+		puts arr[0]
+		puts arr[1]
+
+
+
+# The IO.foreach Method ---
+	This method also returns output line by line. 
+	The difference between the method foreach and the method readlines is that the method foreach is associated with a block
+	However, unlike the method readlines, the method foreach does not return an array.
+
+	Eg --- 
+		#Open_file_with_IO_foreach_method.rb
+		IO.foreach("test.txt") {|i| puts i}
+
+
+# Rename and delete method ---
+	It will rename and delete file programmatically
+	
+	Eg -- To Rename --
+		File.rename("test.txt", "input.txt")
+
+	Eg -- To delete --
+		File.delete("test2.txt")
+
+
+
+# File modes ad ownership ---
+	Use the chmod method with a mask to change the mode or permission/access list of file.
+	
+	Eg -- file = File.new("test.txt","w")
+		file.chmod(0755)
+
+
+# Mask for chmode method --
+
+	1)	0700	rwx mask for owner
+
+
+	2)	0400	r for owner
+
+
+	3)	0200	w for owner
+
+
+	4)	0100	x for owner
+
+
+	5)	0070	rwx mask for group
+
+
+	6)	0040	r for group
+
+
+	7)	0020	w for group
+
+
+	8)	0010	x for group
+
+
+	9)	0007	rwx mask for other
+
+
+	10)	0004	r for other
+
+
+	11)	0002	w for other
+
+
+	12)	0001	x for other
+
+
+	13)	4000	Set user ID on execution
+
+
+	14)	2000	Set group ID on execution
+
+
+	15)	1000	Save swapped text, even after use
+
+
+
+# File Inquiries
+	
+	The following command tests whether a file exists before opening it −
+
+		File.open("file.rb") if File::exists?( "file.rb" )
+
+
+	The following command inquire whether the file is really a file −
+
+		File.file?( "text.txt" ) 
 
 	
+	The following command finds out if the given file name is a directory −
+		Eg -- for directory ---
+			File::directory?( "/usr/local/bin" ) # => true
+
+		Eg -- For file ---
+			File::directory?( "file.rb" ) # => false
+
+
+	The following command finds whether the file is readable, writable or executable −
+
+		File.readable?( "test.txt" )   # => true
+		File.writable?( "test.txt" )   # => true
+		File.executable?( "test.txt" ) # => false
+
+
+	The following command finds whether the file has zero size or not 
+
+		File.zero?( "test.txt" )      # => true
+
+
+	The following command returns size of the file −
+
+		File.size?( "text.txt" )     # => 1002
+
+
+	The following command can be used to find out a type of file −
+
+
+		File::ftype( "test.txt" )     # => file
+
+
+	The following command can be used to find when a file was created, modified, or last accessed −
+
+
+		File::ctime( "test.txt" ) # => Fri May 09 10:06:37 -0700 2008
+		File::mtime( "text.txt" ) # => Fri May 09 10:44:44 -0700 2008
+		File::atime( "text.txt" ) # => Fri May 09 10:45:01 -0700 2008
+
+
+
+
+# Navigating Through Directories
+	
+
+	1) To change directory to /usr/bin.
+
+		#Dir.chdir("/usr/bin")
+
+
+	2) You can find out what the current directory is with Dir.pwd −
+
+		puts Dir.pwd # This will return something like /usr/bin
+
+
+	3) You can get a list of the files and directories within a specific directory using Dir.entries −
+
+		puts Dir.entries("/usr/bin").join(' ')
+
+
+	4) Returns an array with all the entries within the specified directory. Dir.foreach provides the same feature −
+
+		Dir.foreach("/usr/bin") do |entry|
+		   puts entry
+		end
+	
+
+	5) An even more concise way of getting directory listings is by using Dir's class array method −
+
+		Dir["/usr/bin/*"]
+
+
+
+# Create a Directory ---
+	Eg-- Dir.mkdir("mynewdir")
+
+	We also change permissions ---
+	
+	Eg -- Dir.mkdir("mynewdir", 755)
+
+
+# Delete a directory ---
+
+	Eg -- Dir.delete("testdir")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
