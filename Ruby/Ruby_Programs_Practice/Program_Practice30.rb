@@ -45,23 +45,25 @@ def simplify(s)
         else
             small = num2
         end
-        #puts small
-        #puts num1
-        #puts num2
+
         for i in 2..small
             if (num1% i == 0 && num2 % i == 0)
                 hcf = i
-                #break
-                
+                #
             end
         end
-        num1 = num1/hcf 
-        num2 = num2/hcf
-        
-        if num1/10 != 0 && num2/10 != 0
-            comman_fact(num1, num2)
+
+        if hcf
+            num1 = num1/hcf 
+            num2 = num2/hcf
         end
-        return num1.to_s+"/"+num2.to_s
+        
+        if num1/2 == 0 && num2/2 == 0
+            comman_fact(num1, num2)
+        
+        else
+            return num1.to_s+"/"+num2.to_s
+        end
     end
     comman_fact(num1, num2)
 
@@ -73,4 +75,4 @@ puts simplify("12/18")
     
 #puts simplify("100/400")
     
-#puts simplify("8/4")
+puts simplify("8/4")
