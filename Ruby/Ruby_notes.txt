@@ -1701,5 +1701,141 @@ Date -- 16-July-2021
 
 
 
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Date --- 20-July-21
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+
+
+# CSV File Handling Using Ruby ---
+
+	Ruby have csv library to read and write csv files.
+
+
+# Ruby CSV parsing ---
+
+
+# To read file directly ---
+	Eg -- 
+		# CSV File handling -- Reading CSV file directly
+		require 'csv'
+		afile = CSV.read("test_food.csv")
+		puts afile
+
+
+
+
+# To read as parse a string with CSV data ---
+	Eg --
+		# CSV File handling -- parse method ro parse the string with csv data--
+
+		require 'csv'
+		res = CSV.parse ("1, Chocolate\n2, Banana\n3, Apple")
+		puts res
+
+
+# CSV Options ---
+	Eg --
+		#CSV Options -- Table
+		require 'csv'
+		table = CSV.parse(File.read("test_food.csv"), headers: true)
+
+		puts table
+		puts table.class
+		puts table[1]['id']
+		puts table.length
+		for i in 0...table.length
+		    puts table[i]['id']+" : "+table[i]['name']
+
+		end
+
+
+	Notes -- CSV::Table is a two-dimensional data structure for representing CSV documents. 
+		Tables allow you to work with the data by row or column, manipulate the data, 
+		and even convert the results back to CSV.
+
+
+
+
+# From a table two ways/ modes to iterate ---
+
+	1) by_row --- (default)
+	2) by_col --- 
+	
+	eg -- By_col---
+
+		require 'csv'
+		table = CSV.parse(File.read("test_food.csv"), headers: true)
+
+		print table.by_col[0]
+		print "\n"
+		print table.by_col[1],"\n"
+
+
+# To Convert column as array of string into numeric ---
+
+	#Using CSV coneverters
+
+	Eg --
+		require 'csv'
+
+		print CSV.parse("1,2,3,4,5")    #[["1", "2", "3", "4", "5"]]
+
+		print "\n"
+
+		print CSV.parse("1,2,3,4,5", converters: :numeric)    #[[1, 2, 3, 4, 5]]
+
+		print "\n"
+
+
+
+# Here we have following converters ---
+	
+	1) Integer
+	2) Float
+	3) Numeric (Float + Integer)
+	4) Date
+	5) DateTime
+	6) All
+	7) Symbol
+
+	
+
+# How to create New CSV file ---
+
+	We can make csv file data by following methods --
+	
+	1) Map Method --
+		Eg --
+			cats = [[:blue, 1],[:white, 2],[:black, 3]]
+
+			cats.map!{|c| c.join(",")}.join("\n")
+
+			File.write("cats.csv", cats)
+
+	2) Genrate Method --
+		Eg --
+			require 'csv'
+
+			CSV.open("cats.csv", "w") do |csv|
+			    csv << [:black, 1]
+			    csv << [:white, 2]
+			    csv << [:black_and_white, 3]
+			end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
