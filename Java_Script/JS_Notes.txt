@@ -139,6 +139,147 @@ https://youtu.be/W6NZfCO5SIk
 
 
 
+# Variables in Js --
+
+	 Variables can be declared by let keyword---
+
+	Eg -- let name = "Preet";
+		console.log(name);
+
+
+
+# Constants in JS ---
+
+	const interestRate = 0.3;
+	console.log(interestRate)
+
+
+# Data Types in JS ---
+
+
+	Js have two types of datatype type ---
+	
+	1) Primitive types --
+
+		1) String
+		2) Number
+		3) Boolean
+		4) Undefined
+		5) Null
+	
+	2) Reference Types --
+		
+		1) Object
+		2) Array
+		3) Functions
+
+
+# Primitive Type ---
+
+1) String --- 
+	eg --
+		let name = "Preet";
+
+2) Number ---
+	eg -- 	
+		let age = 25;
+
+3) Boolean ---
+	eg -- 
+		let isApproved = true;
+
+4) Undefined ---
+	eg --
+		let firstName = undefined;
+
+5) Null ---
+	eg --
+		let selectColor = null;
+
+
+# TO check datatype ---
+
+	eg -- typeof name
+
+
+
+# References types ---
+
+1) Object ---
+	eg --
+		let person = {
+			name: "Preet"
+			age: 25
+		};
+		console.log(person);
+
+
+# To change value of key name ---
+
+	We have two notations --
+	
+	1) Dot Notations --
+		eg --
+			person.name = 'John'
+	
+	2) Bracket Notations --
+		eg --
+			person['name'] = 'Mary'
+
+
+2) Array----
+	eg --
+		let selectColors = ['red', 'blue'];
+		console.log(selectColors);
+
+		selectcolors[2] ='green'
+		console.log(selectColors[2])
+
+
+
+3) Functions ---
+
+	eg -- 
+		function greet(){
+			console.log("Hello World")
+		}
+		greet();
+
+
+	# Parametrized Function --
+	
+	eg -- 1
+		fucntion greet(name){
+			console.log('Hello'+name);
+		}
+		greet('John');
+
+
+	eg -- 2
+		fucntion greet(name, lastName){
+			console.log('Hello'+name+' '+lastName);
+		}
+		greet('John', 'Smith')
+
+# Return from function ---
+	fucntion square(number){
+		return number * number;
+	}
+	let sol = square(2);
+	console.log(sol)
+
+		OR
+	
+	console.log(square(2))
+
+
+
+
+
+
+
+
+
 
 
 
