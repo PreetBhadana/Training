@@ -410,4 +410,65 @@ https://youtu.be/W6NZfCO5SIk
 		}
 
 	
+# Loops in JS ---
+	
+# While Loop --
+	Syntax --
+		while (expression) {
+		   Statement(s) to be executed if expression is true
+		}
+	
+	Eg --
+		<html>
+		   <body>
+      
+		      <script type = "text/javascript">
+		            var count = 0;
+		            document.write("Starting Loop ");
+         
+		            while (count < 10) {
+		               document.write("Current Count : " + count + "<br />");
+		               count++;
+		            }
+         
+		            document.write("Loop stopped!");
+		         //-->
+		      </script>
+		   </body>
+		</html>
+
+
+# Do While Loop --- As same as while loop just differ as it will validate after the process --
+
+	Syntax -- 
+		do {
+		   Statement(s) to be executed;
+		} while (expression);
+	
+	Eg --
+		<html>
+		   <body>   
+		      <script type = "text/javascript">
+		            var count = 0;
+            
+		            document.write("Starting Loop" + "<br />");
+		            do {
+		               document.write("Current Count : " + count + "<br />");
+		               count++;
+		            }
+            
+		            while (count < 5);
+		            document.write ("Loop stopped!");
+		         //-->
+		      </script>
+		   </body>
+		</html>
+
+
+
+
+
+
+
+
 
