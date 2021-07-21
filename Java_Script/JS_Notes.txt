@@ -372,6 +372,22 @@ https://youtu.be/W6NZfCO5SIk
 
 
 
+# Syntax For JS -- 
+	the <script> tags, containing your JavaScript, anywhere within your web page, but it is normally recommended that you should keep it within the <head> tags.
+
+	Syntax -- <script ...>
+		   JavaScript code
+		</script>
+	
+	Script take two important attributes --
+	
+	# Language --- This attribute specifies what scripting language you are using. 
+			Typically, its value will be javascript. 
+			Although recent versions of HTML (and XHTML, its successor) have phased out the use of this attribute.
+
+	# Type --- This attribute is what is now recommended to indicate the scripting language in use and 
+			its value should be set to "text/javascript".
 
 
+	
 
