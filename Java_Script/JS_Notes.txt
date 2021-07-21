@@ -389,5 +389,25 @@ https://youtu.be/W6NZfCO5SIk
 			its value should be set to "text/javascript".
 
 
+
+# Switch Case Statements ---
+
+	It is same as conditional statements as if else but just difference in syntax --
+
+	Syntax ---
+		switch (expression) {
+		   case condition 1: statement(s)
+		   break;
+   
+		   case condition 2: statement(s)
+		   break;
+			   ...
+   
+		   case condition n: statement(s)
+		   break;
+   
+		   default: statement(s)
+		}
+
 	
 
