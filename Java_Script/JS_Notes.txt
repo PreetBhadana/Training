@@ -318,7 +318,56 @@ https://youtu.be/W6NZfCO5SIk
 
 
 
+# If-else Statements ---
+	eg --
+		<html>
+		<head>
+		    <title>If-Else test page</title>
+		</head>
+		<body>
+		    <script type="text/javascript">
+		        var age = 29;
+		        if(age > 18){
+		            document.write("<b>Qualifies for driving</b>")
+		        }
+		        else{
+		            document.write("<b>Does not qualify for driving</b>")
+		        }
+		    </script>
+		</body>
+		</html>
 
+
+
+# If-Else-If Statements ---
+	It is also called nested if-else --
+
+	eg --
+		<html>
+		<head>
+		    <title>If-Else-If test page</title>
+		</head>
+		<body>
+		    <script type="text/javascript">
+		        var book = 'maths';
+		        if(book == 'maths')
+		        {
+		            document.write("<b>Maths Book</b>")
+		        }
+		        else if(book == 'history')
+		        {
+		            document.write("<b>History Book</b>")
+		        }
+		        else if(book == 'economics')
+		        {
+		            document.write("<b>Economics Book</b>")
+		        }
+		        else{
+		            document.write("<b>Unknown Book</b>")
+		        }
+		    </script> 
+		</body>
+		</html>
 
 
 
