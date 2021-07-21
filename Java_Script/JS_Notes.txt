@@ -275,7 +275,45 @@ https://youtu.be/W6NZfCO5SIk
 
 
 
+# Js Variable Scopes --
+	It is two scopes --
 
+	1) Global Variables -- A global variable has global scope which means it can be defined anywhere in your JavaScript code
+
+	2) Local Variables -- A local variable will be visible only within a function where it is defined. Function parameters 
+				are always local to that function.
+
+
+# Operators in Js ---
+
+	1) Arithmetic Operators --
+		(+, -, *, /, %, ++, --)
+
+	2) Comparision Operators --
+		(==, !=, >, <, >=, <=)
+
+	3) Logical Operators --
+		&& -- Logical AND
+		|| -- Logical OR
+		!  -- Logical NOT
+
+	4) Bitwise Operators --
+		&   -- Bitwise AND
+		|   -- Bitwise OR
+		^   -- Bitwise XOR
+		~   -- Bitwise NOT
+		<<  -- Bitwise Left shift
+		>>  -- Bitwise Right shift
+		>>> -- Bitwise Right shift with zero
+
+	5) Assignment Operators --
+		(=, +=, -=, *=, /=, %=)
+
+	6) Miscellaneous Operators or ternary Operator --
+		? : -- if condition true ? then value X : otherwise Y
+	
+	7) Typeof Operator --
+		it will return datatype of operands
 
 
 
