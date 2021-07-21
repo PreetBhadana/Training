@@ -1,0 +1,98 @@
+
+--------------- Java Script -------------
+
+
+JS stands for Java Script ---
+
+Run on Browser directly or can use node for same.
+
+Node is C++ program include JS work as JS engine
+
+
+# Steps to run and practice JS ---
+
+	On Browser (any browser like google chrome etc)
+	
+		||
+		
+	Inspect Mode (Either by right click or ctrl + shift + c)
+
+		||
+		
+	Then open console tab at inspect mode.
+		
+		||
+
+	Then we can right any js for practice.
+
+
+
+
+# First js program hello world ---
+	
+	console.log('Hello World');
+
+
+
+# Add tow digits ---
+
+	2 + 2	(It will show output directly)
+
+
+# To show a alert pop on browser --
+
+	alert('yo')  # yo can be any message
+
+
+
+
+# Install Node for js --
+
+	$ sudo apt-cache show nodejs
+		(this command will show the systeme prefered version of js)
+
+	$ sudo apt install nodejs
+		(To install system preferd version)
+
+
+	# If want to install latest verion without NVM ---
+		means after these comands NVM will attometically installed
+
+
+	$ sudo apt install curl
+	
+	$ curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
+
+	$sudo apt-get install -y nodejs
+
+
+	# By NVM ---
+
+	$ nvm list --remote (Show the list of all avilable versions at remote)
+
+	$ nvm install v12.17.0 (to install other version it can be anyother one)
+	
+	$ nvm list (To list out the avilable virsion on machine)
+
+	$ nvm use v14.3.0 (or system) (It will swap the versions)
+
+
+	
+	
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
