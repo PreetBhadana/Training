@@ -77,12 +77,63 @@ Node is C++ program include JS work as JS engine
 	$ nvm use v14.3.0 (or system) (It will swap the versions)
 
 
+
+# I am Following this video to start js --
+
+https://youtu.be/W6NZfCO5SIk
+
+
+# Fist Js program via Editors ---
+	
+	We have two ways to add js in htm file
+
+	1) At head section
+	2) At body section
+
+
+# At body section ---
+
+	<html>
+	<head>
+		<title> My page</title>
+	</head>
+	<body>
+		<h1> Hello World</h1>
+		<script> 
+			console.log('Hello World');
+			//Its my first js
+		</script>
+	</body>
+	</html>
 	
 	
 		
+# Now Let make a seprate java script file and use in html script ---
+
+# Create a js file with extension ".js"---
+
+	console.log('Hello Wolrd');
+	//First coment
+
+
+	Similarly edit html file ---
+
+	<html>
+        <head>
+                <title> My page</title>
+        </head>
+        <body>
+                <h1> Hello World</h1>
+                <script src = "index.js">
+                </script>
+        </body>
+        </html>
 
 
 
+# Run the same js file on terminal ----
+
+	$ node index.js
 
 
 
