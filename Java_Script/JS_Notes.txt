@@ -554,13 +554,103 @@ https://youtu.be/W6NZfCO5SIk
 
 
 		
+# Array In Js ----
+
+	Collection of hetrogenious datatypes ---
+
+# Creation of array ---
+	Eg --  BY Array class method --
+ 		var fruit = new Array("Apple", "Banana", "Mango");
+
+	Eg -- By direct method --
+		var fruit = ["Apple", "Banana", "Mango"];
+
+# Searching in array --
+	It can be done by --
+
+	1) arr.indexof(item)
+	2) arr.lastindexof(item)
+	
+	Eg --
+		var fruits = ["Apple", "Banana", "Mango"]
+		fruit.indexof("apple")
+		fruit.lastindexof("2")
+
+# Map method in array ---
+
+	Syntax -- array.map(function(currentValue, index, arr), thisValue)
+
+	Eg --
+		const numbers = [4, 9, 16, 25];
+		const newArr = numbers.map(Math.sqrt)
+
+	eg --
+		const numbers = [65, 44, 12, 4];
+		const newArr = numbers.map(myFunction)
+
+		function myFunction(num) {
+		  return num * 10;
+		}
+	
+	eg --
+		const persons = [
+		  {firstname : "Malcom", lastname: "Reynolds"},
+		  {firstname : "Kaylee", lastname: "Frye"},
+		  {firstname : "Jayne", lastname: "Cobb"}
+		];
+
+		persons.map(getFullName);
+
+		function getFullName(item) {
+		  return = [item.firstname,item.lastname].join(" ");
+		}
+
+
+# Pop Method in JS --
+	It will delete last element of array --
+	
+	Eg -- 	const fruits = ["Banana", "Orange", "Apple", "Mango"];
+		fruits.pop();   // Returns "Mango"
+
+
+# Push method i JS --
+	It will add elements in array ---
+
+	Eg -- const fruits = ["Banana", "Orange", "Apple", "Mango"];
+		fruits.push("Kiwi");
+
+	eg -- const fruits = ["Banana", "Orange", "Apple", "Mango"];
+		fruits.push("Kiwi", "Lemon", "Pineapple");
 
 
 
+# Find Method of array ---
 
+	eg --
+		<html>
+		<head>
+		    <title>Find_method of Array</title>
+		</head>
+		<body>
+		    <p><input type="number" id="ageToCheck" value="18"></p>
 
+		    <button onclick="myFunction()">Try it</button>
 
+		    <p id="demo"></p>
 
+		    <script>
+		    const ages = [4, 12, 16, 20];
+
+		    function checkAge(age) {
+		      return age > document.getElementById("ageToCheck").value;
+		    }
+
+		    function myFunction() {
+		      document.getElementById("demo").innerHTML = ages.find(checkAge);
+		    }
+		    </script>
+		</body>
+		</html>
 
 
 
