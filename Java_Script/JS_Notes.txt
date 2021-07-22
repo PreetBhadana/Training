@@ -466,8 +466,27 @@ https://youtu.be/W6NZfCO5SIk
 
 
 
+# For Loop ---
 
+	Syntax --- for (initialization; test condition; iteration statement) {
+			   Statement(s) to be executed if test condition is true
+			}
 
+	Eg --- 
+		<html>
+		   <body>      
+		      <script type = "text/javascript">
+		            var count;
+		            document.write("Starting Loop" + "<br />");
+         
+		            for(count = 0; count < 10; count++) {
+		               document.write("Current Count : " + count );
+		               document.write("<br />");
+		            }         
+		            document.write("Loop stopped!");
+		      </script>
+		   </body>
+		</html>
 
 
 
