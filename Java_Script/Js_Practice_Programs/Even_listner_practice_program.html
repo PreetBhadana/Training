@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>addEventListner() Practice Program</title>
+</head>
+<body>
+    <button id ="btn">Check</button>
+    <script>
+        let count = 0
+        let btn = document.querySelector('#btn');
+        function display()
+        {
+            count ++
+            alert("It was clicked !!! "+count)
+
+        }
+        btn.addEventListener('click', display);
+    </script>
+</body>
+</html>
