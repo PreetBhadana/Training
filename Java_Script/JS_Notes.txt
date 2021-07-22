@@ -489,5 +489,36 @@ https://youtu.be/W6NZfCO5SIk
 		</html>
 
 
+# Contructor ---
+        Syntax ---
+                <script type = "text/javascript">
+                      var variablename = new Function(Arg1, Arg2..., "Function Body");
+                </script>
+
+        Eg --
+		<html>
+		   <head>
+		      <script type = "text/javascript">
+		            var func = new Function("x", "y", "return x*y;");
+		            function secondFunction() {
+		               var result;
+		               result = func(10,20);
+		               document.write ( result );
+		            }
+		      </script>
+		   </head>
+   
+		   <body>
+		      <p>Click the following button to call the function</p>
+      
+		      <form>
+		         <input type = "button" onclick = "secondFunction()" value = "Call Function">
+		      </form>
+		   </body>
+		</html>
+
+		
+
+
 
 
