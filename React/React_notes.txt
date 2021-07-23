@@ -47,6 +47,30 @@ React is a Java Script Library for building UI ---
 
 
 
+# Let Add CSS file and Props property ---
+
+	# In Demo.css
+		.maindiv_style{
+		    background: #F9BD92;
+		}	
+
+	# In Demo.js
+		import React, {Component} from 'react';
+		import reactDom from 'react-dom';
+		import './Demo.css';
+
+		const Demo = (props) => {
+		    return <div className = "maindiv_style">
+		                <h1>Hello {props.name}</h1>
+		                <p>Welcome on Preet's Page</p>
+		                </div>
+		}
+		export default Demo;
+
+	# In Index.js File --
+		import Demo from './Demo'		
+		ReactDOM.render(  <React.StrictMode>    <Demo name = "Preet Bhadana"/>  </React.StrictMode>,  document.getElementById('root'));
+
 
 
 
