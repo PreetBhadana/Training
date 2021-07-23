@@ -1,0 +1,66 @@
+---------------- React Notes ---------------
+
+
+React is a Java Script Library for building UI ---
+
+
+# How to install Reactjs ---
+
+	Fist of all me need to install node for the same 
+	As we done installing node in JS tutorials so it is same.
+
+	On Terminal of Linux ---
+
+	$ sudo npm i create-react-app
+
+	Now move to that location where you want to create a app by terminal.
+
+	$ npx create-react-app my-react-app
+	$ cd my-react-app
+	$ npm start
+
+
+
+# Create a js of Hello World file in SRC folder of my app ---
+
+	#File Name is Demo.js ---
+
+		import React, {Component} from 'react'
+		import reactDom from 'react-dom'
+
+		class Demo extends Component{
+		    render(){
+		        return <div>
+		                <h1>Hello World</h1>
+		                <p>Welcome on Preet's Page</p>
+		                </div>
+		    }
+		}
+		export default Demo;
+
+	# In index.js file need to add some line like --
+
+		import Demo from './Demo'
+		
+		ReactDOM.render(  <React.StrictMode>    <Demo />  </React.StrictMode>,  document.getElementById('root'));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
