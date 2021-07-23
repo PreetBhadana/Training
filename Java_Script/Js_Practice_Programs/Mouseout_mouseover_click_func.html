@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Demo Mouseout, mouseover and click</title>
+</head>
+<body>
+    <h1>Demo for click, mouseout and mouseover pop up</h1>
+    
+    <button id = "myBtn">Try me</button>
+    <p id = "demo"></p>
+
+    <script type = "text/javascript">
+        var btn = document.getElementById("myBtn");
+        btn.addEventListener("click", clickFunc);
+        btn.addEventListener("mouseover", mouseoverFunc);
+        btn.addEventListener("mouseout", mouseoutFunc);
+
+        function clickFunc(){
+            document.getElementById("demo").innerHTML += "Clicked!<br>";
+        }
+
+        function mouseoverFunc(){
+            document.getElementById("demo").innerHTML += "Mouse Over!<br>";
+        }
+
+        function mouseoutFunc(){
+            document.getElementById("demo").innerHTML += "Mouse Out!<br>";
+        }
+
+    </script>
+    
+</body>
+</html>
